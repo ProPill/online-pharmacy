@@ -8,3 +8,113 @@ servers:
       port:
         default: "8080"
 
+components:
+  schemas:
+    CartDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        cartToItemDTOs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartToItemDTO'
+
+    CartToItemDTO:
+      type: object
+      properties:
+        itemDTO:
+          $ref: '#/components/schemas/ItemDTO'
+        quantity:
+          type: integer
+
+    ItemDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        manufacturer:
+          type: string
+        picture_url:
+          type: string
+        typeDTO:
+          $ref: '#/components/schemas/TypeDTO'
+        specialityDTO:
+          $ref: '#/components/schemas/SpecialityDTO'
+
+    TypeDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    SpecialityDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    PharmacyDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        work_time:
+          type: string
+        phone:
+          type: string
+
+    OrderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        creation_date:
+          type: string
+        delivery_date:
+          type: string
+        sum_price:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDTO'
+
+    UserAccountDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        full_name:
+          type: string
+        phone:
+          type: string
+        roleDTO:
+          $ref: '#/components/schemas/RoleDTO'
+        specialityDTO:
+          $ref: '#/components/schemas/SpecialityDTO'
+
