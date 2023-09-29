@@ -17,7 +17,7 @@ components:
           type: integer
         user_id:
           type: integer
-        cartToItemDTOs:
+        items:
           type: array
           items:
             $ref: '#/components/schemas/CartToItemDTO'
@@ -25,7 +25,7 @@ components:
     CartToItemDTO:
       type: object
       properties:
-        itemDTO:
+        item:
           $ref: '#/components/schemas/ItemDTO'
         quantity:
           type: integer
@@ -43,9 +43,9 @@ components:
           type: string
         picture_url:
           type: string
-        typeDTO:
+        type:
           $ref: '#/components/schemas/TypeDTO'
-        specialityDTO:
+        speciality:
           $ref: '#/components/schemas/SpecialityDTO'
 
     TypeDTO:
@@ -103,6 +103,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ItemDTO'
+        pharmacy:
+          $ref: '#/components/schemas/PharmacyDTO'
 
     UserAccountDTO:
       type: object
@@ -113,8 +115,8 @@ components:
           type: string
         phone:
           type: string
-        roleDTO:
+        role:
           $ref: '#/components/schemas/RoleDTO'
-        specialityDTO:
+        speciality:
           $ref: '#/components/schemas/SpecialityDTO'
 
