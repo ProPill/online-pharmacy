@@ -1,0 +1,10 @@
+openapi: "3.0.2"
+info:
+  title: ProPill API
+  version: "1.0"
+servers:
+  - url: https://localhost
+    variables:
+      port:
+        default: "8080"
+
