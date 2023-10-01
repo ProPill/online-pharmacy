@@ -285,8 +285,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemDTO'
-        '400':
-          description: '{"code":"ITEM_OUT_OF_STOCK","status":400,"message":"ITEM_OUT_OF_STOCK"}'
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
 
@@ -334,8 +332,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemDTO'
-        '400':
-          description: '{"code":"ITEM_OUT_OF_STOCK","status":400,"message":"ITEM_OUT_OF_STOCK"}'
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
 
@@ -485,8 +481,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemDTO'
-        '400':
-          description: '{"code":"ITEM_OUT_OF_STOCK","status":400,"message":"ITEM_OUT_OF_STOCK"}'
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
 
