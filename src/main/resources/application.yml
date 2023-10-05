@@ -30,6 +30,16 @@ components:
         quantity:
           type: integer
 
+    OrderToItemDTO:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/OrderDTO'
+        item:
+          $ref: '#/components/schemas/ItemDTO'
+        quantity:
+          type: integer
+
     ItemDTO:
       type: object
       properties:
@@ -254,67 +264,6 @@ paths:
         '404':
           description: '{"code":"ITEM_NOT_FOUND","status":404,"message":"ITEM_NOT_FOUND"}'
 
-  /api/item/quantity_info:
-    get:
-      tags:
-        - "Item controller"
-      summary: get quantity info in cart by item_id and user_id
-      parameters:
-        - in: query
-          name: item_id
-          required: true
-          schema:
-            type: integer
-        - in: query
-          name: user_id
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: integer
-        '404':
-          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
-
-  /api/item/cart/add:
-    post:
-      tags:
-        - "Item controller"
-      summary: add item into cart
-      parameters:
-        - in: query
-          name: user_id
-          required: true
-          schema:
-            type: integer
-          description: user id
-        - in: query
-          name: item_id
-          required: true
-          schema:
-            type: integer
-          description: item id
-        - in: query
-          name: count
-          required: false
-          schema:
-            type: integer
-            default: 1
-          description: count of items to add into cart
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ItemDTO'
-        '404':
-          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
-
   /api/item/add:
     post:
       tags:
@@ -475,6 +424,67 @@ paths:
         '404':
           description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
+  /api/cart/quantity_info:
+    get:
+      tags:
+        - "Cart controller"
+      summary: get quantity info in cart by item_id and user_id
+      parameters:
+        - in: query
+          name: item_id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+        '404':
+          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+
+  /api/item/cart/add:
+    post:
+      tags:
+        - "Cart controller"
+      summary: add item into cart
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: user id
+        - in: query
+          name: item_id
+          required: true
+          schema:
+            type: integer
+          description: item id
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: count of items to add into cart
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemDTO'
+        '404':
+          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+
   /api/cart/delete:
     delete:
       tags:
@@ -502,6 +512,30 @@ paths:
                 $ref: '#/components/schemas/ItemDTO'
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+
+  /api/orders:
+    get:
+      tags:
+        - "Order controller"
+      summary: get user orders info decrease creation date
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: user id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderToItemDTO'
+        '404':
+          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
   /api/order:
     post:
@@ -551,30 +585,6 @@ paths:
                 $ref: '#/components/schemas/OrderDTO'
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
-
-  /api/orders:
-    get:
-      tags:
-        - "Order controller"
-      summary: get user orders info decrease creation date
-      parameters:
-        - in: query
-          name: user_id
-          required: true
-          schema:
-            type: integer
-          description: user id
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OrderDTO'
-        '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
   /api/info/{user_id}:
     get:
@@ -682,10 +692,3 @@ paths:
                 $ref: '#/components/schemas/UserAccountDTO'
         '404':
           description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
-
-
-
-
-
-
-
