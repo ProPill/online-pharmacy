@@ -9,8 +9,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-
 @Entity
 @Getter
 @Setter
@@ -26,6 +24,6 @@ public class Type {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "type", cascade = ALL)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 }

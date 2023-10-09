@@ -14,8 +14,6 @@ import org.example.entities.user.Speciality;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-
 @Entity
 @Getter
 @Setter
@@ -48,12 +46,12 @@ public class Item {
     @JoinColumn(name = "speciality_id", nullable = true)
     private Speciality speciality;
 
-    @OneToMany(mappedBy = "item", cascade = ALL)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<CartToItem> cartToItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item", cascade = ALL)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<OrderToItem> orderToItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item", cascade = ALL)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<PharmacyToItem> pharmacyToItems = new ArrayList<>();
 }

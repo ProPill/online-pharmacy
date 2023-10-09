@@ -10,7 +10,6 @@ import org.example.entities.user.UserAccount;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -28,6 +27,6 @@ public class Cart {
     @JoinColumn(name = "user_id", nullable = false)
     private UserAccount userAccount;
 
-    @OneToMany(mappedBy = "cart", cascade = ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartToItem> cartToItems = new ArrayList<>();
 }

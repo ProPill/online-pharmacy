@@ -12,8 +12,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-
 @Entity
 @Getter
 @Setter
@@ -43,6 +41,6 @@ public class Orders {
     @JoinColumn(name = "pharmacy_id", nullable = false)
     private Pharmacy pharmacy;
 
-    @OneToMany(mappedBy = "orders", cascade = ALL)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderToItem> orderToItems = new ArrayList<>();
 }

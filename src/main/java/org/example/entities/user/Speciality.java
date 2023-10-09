@@ -10,8 +10,6 @@ import org.example.entities.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-
 @Entity
 @Getter
 @Setter
@@ -27,9 +25,9 @@ public class Speciality {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "speciality", cascade = ALL)
+    @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
-    @OneToMany(mappedBy = "speciality", cascade = ALL)
+    @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
     private List<UserAccount> userAccounts = new ArrayList<>();
 }

@@ -9,8 +9,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
-
 @Entity
 @Getter
 @Setter
@@ -26,7 +24,7 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<UserAccount> userAccounts = new ArrayList<>();
 
 }
