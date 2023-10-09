@@ -133,7 +133,23 @@ components:
 
 
 paths:
+
   /api/item/all:
+    get:
+      tags:
+        - "Item controller"
+      summary: get all items (for admin)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemDTO'
+
+  /api/item/normal/all:
     get:
       tags:
         - "Item controller"
@@ -203,11 +219,11 @@ paths:
       summary: get all items by special category
       parameters:
         - in: query
-          name: category_id
+          name: speciality_id
           required: true
           schema:
             type: integer
-          description: category id
+          description: speciality id
       responses:
         '200':
           description: OK
@@ -218,7 +234,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ItemDTO'
         '404':
-          description: '{"code":"CATEGORY_NOT_FOUND","status":404,"message":"CATEGORY_NOT_FOUND"}'
+          description: '{"code":"SPECIALITY_NOT_FOUND","status":404,"message":"SPECIALITY_NOT_FOUND"}'
 
   /api/item/search_result:
     get:
