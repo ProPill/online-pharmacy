@@ -26,5 +26,4 @@ public class Role {
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<UserAccount> userAccounts = new ArrayList<>();
-
 }
