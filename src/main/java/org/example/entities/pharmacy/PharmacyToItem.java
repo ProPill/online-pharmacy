@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.entities.item.Item;
 
 @Entity
 @Getter
@@ -18,9 +19,13 @@ public class PharmacyToItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // pharmacy id
+    @ManyToOne
+    @JoinColumn(name = "pharmacy_id", nullable = false)
+    private Pharmacy pharmacy;
 
-    // item id
+    @ManyToOne
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
     @Column
     private Integer quantity;

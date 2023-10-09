@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
+
 @Entity
 @Getter
 @Setter
@@ -18,7 +23,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "role", cascade = ALL)
+    private List<UserAccount> userAccounts = new ArrayList<>();
 
 }

@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.entities.item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -18,7 +24,12 @@ public class Speciality {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
 
+    @OneToMany(mappedBy = "speciality", cascade = ALL)
+    private List<Item> items = new ArrayList<>();
+
+    @OneToMany(mappedBy = "speciality", cascade = ALL)
+    private List<UserAccount> userAccounts = new ArrayList<>();
 }

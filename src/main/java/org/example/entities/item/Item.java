@@ -6,6 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.entities.cart.CartToItem;
+import org.example.entities.order.OrderToItem;
+import org.example.entities.pharmacy.PharmacyToItem;
+import org.example.entities.user.Speciality;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -31,6 +40,20 @@ public class Item {
     @Column
     private String pictureUrl;
 
-    //type id
-    //speciality id
+    @ManyToOne
+    @JoinColumn(name = "type_id", nullable = false)
+    private Type type;
+
+    @ManyToOne
+    @JoinColumn(name = "speciality_id", nullable = true)
+    private Speciality speciality;
+
+    @OneToMany(mappedBy = "item", cascade = ALL)
+    private List<CartToItem> cartToItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = ALL)
+    private List<OrderToItem> orderToItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = ALL)
+    private List<PharmacyToItem> pharmacyToItems = new ArrayList<>();
 }
