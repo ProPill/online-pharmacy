@@ -1,6 +1,5 @@
 package org.example.entities.item;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

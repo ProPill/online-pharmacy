@@ -10,7 +10,6 @@ import org.example.entities.user.UserAccount;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
