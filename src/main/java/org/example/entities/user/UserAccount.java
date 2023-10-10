@@ -23,13 +23,13 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "full_name")
     private String fullName;
 
     @Column(unique = true)
     private String phone;
 
-    @Column
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @ManyToOne

@@ -35,7 +35,7 @@ public class Item {
     @Column
     private String manufacturer;
 
-    @Column
+    @Column(name = "picture_url")
     private String pictureUrl;
 
     @ManyToOne

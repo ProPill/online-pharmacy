@@ -28,7 +28,7 @@ public class Pharmacy {
     @Column
     private String address;
 
-    @Column
+    @Column(name = "work_time")
     private String workTime;
 
     @Column
