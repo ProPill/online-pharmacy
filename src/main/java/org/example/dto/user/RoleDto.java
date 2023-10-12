@@ -1,6 +1,6 @@
 package org.example.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.entities.user.Role;
 
 public record RoleDto(

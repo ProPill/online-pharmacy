@@ -3,9 +3,7 @@ package org.example.dto.order;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.dto.item.ItemDto;
 import org.example.dto.pharmacy.PharmacyDto;
-import org.example.dto.user.RoleDto;
 import org.example.entities.order.Orders;
-import org.example.entities.user.Role;
 
 import java.util.List;
 
