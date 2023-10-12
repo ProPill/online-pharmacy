@@ -5,7 +5,7 @@ import org.example.entities.item.Type;
 
 public record TypeDto(
         @JsonProperty("id") Long id,
-        @JsonProperty("id") String name
+        @JsonProperty("name") String name
 ) {
     public static TypeDto fromType(Type type) {
         return new TypeDto(
