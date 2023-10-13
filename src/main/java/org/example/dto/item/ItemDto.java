@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.dto.user.SpecialityDto;
 import org.example.entities.item.Item;
 
-public record ItemDto (
+public record ItemDto(
         @JsonProperty("id") Long id,
 
         @JsonProperty("name") String name,
@@ -18,7 +18,7 @@ public record ItemDto (
         @JsonProperty("type") TypeDto typeId,
 
         @JsonProperty("speciality") SpecialityDto speciality
-){
+) {
     public static ItemDto fromItem(Item item) {
         return new ItemDto(
                 item.getId(),

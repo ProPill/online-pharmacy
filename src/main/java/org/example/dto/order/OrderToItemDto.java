@@ -9,7 +9,7 @@ public record OrderToItemDto(
         @JsonProperty("order") OrderDto order,
         @JsonProperty("item") ItemDto item,
         @JsonProperty("quantity") Integer quantity
-        ) {
+) {
     public static OrderToItemDto fromOrderToItem(OrderToItem orderToItem) {
         return new OrderToItemDto(
                 OrderDto.fromOrder(orderToItem.getOrders()),

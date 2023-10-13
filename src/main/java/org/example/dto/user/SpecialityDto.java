@@ -9,7 +9,7 @@ public record SpecialityDto(
 ) {
     public static SpecialityDto fromSpeciality(Speciality speciality) {
         return new SpecialityDto(
-               speciality.getId(),
+                speciality.getId(),
                 speciality.getName()
         );
     }

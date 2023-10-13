@@ -12,8 +12,7 @@ public enum TypicalServerExceptions {
     ITEM_NOT_FOUND(new ServerException(HttpStatus.NOT_FOUND, "ITEM_NOT_FOUND", "ITEM_NOT_FOUND")),
     NOT_FOUND(new ServerException(HttpStatus.NOT_FOUND, "NOT_FOUND", "NOT_FOUND")),
     WRONG_INPUT_DATA(new ServerException(HttpStatus.BAD_REQUEST, "WRONG_INPUT_DATA", "WRONG_INPUT_DATA")),
-    WRONG_LOGIN_PASSWORD(new ServerException(HttpStatus.BAD_REQUEST, "WRONG_LOGIN_PASSWORD", "WRONG_LOGIN_PASSWORD"))
-    ;
+    WRONG_LOGIN_PASSWORD(new ServerException(HttpStatus.BAD_REQUEST, "WRONG_LOGIN_PASSWORD", "WRONG_LOGIN_PASSWORD"));
 
     private final ServerException serverException;
 
