@@ -76,6 +76,12 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.2.5.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>23.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>
