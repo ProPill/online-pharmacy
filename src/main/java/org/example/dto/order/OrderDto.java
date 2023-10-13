@@ -5,6 +5,8 @@ import org.example.dto.item.ItemDto;
 import org.example.dto.pharmacy.PharmacyDto;
 import org.example.entities.order.Orders;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public record OrderDto(
@@ -17,15 +19,16 @@ public record OrderDto(
         @JsonProperty("pharmacy") PharmacyDto pharmacy
 ) {
     public static OrderDto fromOrder(Orders order) {
+        ////надо наверно как-то глобально объявить форматтер?
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         return new OrderDto(
                order.getId(),
                 order.getUserAccount().getId(),
-                ///TODO: что-то типа pattern для перевода даты в строку????
-                order.getCreationDate(),
-                order.getDeliveryDate(),
+                formatter.format(order.getCreationDate()),
+                formatter.format(order.getDeliveryDate()),
                 order.getSumPrice(),
                 order.getOrderToItems().stream().map(item->ItemDto.fromItem(item.getItem())).toList(),
                 PharmacyDto.fromPharmacy(order.getPharmacy())
-        )
+        );
     }
 }
