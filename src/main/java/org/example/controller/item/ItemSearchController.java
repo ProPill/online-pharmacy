@@ -1,6 +1,7 @@
 package org.example.controller.item;
 
 import lombok.RequiredArgsConstructor;
+import org.example.controller.BaseController;
 import org.example.dto.item.ItemDto;
 import org.example.service.item.ItemQueryService;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
-public class ItemSearchController {
+public class ItemSearchController extends BaseController {
     private static ItemQueryService itemQueryService;
 
     @GetMapping("/all")
