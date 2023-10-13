@@ -1,0 +1,11 @@
+package org.example.controller.item;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/item")
+@RequiredArgsConstructor
+public class ItemQueryController {
+}
