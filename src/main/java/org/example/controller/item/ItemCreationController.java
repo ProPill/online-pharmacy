@@ -15,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ItemCreationController extends BaseController {
 
-    private static ItemCreationService itemCreationService;
+  private static ItemCreationService itemCreationService;
 
-
-    @PostMapping("/add")
-    public ResponseEntity<?> addItemByAdmin(
-            @RequestParam(value = "name") String name,
-            @RequestParam(value = "price") Double price,
-            @RequestParam(value = "manufacturer") String manufacturer,
-            @RequestParam(value = "picture_url") String pictureUrl,
-            @RequestParam(value = "type_id") Long typeId,
-            @RequestParam(value = "speciality_id") Long specialityId
-    ) {
-        return ResponseEntity.ok(
-                ItemDto.fromItem(itemCreationService.addItem(name, price, manufacturer, pictureUrl, typeId, specialityId))
-        );
-    }
+  @PostMapping("/add")
+  public ResponseEntity<?> addItemByAdmin(
+      @RequestParam(value = "name") String name,
+      @RequestParam(value = "price") Double price,
+      @RequestParam(value = "manufacturer") String manufacturer,
+      @RequestParam(value = "picture_url") String pictureUrl,
+      @RequestParam(value = "type_id") Long typeId,
+      @RequestParam(value = "speciality_id") Long specialityId) {
+    return ResponseEntity.ok(
+        ItemDto.fromItem(
+            itemCreationService.addItem(
+                name, price, manufacturer, pictureUrl, typeId, specialityId)));
+  }
 }

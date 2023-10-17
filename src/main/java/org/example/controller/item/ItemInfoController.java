@@ -8,6 +8,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
-public class ItemInfoController extends BaseController {
-
-}
+public class ItemInfoController extends BaseController {}

@@ -1,6 +1,8 @@
 package org.example.entities.item;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +11,6 @@ import org.example.entities.cart.CartToItem;
 import org.example.entities.order.OrderToItem;
 import org.example.entities.pharmacy.PharmacyToItem;
 import org.example.entities.user.Speciality;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -25,13 +24,13 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+
     private String name;
 
-    @Column
+
     private Double price;
 
-    @Column
+
     private String manufacturer;
 
     @Column(name = "picture_url")
