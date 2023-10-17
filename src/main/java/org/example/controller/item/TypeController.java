@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TypeController extends BaseController {
 
-  private static TypeService typeService;
+  private final TypeService typeService;
 
   @GetMapping("/all")
   public ResponseEntity<?> getAll() {

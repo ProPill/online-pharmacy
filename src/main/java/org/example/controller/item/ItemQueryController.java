@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
 public class ItemQueryController extends BaseController {
-  private static ItemQueryService itemQueryService;
+  private final ItemQueryService itemQueryService;
 
   @GetMapping("/all")
   public ResponseEntity<?> getAll() {

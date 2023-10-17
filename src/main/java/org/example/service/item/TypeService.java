@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TypeService {
 
-  private static TypeRepository typeRepository;
+  private final TypeRepository typeRepository;
 
   public List<Type> getAll() {
     return typeRepository.findAll();

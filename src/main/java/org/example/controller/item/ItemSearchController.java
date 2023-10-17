@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ItemSearchController extends BaseController {
 
-  private static ItemSearchService itemSearchService;
+  private final ItemSearchService itemSearchService;
 
   @GetMapping("/search_result")
   public ResponseEntity<?> searchItems(@RequestParam(value = "search") String search) {

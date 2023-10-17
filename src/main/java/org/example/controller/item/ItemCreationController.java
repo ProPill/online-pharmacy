@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ItemCreationController extends BaseController {
 
-  private static ItemCreationService itemCreationService;
+  private final ItemCreationService itemCreationService;
 
   @PostMapping("/add")
   public ResponseEntity<?> addItemByAdmin(
