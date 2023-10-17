@@ -1,9 +1,8 @@
 package org.example.dto.cart;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.entities.cart.Cart;
-
 import java.util.List;
+import org.example.entities.cart.Cart;
 
 public record CartDto(
         @JsonProperty("id") Long id,

@@ -1,13 +1,12 @@
 package org.example.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import org.example.dto.item.ItemDto;
 import org.example.dto.pharmacy.PharmacyDto;
 import org.example.entities.order.Orders;
-
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.List;
+import org.example.resources.DateTimeFormatter;
 
 public record OrderDto(
         @JsonProperty("id")	Long id,
@@ -19,8 +18,7 @@ public record OrderDto(
         @JsonProperty("pharmacy") PharmacyDto pharmacy
 ) {
     public static OrderDto fromOrder(Orders order) {
-        ////надо наверно как-то глобально объявить форматтер?
-        Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    SimpleDateFormat formatter = new DateTimeFormatter().getFormatter();
         return new OrderDto(
                order.getId(),
                 order.getUserAccount().getId(),
