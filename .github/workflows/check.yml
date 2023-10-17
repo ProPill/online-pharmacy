@@ -7,9 +7,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Check Google Java Format version
-        run: google-java-format --version
-
       - name: check code style
         uses: axel-op/googlejavaformat-action@v3
         with:
