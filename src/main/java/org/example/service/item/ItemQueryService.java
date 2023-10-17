@@ -52,7 +52,7 @@ public class ItemQueryService {
         }
         Speciality spec = user.get().getSpeciality();
         if (spec == null) { // проверка на то, что пользователь врач
-            USER_NOT_DOC.throwException(); // fixme
+            USER_NOT_DOC.throwException(); // fixme ЭТОГО НЕТ В HLD
         }
         List<Item> list = new ArrayList<>();
         list.addAll(Objects.requireNonNull(user.get().getSpeciality()).getItems());
