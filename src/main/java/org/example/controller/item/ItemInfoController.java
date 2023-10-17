@@ -15,7 +15,7 @@ public class ItemInfoController extends BaseController {
   private final ItemInfoService itemInfoService;
 
   @GetMapping("/info/{item_id}")
-  public ResponseEntity<?> getItemInfo(@PathVariable(value = "item_id") Long item_id) {
-    return ResponseEntity.ok(ItemDto.fromItem(itemInfoService.getItemInfo(item_id)));
+  public ResponseEntity<?> getItemInfo(@PathVariable(value = "item_id") Long itemId) {
+    return ResponseEntity.ok(ItemDto.fromItem(itemInfoService.getItemInfo(itemId)));
   }
 }
