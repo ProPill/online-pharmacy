@@ -15,18 +15,17 @@ import org.example.entities.item.Item;
 @Table(name = "order_to_item")
 public class OrderToItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Orders orders;
+  @ManyToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private Orders orders;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
+  @ManyToOne
+  @JoinColumn(name = "item_id", nullable = false)
+  private Item item;
 
-    @Column
-    private Integer quantity;
+  private Integer quantity;
 }

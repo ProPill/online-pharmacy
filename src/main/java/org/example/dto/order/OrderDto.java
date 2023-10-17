@@ -1,4 +1,3 @@
 package org.example.dto.order;
 
-public record OrderDto() {
-}
+public record OrderDto() {}
