@@ -15,18 +15,17 @@ import org.example.entities.item.Item;
 @Table(name = "pharmacy_to_item")
 public class PharmacyToItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "pharmacy_id", nullable = false)
-    private Pharmacy pharmacy;
+  @ManyToOne
+  @JoinColumn(name = "pharmacy_id", nullable = false)
+  private Pharmacy pharmacy;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
+  @ManyToOne
+  @JoinColumn(name = "item_id", nullable = false)
+  private Item item;
 
-    @Column
-    private Integer quantity;
+  private Integer quantity;
 }
