@@ -1,4 +1,4 @@
-package org.example.service.resources;
+package org.example.resources;
 
 public class Strings {
   public static final String common = "common";
