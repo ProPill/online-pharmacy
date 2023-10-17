@@ -1,5 +1,6 @@
 package org.example.dto.order;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record OrderDto() {
 }
+// @formatter:on

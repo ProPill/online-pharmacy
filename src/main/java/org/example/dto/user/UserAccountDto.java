@@ -1,5 +1,6 @@
 package org.example.dto.user;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record UserAccountDto() {
 }
+// @formatter:on

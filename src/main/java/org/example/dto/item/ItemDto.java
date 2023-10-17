@@ -1,5 +1,6 @@
 package org.example.dto.item;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record ItemDto() {
 }
+// @formatter:on

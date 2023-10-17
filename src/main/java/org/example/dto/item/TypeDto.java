@@ -3,7 +3,7 @@ package org.example.dto.item;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.entities.item.Type;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record TypeDto(
         @JsonProperty("id") Long id,
         @JsonProperty("id") String name
@@ -15,3 +15,4 @@ public record TypeDto(
         );
     }
 }
+// @formatter:on

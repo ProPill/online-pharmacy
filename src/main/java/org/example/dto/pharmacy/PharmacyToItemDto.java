@@ -1,5 +1,6 @@
 package org.example.dto.pharmacy;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record PharmacyToItemDto() {
 }
+// @formatter:on
