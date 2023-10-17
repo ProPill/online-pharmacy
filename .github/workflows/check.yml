@@ -7,12 +7,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: check code style
+      - name: Check code style
         uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
           skip-commit: true
-          files-excluded: "CartDto.java,CartToItemDto.java,ItemDto.java,TypeDto.java,OrderDto.java,OrderToItemDto.java,PharmacyDto.java,PharmacyToItemDto.java,RoleDto.java,SpecialityDto.java,UserAccountDto.java"
+          files-excluded: "CartDto.java|CartToItemDto.java|ItemDto.java|TypeDto.java|OrderDto.java|OrderToItemDto.java|PharmacyDto.java|PharmacyToItemDto.java|RoleDto.java|SpecialityDto.java|UserAccountDto.java"
 
       - name: Print diffs
         run: git --no-pager diff --exit-code
