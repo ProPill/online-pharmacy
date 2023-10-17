@@ -1,11 +1,10 @@
 package org.example.service.item;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.item.Type;
 import org.example.repository.item.TypeRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
