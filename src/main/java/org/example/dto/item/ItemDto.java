@@ -12,14 +12,15 @@ public record ItemDto(
     @JsonProperty("picture_url") String pictureUrl,
     @JsonProperty("type") TypeDto typeId,
     @JsonProperty("speciality") SpecialityDto speciality) {
-  public static ItemDto fromItem(Item item) {
-    return new ItemDto(
-        item.getId(),
-        item.getName(),
-        item.getPrice(),
-        item.getManufacturer(),
-        item.getPictureUrl(),
-        TypeDto.fromType(item.getType()),
-        SpecialityDto.fromSpeciality(item.getSpeciality()));
-  }
+    public static ItemDto fromItem(Item item) {
+        return new ItemDto(
+                item.getId(),
+                item.getName(),
+                item.getPrice(),
+                item.getManufacturer(),
+                item.getPictureUrl(),
+                TypeDto.fromType(item.getType()),
+                SpecialityDto.fromSpeciality(item.getSpeciality())
+        );
+    }
 }

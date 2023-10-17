@@ -20,36 +20,33 @@ import org.example.entities.user.Speciality;
 @Table(name = "item")
 public class Item {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
+  private String name;
 
-    private String name;
+  private Double price;
 
+  private String manufacturer;
 
-    private Double price;
+  @Column(name = "picture_url")
+  private String pictureUrl;
 
+  @ManyToOne
+  @JoinColumn(name = "type_id", nullable = false)
+  private Type type;
 
-    private String manufacturer;
+  @ManyToOne
+  @JoinColumn(name = "speciality_id", nullable = true)
+  private Speciality speciality;
 
-    @Column(name = "picture_url")
-    private String pictureUrl;
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+  private List<CartToItem> cartToItems = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
-    private Type type;
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+  private List<OrderToItem> orderToItems = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "speciality_id", nullable = true)
-    private Speciality speciality;
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<CartToItem> cartToItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<OrderToItem> orderToItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<PharmacyToItem> pharmacyToItems = new ArrayList<>();
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+  private List<PharmacyToItem> pharmacyToItems = new ArrayList<>();
 }
