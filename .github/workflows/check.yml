@@ -1,0 +1,34 @@
+name: Lint and Build
+on: [ push, pull_request ]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check code style
+        uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--replace"
+          skip-commit: true
+          files-excluded: "CartDto.java|CartToItemDto.java|ItemDto.java|TypeDto.java|OrderDto.java|OrderToItemDto.java|PharmacyDto.java|PharmacyToItemDto.java|RoleDto.java|SpecialityDto.java|UserAccountDto.java"
+
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package
+  
