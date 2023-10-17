@@ -1,5 +1,6 @@
 package org.example.dto.cart;
 
-@SuppressWarnings("google-java-format")
+// @formatter:off
 public record CartDto() {
 }
+// @formatter:on
