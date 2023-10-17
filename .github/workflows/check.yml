@@ -12,6 +12,7 @@ jobs:
         with:
           args: "--replace"
           skip-commit: true
+          files-excluded: "CartDto.java,CartToItemDto.java,ItemDto.java,TypeDto.java,OrderDto.java,OrderToItemDto.java,PharmacyDto.java,PharmacyToItemDto.java,RoleDto.java,SpecialityDto.java,UserAccountDto.java"
 
       - name: Print diffs
         run: git --no-pager diff --exit-code
