@@ -30,7 +30,7 @@ public class ItemCreationService {
     Optional<Type> type = typeRepository.findById(typeId);
     Optional<Speciality> spec = specialityRepository.findById(specialityId);
     if (type.isEmpty()) {
-      NOT_FOUND.throwException(); // TODO
+      NOT_FOUND.throwException();
     }
     Item item = new Item();
     item.setName(name);
