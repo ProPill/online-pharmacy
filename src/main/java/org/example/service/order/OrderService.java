@@ -67,6 +67,8 @@ public class OrderService {
       }
       otm.setItem(itemRepository.findById(item).get());
       otm.setQuantity(1);
+      // TODO подумать насчет количества (предполагается, что с фронта передается список со
+      // всеми препаратами - если их 2, то в списке два одинак. id)
     }
     orderToItemRepository.save(otm);
     return order;
