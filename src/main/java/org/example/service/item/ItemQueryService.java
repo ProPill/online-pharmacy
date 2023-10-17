@@ -35,12 +35,16 @@ public class ItemQueryService {
 
     public List<Item> getAllReceiptAndNot() {
         List<Item> list = new ArrayList<>();
-        list.addAll(typeRepository.findByName(common).get().getItems());
-        list.addAll(typeRepository.findByName(receipt).get().getItems());
+
+        Optional<Type> commonType = typeRepository.findByName(common);
+        Optional<Type> receiptType = typeRepository.findByName(receipt);
+
+        commonType.ifPresent(type -> list.addAll(type.getItems()));
+        receiptType.ifPresent(type -> list.addAll(type.getItems()));
+
         return list;
     }
 
-    // get all items include spec item by doctor id
     public List<Item> getAllItemsByDocId(Long id) {
         Optional<UserAccount> user = userAccountRepository.findById(id);
         if (user.isEmpty()) {
@@ -48,8 +52,7 @@ public class ItemQueryService {
         }
         Speciality spec = user.get().getSpeciality();
         if (spec == null) { // проверка на то, что пользователь врач
-            // TODO
-            // USER_NOT_DOC.throwException();
+            USER_NOT_DOC.throwException(); // fixme
         }
         List<Item> list = new ArrayList<>();
         list.addAll(Objects.requireNonNull(user.get().getSpeciality()).getItems());
