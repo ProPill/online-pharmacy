@@ -54,8 +54,8 @@ public class OrderService {
     }
     OrderToItem otm = new OrderToItem();
     Orders order = new Orders();
-    order.setCreationDate(creationDate);
-    order.setDeliveryDate(deliveryDate);
+    order.setCreationDate(creationDate); // TODO
+    order.setDeliveryDate(deliveryDate); // TODO
     order.setSumPrice(sumPrice);
     order.setUserAccount(user.get());
     order.setPharmacy(pharmacy.get());
