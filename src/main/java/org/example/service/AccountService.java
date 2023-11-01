@@ -21,7 +21,7 @@ public class AccountService {
       WRONG_INPUT_DATA.throwException();
     }
     Optional<Role> role = roleRepository.findByName("пользователь");
-    ///TODO: зашифровать пароль и положить в переменную password
+    /// TODO: зашифровать пароль и положить в переменную password
     UserAccount newUser = new UserAccount();
     newUser.setFullName(fullName);
     newUser.setPhone(phone);

@@ -18,9 +18,7 @@ public class AccountController extends BaseController {
       @RequestParam(value = "full_name") String fullName,
       @RequestParam(value = "phone") String phone,
       @RequestParam(value = "password") String password) {
-
-      return ResponseEntity.ok(
-              UserAccountDto.fromUserAccount(
-                      accountService.register(fullName, phone, password)));
+    return ResponseEntity.ok(
+        UserAccountDto.fromUserAccount(accountService.register(fullName, phone, password)));
   }
 }
