@@ -625,7 +625,7 @@ paths:
           description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
 
-  /api/accounts/registgy:
+  /api/accounts/registry:
     post:
       tags:
         - "Account"
@@ -697,7 +697,7 @@ paths:
           name: user_id
           required: true
           schema:
-            type: string
+            type: integer
           description: user id
       responses:
         '200':
