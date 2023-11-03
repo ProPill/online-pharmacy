@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
   Optional<UserAccount> findByPhone(String phone);
+
+  Optional<UserAccount> findUserAccountByPhoneAndPasswordHash(String phone, byte[] hash);
 }

@@ -29,7 +29,7 @@ public class UserAccount {
   private String phone;
 
   @Column(name = "password_hash")
-  private String passwordHash;
+  private byte[] passwordHash;
 
   @ManyToOne
   @JoinColumn(name = "role_id", nullable = false)

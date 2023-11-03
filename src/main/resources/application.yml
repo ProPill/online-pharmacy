@@ -658,6 +658,8 @@ paths:
                 $ref: '#/components/schemas/UserAccountDTO'
         '400':
           description: '{"code":"WRONG_INPUT_DATA","status":400,"message":"WRONG_INPUT_DATA"}'
+        '409':
+          description: '{"code":"PHONE_IS_REGISTERED","status":409,"message":"PHONE_IS_REGISTERED"}'
 
   /api/accounts/login:
     post:
