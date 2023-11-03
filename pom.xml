@@ -82,6 +82,12 @@
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.crypto.tink</groupId>
+            <artifactId>tink</artifactId>
+            <version>1.11.0</version>
+        </dependency>
     </dependencies>
 
 </project>
