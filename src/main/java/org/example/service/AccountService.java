@@ -1,8 +1,9 @@
 package org.example.service;
 
+import static org.example.exception.TypicalServerExceptions.*;
+
 import java.util.Optional;
 import java.util.regex.Pattern;
-
 import lombok.RequiredArgsConstructor;
 import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
@@ -10,8 +11,6 @@ import org.example.repository.user.RoleRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.example.security.PasswordEncryption;
 import org.springframework.stereotype.Service;
-
-import static org.example.exception.TypicalServerExceptions.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,15 +26,28 @@ public class AccountService {
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
     Pattern patternFIO = Pattern.compile(FIORegex);
-    Pattern patternNumber=Pattern.compile(phoneNumberRegex);
+    Pattern patternNumber = Pattern.compile(phoneNumberRegex);
     Pattern patternPassword = Pattern.compile(passwordRegex);
+
+    if (!patternFIO.matcher(fullName).find()) {
+      INVALID_FIO.throwException();
+    }
+
+    if (!patternNumber.matcher(phone).find()) {
+      INVALID_PHONE.throwException();
+    }
+
+    if (!patternPassword.matcher(password).find()) {
+      INVALID_PASSWORD.throwException();
+    }
 
     if (userAccountRepository.findByPhone(phone).isEmpty()) {
       PHONE_IS_REGISTERED.throwException();
     }
-    ////TODO: смотрим что введённые параметры не превышают лимиты, если хоть один превышает, то WRONG INPUT
+    //// TODO: смотрим что введённые параметры не превышают лимиты, если хоть один превышает, то
+    // WRONG INPUT
     Optional<Role> role = roleRepository.findByName("пользователь");
-    byte [] encryptedPassword = encryptor.getCiphertext(password);
+    byte[] encryptedPassword = encryptor.getCiphertext(password);
     UserAccount newUser = new UserAccount();
     newUser.setFullName(fullName);
     newUser.setPhone(phone);
