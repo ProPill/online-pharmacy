@@ -44,14 +44,13 @@ public class AccountService {
     if (userAccountRepository.findByPhone(phone).isEmpty()) {
       PHONE_IS_REGISTERED.throwException();
     }
-    //// TODO: смотрим что введённые параметры не превышают лимиты, если хоть один превышает, то
-    // WRONG INPUT
     Optional<Role> role = roleRepository.findByName("пользователь");
     byte[] encryptedPassword = encryptor.getCiphertext(password);
     UserAccount newUser = new UserAccount();
     newUser.setFullName(fullName);
     newUser.setPhone(phone);
     newUser.setPasswordHash(encryptedPassword);
+    newUser.setRole(role.get());
     return userAccountRepository.save(newUser);
   }
 
