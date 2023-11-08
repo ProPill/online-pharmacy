@@ -2,6 +2,7 @@ package org.example.service.pharmacy;
 
 import static org.example.exception.TypicalServerExceptions.ITEM_NOT_FOUND;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,9 @@ public class PharmacyService {
     if (item.isEmpty()) {
       ITEM_NOT_FOUND.throwException();
     }
-    return pharmacyToItemRepository.findByItem(item.get());
+    //TODO
+    List<Pharmacy> pharmacies = new ArrayList<>();
+    item.get().getPharmacyToItems().forEach(it-> pharmacies.add(it.getPharmacy()));
+    return pharmacies;
   }
 }

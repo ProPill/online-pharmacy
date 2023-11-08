@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PharmacyToItemRepository extends JpaRepository<PharmacyToItem, Long> {
-  List<Pharmacy> findByItem(Item item);
 }
