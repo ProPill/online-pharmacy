@@ -30,9 +30,8 @@ public class PharmacyService {
     if (item.isEmpty()) {
       ITEM_NOT_FOUND.throwException();
     }
-    //TODO
     List<Pharmacy> pharmacies = new ArrayList<>();
-    item.get().getPharmacyToItems().forEach(it-> pharmacies.add(it.getPharmacy()));
+    item.get().getPharmacyToItems().forEach(it -> pharmacies.add(it.getPharmacy()));
     return pharmacies;
   }
 }
