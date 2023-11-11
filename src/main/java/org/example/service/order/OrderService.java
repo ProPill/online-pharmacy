@@ -1,11 +1,9 @@
 package org.example.service.order;
 
-import static org.example.exception.TypicalServerExceptions.NOT_FOUND;
-import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.*;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.order.OrderToItem;
 import org.example.entities.order.Orders;
@@ -46,29 +44,35 @@ public class OrderService {
       Long[] items) {
     Optional<UserAccount> user = userAccountRepository.findById(userId);
     if (user.isEmpty()) {
-      NOT_FOUND.throwException(); // fixme
+      USER_NOT_FOUND.throwException();
     }
     Optional<Pharmacy> pharmacy = pharmacyRepository.findById(pharmacyId);
     if (pharmacy.isEmpty()) {
-      NOT_FOUND.throwException();
+      PHARMACY_NOT_FOUND.throwException();
     }
     OrderToItem otm = new OrderToItem();
     Orders order = new Orders();
-    order.setCreationDate(creationDate); // TODO
-    order.setDeliveryDate(deliveryDate); // TODO
+    order.setCreationDate(creationDate);
+    order.setDeliveryDate(deliveryDate);
     order.setSumPrice(sumPrice);
     order.setUserAccount(user.get());
     order.setPharmacy(pharmacy.get());
     ordersRepository.save(order);
+    Map<Long, Integer> itemToQuantity = new HashMap<>();
     for (Long item : items) {
+      if (itemToQuantity.containsKey(item)) {
+        itemToQuantity.put(item, itemToQuantity.get(item) + 1);
+      } else {
+        itemToQuantity.put(item, 1);
+      }
+    }
+    for (Long item : itemToQuantity.keySet()) {
       otm.setOrders(order);
       if (itemRepository.findById(item).isEmpty()) {
-        NOT_FOUND.throwException();
+        ITEM_NOT_FOUND.throwException();
       }
       otm.setItem(itemRepository.findById(item).get());
-      otm.setQuantity(1);
-      // TODO подумать насчет количества (предполагается, что с фронта передается список со
-      // всеми препаратами - если их 2, то в списке два одинак. id)
+      otm.setQuantity(itemToQuantity.get(item));
     }
     orderToItemRepository.save(otm);
     return order;
