@@ -2,7 +2,10 @@ package org.example.service;
 
 import static org.example.exception.TypicalServerExceptions.*;
 
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -11,7 +14,6 @@ import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
 import org.example.repository.user.RoleRepository;
 import org.example.repository.user.UserAccountRepository;
-import org.example.security.PasswordEncryption;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,11 +22,19 @@ public class AccountService {
   private final UserAccountRepository userAccountRepository;
   private final RoleRepository roleRepository;
 
-  private final PasswordEncryption encryptor = new PasswordEncryption();
+  MessageDigest digest;
+
+  {
+    try {
+      digest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   public UserAccount register(String fullName, String phone, String password) {
     String FIORegex =
-        "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}\\s([А-ЯЁ][а-яё]{2,})?$";
+        "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
     String phoneNumberRegex = "^\\+7[0-9]{10}$";
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
@@ -48,7 +58,7 @@ public class AccountService {
       PHONE_IS_REGISTERED.throwException();
     }
     Optional<Role> role = roleRepository.findByName("пользователь");
-    byte[] encryptedPassword = encryptor.getCiphertext(password);
+    byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
     UserAccount newUser = new UserAccount();
     newUser.setFullName(fullName);
     newUser.setPhone(phone);
@@ -62,7 +72,8 @@ public class AccountService {
     if (user.isEmpty()) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
-    if (!Arrays.equals(encryptor.getDecrypted(user.get().getPasswordHash()), password.getBytes())) {
+    byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+    if (!Arrays.equals(user.get().getPasswordHash(), encryptedPassword)) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
