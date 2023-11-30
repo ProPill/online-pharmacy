@@ -8,7 +8,7 @@ import com.google.crypto.tink.aead.PredefinedAeadParameters;
 import java.security.GeneralSecurityException;
 
 public class PasswordEncryption {
-  private KeysetHandle keysetHandle;
+  private final KeysetHandle keysetHandle;
 
   {
     try {
@@ -19,11 +19,10 @@ public class PasswordEncryption {
     }
   }
 
-  private String associatedData = "superStrongSecretKey";
+  private final String associatedData = "superStrongSecretKey";
+  private Aead aead;
 
   public byte[] getCiphertext(String password) {
-
-    Aead aead;
 
     {
       try {
@@ -43,5 +42,9 @@ public class PasswordEncryption {
       }
     }
     return ciphertext;
+  }
+
+  public byte[] getDecrypted(byte[] ciphertext) throws GeneralSecurityException {
+    return aead.decrypt(ciphertext, associatedData.getBytes());
   }
 }

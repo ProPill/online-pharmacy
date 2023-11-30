@@ -2,6 +2,8 @@ package org.example.service;
 
 import static org.example.exception.TypicalServerExceptions.*;
 
+import java.security.GeneralSecurityException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +23,8 @@ public class AccountService {
   private final PasswordEncryption encryptor = new PasswordEncryption();
 
   public UserAccount register(String fullName, String phone, String password) {
-    String FIORegex = "^[А-ЯЁ][а-яё]*$";
-    String phoneNumberRegex = "^((\\+7)+([0-9]){10})$";
+    String FIORegex = "[^-А-ЯA-Z\\x27а-яa-z]";
+    String phoneNumberRegex = "^\\+7[0-9]{10}$";
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
     Pattern patternFIO = Pattern.compile(FIORegex);
@@ -41,7 +43,7 @@ public class AccountService {
       INVALID_PASSWORD.throwException();
     }
 
-    if (userAccountRepository.findByPhone(phone).isEmpty()) {
+    if (userAccountRepository.findByPhone(phone).isPresent()) {
       PHONE_IS_REGISTERED.throwException();
     }
     Optional<Role> role = roleRepository.findByName("пользователь");
@@ -54,16 +56,22 @@ public class AccountService {
     return userAccountRepository.save(newUser);
   }
 
-  public UserAccount login(String phone, String password) {
-    byte [] encryptedPassword = encryptor.getCiphertext(password);
-    Optional<UserAccount> user = userAccountRepository.findUserAccountByPhoneAndPasswordHash(phone, encryptedPassword);
-    if (user.isEmpty()){
+  public UserAccount login(String phone, String password) throws GeneralSecurityException {
+    Optional<UserAccount> user = userAccountRepository.findByPhone(phone);
+    if (user.isEmpty()) {
+      WRONG_LOGIN_PASSWORD.throwException();
+    }
+    if (!Arrays.equals(encryptor.getDecrypted(user.get().getPasswordHash()), password.getBytes())) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
   }
 
   public UserAccount logout(Long userId) {
-    
+    Optional<UserAccount> user = userAccountRepository.findById(userId);
+    if (user.isEmpty()) {
+      USER_NOT_FOUND.throwException();
+    }
+    return user.get();
   }
 }

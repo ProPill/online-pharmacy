@@ -10,11 +10,19 @@ public record UserAccountDto(
     @JsonProperty("role") RoleDto role,
     @JsonProperty("speciality") SpecialityDto speciality) {
   public static UserAccountDto fromUserAccount(UserAccount userAccount) {
+    if (userAccount.getSpeciality() != null) {
+      return new UserAccountDto(
+          userAccount.getId(),
+          userAccount.getFullName(),
+          userAccount.getPhone(),
+          RoleDto.fromRole(userAccount.getRole()),
+          SpecialityDto.fromSpeciality(userAccount.getSpeciality()));
+    }
     return new UserAccountDto(
         userAccount.getId(),
         userAccount.getFullName(),
         userAccount.getPhone(),
         RoleDto.fromRole(userAccount.getRole()),
-        SpecialityDto.fromSpeciality(userAccount.getSpeciality()));
-        }
+        null);
+  }
 }
