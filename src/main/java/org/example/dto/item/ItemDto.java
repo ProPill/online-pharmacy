@@ -21,5 +21,5 @@ public record ItemDto(
         item.getPictureUrl(),
         TypeDto.fromType(item.getType()),
         SpecialityDto.fromSpeciality(item.getSpeciality()));
-    }
+  }
 }

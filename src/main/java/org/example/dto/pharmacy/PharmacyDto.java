@@ -17,5 +17,5 @@ public record PharmacyDto(
         pharmacy.getAddress(),
         pharmacy.getWorkTime(),
         pharmacy.getPhone());
-    }
+  }
 }

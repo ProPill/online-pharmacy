@@ -16,16 +16,15 @@ public record OrderDto(
     @JsonProperty("sum_price") Double sum_price,
     @JsonProperty("items") List<ItemDto> items,
     @JsonProperty("pharmacy") PharmacyDto pharmacy) {
-    public static OrderDto fromOrder(Orders order) {
+  public static OrderDto fromOrder(Orders order) {
     SimpleDateFormat formatter = new DateTimeFormatter().getFormatter();
-        return new OrderDto(
-               order.getId(),
-                order.getUserAccount().getId(),
-                formatter.format(order.getCreationDate()),
-                formatter.format(order.getDeliveryDate()),
-                order.getSumPrice(),
-                order.getOrderToItems().stream().map(item->ItemDto.fromItem(item.getItem())).toList(),
-                PharmacyDto.fromPharmacy(order.getPharmacy())
-        );
-    }
+    return new OrderDto(
+        order.getId(),
+        order.getUserAccount().getId(),
+        formatter.format(order.getCreationDate()),
+        formatter.format(order.getDeliveryDate()),
+        order.getSumPrice(),
+        order.getOrderToItems().stream().map(item -> ItemDto.fromItem(item.getItem())).toList(),
+        PharmacyDto.fromPharmacy(order.getPharmacy()));
+  }
 }
