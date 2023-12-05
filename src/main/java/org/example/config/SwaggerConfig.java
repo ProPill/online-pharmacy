@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI userApi() {
-        return new OpenAPI().info(new Info()
+  @Bean
+  public OpenAPI userApi() {
+    return new OpenAPI()
+        .info(
+            new Info()
                 .title("ProPill API")
                 .description("Описание сервиса онлайн аптеки")
                 .version("1.0.0"));
-    }
+  }
 }
