@@ -35,9 +35,7 @@ public class CartController extends BaseController {
 
   @DeleteMapping("/delete")
   public ResponseEntity<?> deleteItemFromCart(
-          @RequestParam(value = "item_id") Long itemId,
-          @RequestParam(value = "user_id") Long userId) {
-    return ResponseEntity.ok(
-            cartService.deleteItemFromCart(userId,itemId));
+      @RequestParam(value = "item_id") Long itemId, @RequestParam(value = "user_id") Long userId) {
+    return ResponseEntity.ok(cartService.deleteItemFromCart(userId, itemId));
   }
 }
