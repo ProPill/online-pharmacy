@@ -9,7 +9,22 @@ servers:
         default: "8080"
 
 components:
+  responses:
+    USER_NOT_FOUND_EXCEPTION:
+      description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
   schemas:
+    ResultError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        code:
+          type: string
+          example: "USER_NOT_FOUND"
+        message:
+          type: string
+          example: "USER_NOT_FOUND"
     CartDTO:
       type: object
       properties:
@@ -188,7 +203,7 @@ paths:
         '400':
           description: '{"code":"USER_NOT_DOC","status":400,"message":"USER_NOT_DOC"}'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
 
   /api/item/type:
     get:
@@ -405,7 +420,7 @@ paths:
         '400':
           description: '{"code":"USER_NOT_DOC","status":400,"message":"USER_NOT_DOC"}'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
 
   /api/type/all:
     get:
@@ -442,7 +457,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CartDTO'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
+
 
   /api/cart/quantity_info:
     get:
@@ -468,8 +484,24 @@ paths:
               schema:
                 type: integer
         '404':
-          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
-
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultError'
+              examples:
+                user_not_found:
+                  summary: User not found
+                  value:
+                    code: "USER_NOT_FOUND"
+                    status: 404
+                    message: "USER_NOT_FOUND"
+                not_found:
+                  summary: Item not found
+                  value:
+                    code: "NOT_FOUND"
+                    status: 404
+                    message: "NOT_FOUND"
   /api/item/cart/add:
     post:
       tags:
@@ -555,7 +587,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/OrderToItemDTO'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
 
   /api/order:
     post:
@@ -626,7 +658,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserAccountDTO'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
 
 
   /api/accounts/registgy:
@@ -711,4 +743,4 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserAccountDTO'
         '404':
-          description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
+          $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
