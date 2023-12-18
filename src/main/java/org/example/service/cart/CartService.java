@@ -50,14 +50,23 @@ public class CartService {
       USER_NOT_FOUND.throwException();
     }
     CartToItem cartToItem = new CartToItem();
+
     Optional<Item> item = itemRepository.findById(item_id);
 
     if (item.isEmpty()) {
       NOT_FOUND.throwException();
     }
-    cartToItem.setItem(item.get());
-    cartToItem.setCart(cart.get());
-    cartToItem.setQuantity(count.intValue());
+
+    Optional<CartToItem> oldOne =
+        cartToItemRepository.findByItem_IdAndCart_Id(item_id, cart.get().getId());
+    if (oldOne.isPresent()) {
+      cartToItem = oldOne.get();
+      cartToItem.setQuantity(cartToItem.getQuantity() + count.intValue());
+    } else {
+      cartToItem.setItem(item.get());
+      cartToItem.setCart(cart.get());
+      cartToItem.setQuantity(count.intValue());
+    }
     CartToItem addedItem = cartToItemRepository.save(cartToItem);
     return ItemDto.fromItem(addedItem.getItem());
   }
