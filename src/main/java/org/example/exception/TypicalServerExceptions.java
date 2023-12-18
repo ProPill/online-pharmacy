@@ -16,8 +16,13 @@ public enum TypicalServerExceptions {
       new ServerException(HttpStatus.BAD_REQUEST, "WRONG_INPUT_DATA", "WRONG_INPUT_DATA")),
   WRONG_LOGIN_PASSWORD(
       new ServerException(HttpStatus.BAD_REQUEST, "WRONG_LOGIN_PASSWORD", "WRONG_LOGIN_PASSWORD")),
-  USER_NOT_DOC(new ServerException(HttpStatus.BAD_REQUEST, "USER_NOT_DOC", "USER_NOT_DOC"));
-
+  USER_NOT_DOC(new ServerException(HttpStatus.BAD_REQUEST, "USER_NOT_DOC", "USER_NOT_DOC")),
+  PHONE_IS_REGISTERED(
+      new ServerException(HttpStatus.CONFLICT, "PHONE_IS_REGISTERED", "PHONE_IS_REGISTERED")),
+  INVALID_FIO(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_FIO", "INVALID_FIO")),
+  INVALID_PHONE(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PHONE", "INVALID_PHONE")),
+  INVALID_PASSWORD(
+      new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PASSWORD", "INVALID_PASSWORD"));
   private final ServerException serverException;
 
   TypicalServerExceptions(HttpStatus httpStatus, String message, String moreInfo) {

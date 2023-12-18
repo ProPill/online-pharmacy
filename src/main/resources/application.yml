@@ -693,7 +693,7 @@ paths:
           $ref: '#/components/responses/USER_NOT_FOUND_EXCEPTION'
 
 
-  /api/accounts/registgy:
+  /api/accounts/registry:
     post:
       tags:
         - "Account"
@@ -725,7 +725,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserAccountDTO'
         '400':
-          description: '{"code":"WRONG_INPUT_DATA","status":400,"message":"WRONG_INPUT_DATA"}'
+          description: '{"code":"INVALID_FIO","status":400,"message":"INVALID_FIO"}'
+        '409':
+          description: '{"code":"PHONE_IS_REGISTERED","status":409,"message":"PHONE_IS_REGISTERED"}'
 
   /api/accounts/login:
     post:
@@ -765,7 +767,7 @@ paths:
           name: user_id
           required: true
           schema:
-            type: string
+            type: integer
           description: user id
       responses:
         '200':
