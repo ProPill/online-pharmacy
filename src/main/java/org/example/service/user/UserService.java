@@ -12,14 +12,14 @@ import static org.example.exception.TypicalServerExceptions.*;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserAccountRepository userAccountRepository;
+  private final UserAccountRepository userAccountRepository;
 
-    public UserAccount getUserInfo(Long user_id) {
+  public UserAccount getUserInfo(Long user_id) {
 
-        Optional<UserAccount> user = userAccountRepository.findById(user_id);
-        if (user.isEmpty()) {
-            USER_NOT_FOUND.throwException();
-        }
-        return user.get();
+    Optional<UserAccount> user = userAccountRepository.findById(user_id);
+    if (user.isEmpty()) {
+      USER_NOT_FOUND.throwException();
     }
+    return user.get();
+  }
 }
