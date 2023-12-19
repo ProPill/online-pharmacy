@@ -1,13 +1,12 @@
 package org.example.service.user;
 
+import static org.example.exception.TypicalServerExceptions.*;
+
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.user.UserAccount;
 import org.example.repository.user.UserAccountRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
-import static org.example.exception.TypicalServerExceptions.*;
 
 @Service
 @RequiredArgsConstructor
