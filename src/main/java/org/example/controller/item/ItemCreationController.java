@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
-@Tag(name = "Item", description = "Item creation controller")
+@Tag(name = "Товар")
 public class ItemCreationController extends BaseController {
 
   private final ItemCreationService itemCreationService;
 
-  @Operation(summary = "Add item", description = "Add item by admin")
+  @Operation(
+      summary = "Добавление товара",
+      description = "Добавление товара в базу данных фармацевтом")
   @PostMapping("/add")
   public ResponseEntity<?> addItemByAdmin(
       @RequestParam(value = "name") String name,
