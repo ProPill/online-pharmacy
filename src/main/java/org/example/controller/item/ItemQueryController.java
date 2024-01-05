@@ -30,8 +30,8 @@ public class ItemQueryController extends BaseController {
   @Operation(
       summary = "Получение всех товаров доступных для обычных пользователей",
       description =
-              "Получение всех товаров(рецептурных и не рецептурных) доступных для обычных"
-                      + " пользователей")
+          "Получение всех товаров(рецептурных и не рецептурных) доступных для обычных"
+              + " пользователей")
   @GetMapping("/normal/all")
   public ResponseEntity<?> getAllReceiptAndNot() {
     return ResponseEntity.ok(
@@ -42,7 +42,7 @@ public class ItemQueryController extends BaseController {
       summary = "Получение всех товаров доступных для доктора",
       description =
           "Получение всех товаров(рецептурных, не рецептурных и специальных по профессии доктора) "
-                  + "доступных для доктора по его id")
+              + "доступных для доктора по его id")
   @GetMapping("/doc/all")
   public ResponseEntity<?> getAllItemsByDocId(@RequestParam(value = "user_id") Long userId) {
     return ResponseEntity.ok(
