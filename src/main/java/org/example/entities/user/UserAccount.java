@@ -36,7 +36,7 @@ public class UserAccount {
   private Role role;
 
   @ManyToOne
-  @JoinColumn(name = "speciality_id", nullable = false)
+  @JoinColumn(name = "speciality_id", nullable = true)
   private Speciality speciality;
 
   @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)

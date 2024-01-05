@@ -15,7 +15,10 @@ public enum TypicalServerExceptions {
   WRONG_INPUT_DATA(
       new ServerException(HttpStatus.BAD_REQUEST, "WRONG_INPUT_DATA", "WRONG_INPUT_DATA")),
   WRONG_LOGIN_PASSWORD(
-      new ServerException(HttpStatus.BAD_REQUEST, "WRONG_LOGIN_PASSWORD", "WRONG_LOGIN_PASSWORD"));
+      new ServerException(HttpStatus.BAD_REQUEST, "WRONG_LOGIN_PASSWORD", "WRONG_LOGIN_PASSWORD")),
+  USER_NOT_DOC(new ServerException(HttpStatus.BAD_REQUEST, "USER_NOT_DOC", "USER_NOT_DOC")),
+  PHARMACY_NOT_FOUND(
+      new ServerException(HttpStatus.NOT_FOUND, "PHARMACY_NOT_FOUND", "PHARMACY_NOT_FOUND"));
 
   private final ServerException serverException;
 

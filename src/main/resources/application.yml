@@ -185,6 +185,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ItemDTO'
+        '400':
+          description: '{"code":"USER_NOT_DOC","status":400,"message":"USER_NOT_DOC"}'
         '404':
           description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
@@ -400,6 +402,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpecialityDTO'
+        '400':
+          description: '{"code":"USER_NOT_DOC","status":400,"message":"USER_NOT_DOC"}'
         '404':
           description: '{"code":"USER_NOT_FOUND","status":404,"message":"USER_NOT_FOUND"}'
 
@@ -600,7 +604,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderDTO'
         '404':
-          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+          description: Bad Request
+          content:
+            application/json:
+              examples:
+                USER_NOT_FOUND:
+                  value:
+                    code: USER_NOT_FOUND
+                    status: 404
+                    message: USER_NOT_FOUND
+                PHARMACY_NOT_FOUND:
+                  value:
+                    code: PHARMACY_NOT_FOUND
+                    status: 404
+                    message: PHARMACY_NOT_FOUND
+                ITEM_NOT_FOUND:
+                  value:
+                    code: ITEM_NOT_FOUND
+                    status: 404
+                    message: ITEM_NOT_FOUND
 
   /api/info/{user_id}:
     get:
