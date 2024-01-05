@@ -27,9 +27,7 @@ public class OrderController extends BaseController {
         orderService.getAllUserOrders(userId).stream().map(OrderDto::fromOrder).toList());
   }
 
-  @Operation(
-      summary = "Разместить заказ",
-      description = "Создание заказа пользователем")
+  @Operation(summary = "Разместить заказ", description = "Создание заказа пользователем")
   @PostMapping("/order")
   public ResponseEntity<?> placeOrder(
       @RequestParam(value = "user_id") Long userId,
