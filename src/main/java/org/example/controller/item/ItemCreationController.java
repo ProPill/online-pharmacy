@@ -1,5 +1,7 @@
 package org.example.controller.item;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.controller.BaseController;
 import org.example.dto.item.ItemDto;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
+@Tag(name = "Товар")
 public class ItemCreationController extends BaseController {
 
   private final ItemCreationService itemCreationService;
 
+  @Operation(
+      summary = "Добавление товара",
+      description = "Добавление товара в базу данных фармацевтом")
   @PostMapping("/add")
   public ResponseEntity<?> addItemByAdmin(
       @RequestParam(value = "name") String name,
