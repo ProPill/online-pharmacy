@@ -36,10 +36,10 @@ public class ItemCreationController extends BaseController {
       @RequestParam(value = "manufacturer") String manufacturer,
       @RequestParam(value = "picture_url") MultipartFile file,
       @RequestParam(value = "type_id") Long typeId,
-      @RequestParam(value = "speciality_id") @Nullable Long specialityId) throws IOException, B2Exception {
+      @RequestParam(value = "speciality_id") @Nullable Long specialityId)
+      throws IOException, B2Exception {
     return ResponseEntity.ok(
         ItemDto.fromItem(
-            itemCreationService.addItem(
-                name, price, manufacturer, file, typeId, specialityId)));
+            itemCreationService.addItem(name, price, manufacturer, file, typeId, specialityId)));
   }
 }
