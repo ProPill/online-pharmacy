@@ -13,13 +13,25 @@ public record ItemDto(
     @JsonProperty("type") TypeDto typeId,
     @JsonProperty("speciality") SpecialityDto speciality) {
   public static ItemDto fromItem(Item item) {
-    return new ItemDto(
-        item.getId(),
-        item.getName(),
-        item.getPrice(),
-        item.getManufacturer(),
-        item.getPictureUrl(),
-        TypeDto.fromType(item.getType()),
-        SpecialityDto.fromSpeciality(item.getSpeciality()));
+    if (item.getSpeciality() != null) {
+      return new ItemDto(
+          item.getId(),
+          item.getName(),
+          item.getPrice(),
+          item.getManufacturer(),
+          item.getPictureUrl(),
+          TypeDto.fromType(item.getType()),
+          SpecialityDto.fromSpeciality(item.getSpeciality()));
+
+    } else {
+      return new ItemDto(
+          item.getId(),
+          item.getName(),
+          item.getPrice(),
+          item.getManufacturer(),
+          item.getPictureUrl(),
+          TypeDto.fromType(item.getType()),
+          null);
+    }
   }
 }
