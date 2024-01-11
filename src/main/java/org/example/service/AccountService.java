@@ -35,7 +35,8 @@ public class AccountService {
   }
 
   public UserAccount register(String fullName, String phone, String password) {
-    String FIORegex = "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
+    String FIORegex =
+            "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
     String phoneNumberRegex = "^\\+7[0-9]{10}$";
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
@@ -74,7 +75,9 @@ public class AccountService {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-    if (!Arrays.equals(HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(), HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
+    if (!Arrays.equals(
+            HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(),
+            HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
