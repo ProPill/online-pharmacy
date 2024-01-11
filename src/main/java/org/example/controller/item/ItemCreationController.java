@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import static org.example.resources.Patterns.nameRegex;
+
 @RestController
 @RequestMapping("/api/item")
 @RequiredArgsConstructor
@@ -33,10 +35,9 @@ public class ItemCreationController extends BaseController {
       description = "Добавление товара в базу данных фармацевтом")
   @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> addItemByAdmin(
-      @RequestParam(value = "name") @Size(max = 100) @Pattern(regexp = "^[\\wа-яА-Я%-]+$")
-          String name,
+      @RequestParam(value = "name") @Size(max = 100) @Pattern(regexp = nameRegex) String name,
       @RequestParam(value = "price") Double price,
-      @RequestParam(value = "manufacturer") @Size(max = 100) @Pattern(regexp = "^[\\wа-яА-Я%-]+$")
+      @RequestParam(value = "manufacturer") @Size(max = 100) @Pattern(regexp = nameRegex)
           String manufacturer,
       @RequestParam(value = "info") @Size(max = 500) String info,
       @RequestParam(value = "picture_url") MultipartFile file,
