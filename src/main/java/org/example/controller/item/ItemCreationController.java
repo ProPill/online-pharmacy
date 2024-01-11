@@ -1,5 +1,7 @@
 package org.example.controller.item;
 
+import static org.example.resources.Patterns.nameRegex;
+
 import com.backblaze.b2.client.exceptions.B2Exception;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import static org.example.resources.Patterns.nameRegex;
 
 @RestController
 @RequestMapping("/api/item")
