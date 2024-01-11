@@ -30,6 +30,8 @@ public class Item {
 
   private String manufacturer;
 
+  private String info;
+
   @Column(name = "picture_url")
   private String pictureUrl;
 

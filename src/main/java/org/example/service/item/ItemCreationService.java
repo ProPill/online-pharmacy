@@ -47,12 +47,12 @@ public class ItemCreationService {
       String name,
       Double price,
       String manufacturer,
+      String info,
       MultipartFile file,
       Long typeId,
       Long specialityId)
       throws IOException, B2Exception {
     Optional<Type> type = typeRepository.findById(typeId);
-    Optional<Speciality> spec = specialityRepository.findById(specialityId);
     if (type.isEmpty()) {
       NOT_FOUND.throwException();
     }
@@ -71,9 +71,13 @@ public class ItemCreationService {
     item.setName(name);
     item.setPrice(price);
     item.setManufacturer(manufacturer);
+    item.setInfo(info);
     item.setPictureUrl("https://f003.backblazeb2.com/file/propill/" + fileName);
     item.setType(type.get());
-    spec.ifPresent(item::setSpeciality);
+    if (specialityId != null) {
+      Optional<Speciality> spec = specialityRepository.findById(specialityId);
+      spec.ifPresent(item::setSpeciality);
+    }
     itemRepository.save(item);
     return item;
   }
