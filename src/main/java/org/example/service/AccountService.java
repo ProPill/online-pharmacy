@@ -1,11 +1,6 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import org.example.entities.user.Role;
-import org.example.entities.user.UserAccount;
-import org.example.repository.user.RoleRepository;
-import org.example.repository.user.UserAccountRepository;
-import org.springframework.stereotype.Service;
+import static org.example.exception.TypicalServerExceptions.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -16,7 +11,12 @@ import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import lombok.RequiredArgsConstructor;
+import org.example.entities.user.Role;
+import org.example.entities.user.UserAccount;
+import org.example.repository.user.RoleRepository;
+import org.example.repository.user.UserAccountRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class AccountService {
 
   public UserAccount register(String fullName, String phone, String password) {
     String FIORegex =
-            "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
+          "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
     String phoneNumberRegex = "^\\+7[0-9]{10}$";
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
@@ -76,8 +76,8 @@ public class AccountService {
     }
     byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
     if (!Arrays.equals(
-            HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(),
-            HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
+        HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(),
+        HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
