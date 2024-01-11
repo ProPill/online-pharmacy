@@ -22,6 +22,7 @@ public enum TypicalServerExceptions {
       new ServerException(HttpStatus.CONFLICT, "PHONE_IS_REGISTERED", "PHONE_IS_REGISTERED")),
   INVALID_FIO(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_FIO", "INVALID_FIO")),
   INVALID_PHONE(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PHONE", "INVALID_PHONE")),
+  INVALID_PRICE(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PRICE", "INVALID_PRICE")),
   INVALID_PASSWORD(
       new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PASSWORD", "INVALID_PASSWORD")),
   PHARMACY_NOT_FOUND(

@@ -1,5 +1,6 @@
 package org.example.service.item;
 
+import static org.example.exception.TypicalServerExceptions.INVALID_PRICE;
 import static org.example.exception.TypicalServerExceptions.NOT_FOUND;
 
 import com.backblaze.b2.client.B2StorageClient;
@@ -56,12 +57,15 @@ public class ItemCreationService {
     if (type.isEmpty()) {
       NOT_FOUND.throwException();
     }
+    if (price <= 0) {
+      INVALID_PRICE.throwException();
+    }
     B2StorageClient client =
         B2StorageClientFactory.createDefaultFactory().create(APP_KEY_ID, APP_KEY, USER_AGENT);
     File tempFile = File.createTempFile("upload", null);
     file.transferTo(tempFile);
     final B2ContentSource source = B2FileContentSource.build(tempFile);
-    final String fileName = "demo/" + file.getOriginalFilename();
+    final String fileName = file.getOriginalFilename();
     B2UploadFileRequest request =
         B2UploadFileRequest.builder(BUCKET_ID, fileName, B2ContentTypes.B2_AUTO, source)
             .setCustomField("color", "blue")

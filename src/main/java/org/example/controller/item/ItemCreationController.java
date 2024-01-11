@@ -4,7 +4,6 @@ import com.backblaze.b2.client.exceptions.B2Exception;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ public class ItemCreationController extends BaseController {
   public ResponseEntity<?> addItemByAdmin(
       @RequestParam(value = "name") @Size(max = 100) @Pattern(regexp = "^[\\wа-яА-Я%-]+$")
           String name,
-      @RequestParam(value = "price") @Positive Double price,
+      @RequestParam(value = "price") Double price,
       @RequestParam(value = "manufacturer") @Size(max = 100) @Pattern(regexp = "^[\\wа-яА-Я%-]+$")
           String manufacturer,
       @RequestParam(value = "info") @Size(max = 500) String info,
