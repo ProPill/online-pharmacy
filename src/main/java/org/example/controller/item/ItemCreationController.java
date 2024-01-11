@@ -12,7 +12,6 @@ import org.example.controller.BaseController;
 import org.example.dto.item.ItemDto;
 import org.example.service.item.ItemCreationService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -43,7 +42,10 @@ public class ItemCreationController extends BaseController {
       @RequestParam(value = "info") @Size(max = 500) String info,
       @RequestParam(value = "picture_url") MultipartFile file,
       @RequestParam(value = "type_id") Long typeId,
-      @RequestParam(value = "speciality_id", required = false) @Nullable @Value("${specialityId:null}") Long specialityId)
+      @RequestParam(value = "speciality_id", required = false)
+          @Nullable
+          @Value("${specialityId:null}")
+          Long specialityId)
       throws IOException, B2Exception {
     return ResponseEntity.ok(
         ItemDto.fromItem(
