@@ -20,7 +20,7 @@ public class Type {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String name;
 
   @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)

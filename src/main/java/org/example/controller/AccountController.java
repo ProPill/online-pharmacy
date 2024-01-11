@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import java.security.GeneralSecurityException;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.user.UserAccountDto;
 import org.example.service.AccountService;
@@ -28,8 +27,7 @@ public class AccountController extends BaseController {
   @PostMapping("/login")
   public ResponseEntity<?> login(
       @RequestParam(value = "phone") String phone,
-      @RequestParam(value = "password") String password)
-      throws GeneralSecurityException {
+      @RequestParam(value = "password") String password) {
     return ResponseEntity.ok(UserAccountDto.fromUserAccount(accountService.login(phone, password)));
   }
 

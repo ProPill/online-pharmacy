@@ -24,13 +24,19 @@ public class Item {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(name = "name", nullable = false)
   private String name;
 
+  @Column(name = "price", nullable = false)
   private Double price;
 
+  @Column(name = "manufacturer", nullable = false)
   private String manufacturer;
 
-  @Column(name = "picture_url")
+  @Column(name = "info", nullable = false)
+  private String info;
+
+  @Column(name = "picture_url", nullable = false)
   private String pictureUrl;
 
   @ManyToOne
