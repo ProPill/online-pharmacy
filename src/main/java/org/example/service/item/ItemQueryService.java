@@ -50,8 +50,8 @@ public class ItemQueryService {
       USER_NOT_FOUND.throwException();
     }
     Speciality spec = user.get().getSpeciality();
-    if (spec == null) { // проверка на то, что пользователь врач
-      USER_NOT_DOC.throwException(); // fixme ЭТОГО НЕТ В HLD
+    if (spec == null) {
+      USER_NOT_DOC.throwException();
     }
     List<Item> list = new ArrayList<>();
     list.addAll(Objects.requireNonNull(user.get().getSpeciality()).getItems());
