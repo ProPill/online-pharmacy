@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
-
 import lombok.RequiredArgsConstructor;
 import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
@@ -36,7 +35,7 @@ public class AccountService {
 
   public UserAccount register(String fullName, String phone, String password) {
     String FIORegex =
-          "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
+        "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
     String phoneNumberRegex = "^\\+7[0-9]{10}$";
     String passwordRegex = "^(([A-z0-9]){6,16})$";
 
