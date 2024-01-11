@@ -1,6 +1,11 @@
 package org.example.service;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import lombok.RequiredArgsConstructor;
+import org.example.entities.user.Role;
+import org.example.entities.user.UserAccount;
+import org.example.repository.user.RoleRepository;
+import org.example.repository.user.UserAccountRepository;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -10,12 +15,8 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import lombok.RequiredArgsConstructor;
-import org.example.entities.user.Role;
-import org.example.entities.user.UserAccount;
-import org.example.repository.user.RoleRepository;
-import org.example.repository.user.UserAccountRepository;
-import org.springframework.stereotype.Service;
+
+import static org.example.exception.TypicalServerExceptions.*;
 
 @Service
 @RequiredArgsConstructor
