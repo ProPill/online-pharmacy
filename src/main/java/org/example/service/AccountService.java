@@ -75,7 +75,9 @@ public class AccountService {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-    if (!Arrays.equals(HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(), HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
+    if (!Arrays.equals(
+            HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(),
+            HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
