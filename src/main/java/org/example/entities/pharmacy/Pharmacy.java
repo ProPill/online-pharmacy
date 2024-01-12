@@ -21,13 +21,16 @@ public class Pharmacy {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(name = "name", nullable = false)
   private String name;
 
+  @Column(name = "address", nullable = false)
   private String address;
 
-  @Column(name = "work_time")
+  @Column(name = "work_time", nullable = false)
   private String workTime;
 
+  @Column(name = "phone", nullable = false)
   private String phone;
 
   @OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL)

@@ -21,9 +21,14 @@ public enum TypicalServerExceptions {
   PHONE_IS_REGISTERED(
       new ServerException(HttpStatus.CONFLICT, "PHONE_IS_REGISTERED", "PHONE_IS_REGISTERED")),
   INVALID_FIO(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_FIO", "INVALID_FIO")),
+  INVALID_NAME(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_NAME", "INVALID_NAME")),
+  INVALID_MANUFACTURER(
+      new ServerException(HttpStatus.BAD_REQUEST, "INVALID_MANUFACTURER", "INVALID_MANUFACTURER")),
   INVALID_PHONE(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PHONE", "INVALID_PHONE")),
+  INVALID_PRICE(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PRICE", "INVALID_PRICE")),
   INVALID_PASSWORD(
       new ServerException(HttpStatus.BAD_REQUEST, "INVALID_PASSWORD", "INVALID_PASSWORD")),
+  INVALID_LENGTH(new ServerException(HttpStatus.BAD_REQUEST, "INVALID_LENGTH", "INVALID_LENGTH")),
   PHARMACY_NOT_FOUND(
       new ServerException(HttpStatus.NOT_FOUND, "PHARMACY_NOT_FOUND", "PHARMACY_NOT_FOUND"));
 

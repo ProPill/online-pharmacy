@@ -1,9 +1,9 @@
 package org.example.service;
 
 import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.resources.Patterns.*;
 
 import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -34,11 +34,6 @@ public class AccountService {
   }
 
   public UserAccount register(String fullName, String phone, String password) {
-    String FIORegex =
-        "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
-    String phoneNumberRegex = "^\\+7[0-9]{10}$";
-    String passwordRegex = "^(([A-z0-9]){6,16})$";
-
     Pattern patternFIO = Pattern.compile(FIORegex);
     Pattern patternNumber = Pattern.compile(phoneNumberRegex);
     Pattern patternPassword = Pattern.compile(passwordRegex);
@@ -68,7 +63,7 @@ public class AccountService {
     return userAccountRepository.save(newUser);
   }
 
-  public UserAccount login(String phone, String password) throws GeneralSecurityException {
+  public UserAccount login(String phone, String password) {
     Optional<UserAccount> user = userAccountRepository.findByPhone(phone);
     if (user.isEmpty()) {
       WRONG_LOGIN_PASSWORD.throwException();

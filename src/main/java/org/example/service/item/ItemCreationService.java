@@ -1,6 +1,7 @@
 package org.example.service.item;
 
-import static org.example.exception.TypicalServerExceptions.NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.resources.Patterns.nameRegex;
 
 import com.backblaze.b2.client.B2StorageClient;
 import com.backblaze.b2.client.B2StorageClientFactory;
@@ -12,6 +13,7 @@ import com.backblaze.b2.client.structures.B2UploadFileRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
@@ -47,21 +49,41 @@ public class ItemCreationService {
       String name,
       Double price,
       String manufacturer,
+      String info,
       MultipartFile file,
       Long typeId,
       Long specialityId)
       throws IOException, B2Exception {
     Optional<Type> type = typeRepository.findById(typeId);
-    Optional<Speciality> spec = specialityRepository.findById(specialityId);
     if (type.isEmpty()) {
-      NOT_FOUND.throwException();
+      TYPE_NOT_FOUND.throwException();
+    }
+    if (price <= 0) {
+      INVALID_PRICE.throwException();
+    }
+    if (name.length() > 100) {
+      INVALID_LENGTH.throwException();
+    }
+    if (manufacturer.length() > 100) {
+      INVALID_LENGTH.throwException();
+    }
+    if (info.length() > 500) {
+      INVALID_LENGTH.throwException();
+    }
+    Pattern patternName = Pattern.compile(nameRegex);
+    Pattern patternManufacturer = Pattern.compile(nameRegex);
+    if (!patternName.matcher(name).find()) {
+      INVALID_NAME.throwException();
+    }
+    if (!patternManufacturer.matcher(manufacturer).find()) {
+      INVALID_MANUFACTURER.throwException();
     }
     B2StorageClient client =
         B2StorageClientFactory.createDefaultFactory().create(APP_KEY_ID, APP_KEY, USER_AGENT);
     File tempFile = File.createTempFile("upload", null);
     file.transferTo(tempFile);
     final B2ContentSource source = B2FileContentSource.build(tempFile);
-    final String fileName = "demo/" + file.getOriginalFilename();
+    final String fileName = file.getOriginalFilename();
     B2UploadFileRequest request =
         B2UploadFileRequest.builder(BUCKET_ID, fileName, B2ContentTypes.B2_AUTO, source)
             .setCustomField("color", "blue")
@@ -71,9 +93,13 @@ public class ItemCreationService {
     item.setName(name);
     item.setPrice(price);
     item.setManufacturer(manufacturer);
+    item.setInfo(info);
     item.setPictureUrl("https://f003.backblazeb2.com/file/propill/" + fileName);
     item.setType(type.get());
-    spec.ifPresent(item::setSpeciality);
+    if (specialityId != null) {
+      Optional<Speciality> spec = specialityRepository.findById(specialityId);
+      spec.ifPresent(item::setSpeciality);
+    }
     itemRepository.save(item);
     return item;
   }

@@ -27,13 +27,13 @@ public class Orders {
   @JoinColumn(name = "user_id", nullable = false)
   private UserAccount userAccount;
 
-  @Column(name = "creation_date")
+  @Column(name = "creation_date", nullable = false)
   private Date creationDate;
 
-  @Column(name = "delivery_date")
+  @Column(name = "delivery_date", nullable = false)
   private Date deliveryDate;
 
-  @Column(name = "sum_price")
+  @Column(name = "sum_price", nullable = false)
   private Double sumPrice;
 
   @ManyToOne
