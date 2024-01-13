@@ -1,10 +1,14 @@
 # Online pharmacy ProPill
 
-Используется PostgreSQL
+Используется PostgreSQL и Backblazeb2
 
-Для запуска необходимо ввести данные пользователя PostgreSQL в resources/application.properties
+Для запуска необходимо ввести данные в resources/application.properties
 
-| Переменная                 | Описание            |
-|----------------------------|---------------------|
-| spring.datasource.username | Имя пользователя    | 
-| spring.datasource.password | Пароль пользователя |
+| Переменная                 | Описание                       |
+|----------------------------|--------------------------------|
+| spring.datasource.username | Имя пользователя в PostgreSQL  | 
+| spring.datasource.password | Пароль пользователя PostgreSQL |
+| userAgent                  | Имя пользователя в Backblazeb2 |
+| appKey                     | applicationKey в Backblazeb2   |
+| appKeyId                   | keyID в Backblazeb2            |
+| bucketId                   | Bucket ID в Backblazeb2                     |

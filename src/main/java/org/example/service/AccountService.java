@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -68,7 +69,9 @@ public class AccountService {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     byte[] encryptedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-    if (!Arrays.equals(user.get().getPasswordHash(), encryptedPassword)) {
+    if (!Arrays.equals(
+        HexFormat.of().formatHex(user.get().getPasswordHash()).toCharArray(),
+        HexFormat.of().formatHex(encryptedPassword).toCharArray())) {
       WRONG_LOGIN_PASSWORD.throwException();
     }
     return user.get();
