@@ -1,7 +1,7 @@
 INSERT INTO type(id, name)
-VALUES (-1, 'общий'),
-       (-2, 'рецептурный'),
-       (-3, 'специальный');
+VALUES (-1, 'common'),
+       (-2, 'receipt'),
+       (-3, 'special');
 
 INSERT INTO role(id, name)
 VALUES (-1, 'пользователь'),
