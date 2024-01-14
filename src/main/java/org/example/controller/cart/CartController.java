@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.*;
 public class CartController extends BaseController {
   private final CartService cartService;
 
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{user_id}")
   public ResponseEntity<?> getAllItemsInCart(@PathVariable(value = "user_id") Long userId) {
     return ResponseEntity.ok(cartService.getUserCart(userId));
   }
 
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/quantity_info")
   public ResponseEntity<?> getItemQuantityInCart(
       @RequestParam(value = "item_id") Long itemId, @RequestParam(value = "user_id") Long userId) {
     return ResponseEntity.ok(cartService.getItemsAmountInUsersCart(userId, itemId));
   }
 
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/add")
   public ResponseEntity<?> addItemToCart(
       @RequestParam(value = "item_id") Long itemId,
@@ -36,7 +36,7 @@ public class CartController extends BaseController {
         cartService.addItemToCart(userId, itemId, count.isPresent() ? count.get() : 1));
   }
 
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @DeleteMapping("/delete")
   public ResponseEntity<?> deleteItemFromCart(
       @RequestParam(value = "item_id") Long itemId, @RequestParam(value = "user_id") Long userId) {

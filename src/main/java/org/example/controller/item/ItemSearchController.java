@@ -18,7 +18,7 @@ public class ItemSearchController extends BaseController {
   private final ItemSearchService itemSearchService;
 
   @Operation(summary = "Поиск товаров", description = "Поиск товаров по названию")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/search_result")
   public ResponseEntity<?> searchItems(@RequestParam(value = "search") String search) {
     return ResponseEntity.ok(

@@ -20,7 +20,7 @@ public class PharmacyController extends BaseController {
   @Operation(
       summary = "Получение всех аптек",
       description = "Получение списка всех существующих аптек")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/all")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(
@@ -30,7 +30,7 @@ public class PharmacyController extends BaseController {
   @Operation(
       summary = "Получение всех аптек, в которых есть товар",
       description = "Получение списка всех аптек, в которых есть товар по id товара")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/item")
   public ResponseEntity<?> getAllPharmaciesByItemId(@RequestParam(value = "item_id") Long itemId) {
     return ResponseEntity.ok(

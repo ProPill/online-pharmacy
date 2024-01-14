@@ -14,7 +14,7 @@ public class UserController extends BaseController {
 
   private final UserService userService;
 
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{user_id}")
   public ResponseEntity<?> getItemInfo(@PathVariable(value = "user_id") Long userId) {
     return ResponseEntity.ok(UserAccountDto.fromUserAccount(userService.getUserInfo(userId)));

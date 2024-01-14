@@ -3,7 +3,7 @@ info:
   title: ProPill API
   version: "1.0"
 servers:
-  - url: https://localhost
+  - url: http://localhost
     variables:
       port:
         default: "8080"

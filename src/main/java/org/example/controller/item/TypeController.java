@@ -21,7 +21,7 @@ public class TypeController extends BaseController {
   private final TypeService typeService;
 
   @Operation(summary = "Получение всех типов товаров")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/all")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(typeService.getAll().stream().map(TypeDto::fromType).toList());

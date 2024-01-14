@@ -20,7 +20,7 @@ public class SpecialityController extends BaseController {
   @Operation(
       summary = "Получение всех специальностей",
       description = "Получение списка всех существующих специальностей врачей")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/all")
   public ResponseEntity<?> getAll() {
     return ResponseEntity.ok(
@@ -30,7 +30,7 @@ public class SpecialityController extends BaseController {
   @Operation(
       summary = "Получение специальности пользователя(врача)",
       description = "Получение специальности пользователя(врача) по id пользователя")
-  @CrossOrigin
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{user_id}")
   public ResponseEntity<?> getItemInfo(@PathVariable(value = "user_id") Long userId) {
     return ResponseEntity.ok(SpecialityDto.fromSpeciality(specialityService.getByUserId(userId)));
