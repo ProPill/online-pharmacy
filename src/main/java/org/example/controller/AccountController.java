@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.user.UserAccountDto;
 import org.example.service.AccountService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController extends BaseController {
   private final AccountService accountService;
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/registry")
   public ResponseEntity<?> registration(
       @RequestParam(value = "full_name") String fullName,
@@ -24,6 +22,7 @@ public class AccountController extends BaseController {
         UserAccountDto.fromUserAccount(accountService.register(fullName, phone, password)));
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/login")
   public ResponseEntity<?> login(
       @RequestParam(value = "phone") String phone,
@@ -31,6 +30,7 @@ public class AccountController extends BaseController {
     return ResponseEntity.ok(UserAccountDto.fromUserAccount(accountService.login(phone, password)));
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/logout")
   public ResponseEntity<?> logout(@RequestParam(value = "user_id") String userId) {
     return ResponseEntity.ok(
