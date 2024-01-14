@@ -21,6 +21,7 @@ public class OrderController extends BaseController {
   @Operation(
       summary = "Получение всех заказов пользователя",
       description = "Получение всех заказов пользователя по id пользователя")
+  @CrossOrigin
   @GetMapping("/orders")
   public ResponseEntity<?> getAllByUserId(@RequestParam(value = "user_id") Long userId) {
     return ResponseEntity.ok(
@@ -28,6 +29,7 @@ public class OrderController extends BaseController {
   }
 
   @Operation(summary = "Разместить заказ", description = "Создание заказа пользователем")
+  @CrossOrigin
   @PostMapping("/order")
   public ResponseEntity<?> placeOrder(
       @RequestParam(value = "user_id") Long userId,
