@@ -42,7 +42,7 @@ public class ItemQueryController extends BaseController {
       description =
           "Получение всех товаров(рецептурных, не рецептурных и специальных по профессии доктора) "
               + "доступных для доктора по его id")
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/doc/all")
   public ResponseEntity<?> getAllItemsByDocId(@RequestParam(value = "user_id") Long userId) {
     return ResponseEntity.ok(
@@ -52,7 +52,7 @@ public class ItemQueryController extends BaseController {
   @Operation(
       summary = "Получение всех товаров по типу",
       description = "Получение всех товаров по id типа")
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/type")
   public ResponseEntity<?> getAllItemsByTypeId(@RequestParam(value = "type_id") Long typeId) {
     return ResponseEntity.ok(
@@ -62,7 +62,7 @@ public class ItemQueryController extends BaseController {
   @Operation(
       summary = "Получение всех товаров по специальности врача",
       description = "Получение всех товаров по id специальности врача")
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/type/category")
   public ResponseEntity<?> getAllItemsBySpecId(
       @RequestParam(value = "speciality_id") Long specialityId) {

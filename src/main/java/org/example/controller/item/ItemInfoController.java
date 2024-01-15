@@ -20,7 +20,7 @@ public class ItemInfoController extends BaseController {
   @Operation(
       summary = "Информация о товаре",
       description = "Получение информации о товаре по его id")
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/info/{item_id}")
   public ResponseEntity<?> getItemInfo(@PathVariable(value = "item_id") Long itemId) {
     return ResponseEntity.ok(ItemDto.fromItem(itemInfoService.getItemInfo(itemId)));
