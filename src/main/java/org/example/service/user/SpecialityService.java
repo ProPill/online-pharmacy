@@ -11,6 +11,7 @@ import org.example.entities.user.UserAccount;
 import org.example.repository.user.SpecialityRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,10 +20,12 @@ public class SpecialityService {
   private final SpecialityRepository specialityRepository;
   private final UserAccountRepository userAccountRepository;
 
+  @Transactional
   public List<Speciality> getAll() {
     return specialityRepository.findAll();
   }
 
+  @Transactional
   public Speciality getByUserId(Long id) {
     Optional<UserAccount> user = userAccountRepository.findById(id);
     if (user.isEmpty()) {

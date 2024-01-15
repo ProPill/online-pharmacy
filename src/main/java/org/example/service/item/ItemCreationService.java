@@ -23,6 +23,7 @@ import org.example.repository.item.TypeRepository;
 import org.example.repository.user.SpecialityRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -45,6 +46,7 @@ public class ItemCreationService {
   @Value("${bucketId}")
   private String BUCKET_ID;
 
+  @Transactional
   public Item addItem(
       String name,
       Double price,

@@ -2,7 +2,6 @@ package org.example.service.order;
 
 import static org.example.exception.TypicalServerExceptions.*;
 
-import jakarta.transaction.Transactional;
 import java.sql.Date;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,7 @@ import org.example.repository.pharmacy.PharmacyRepository;
 import org.example.repository.pharmacy.PharmacyToItemRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +29,7 @@ public class OrderService {
   private final ItemRepository itemRepository;
   private final OrderToItemRepository orderToItemRepository;
 
+  @Transactional
   public List<Orders> getAllUserOrders(Long id) {
     Optional<UserAccount> user = userAccountRepository.findById(id);
     if (user.isEmpty()) {

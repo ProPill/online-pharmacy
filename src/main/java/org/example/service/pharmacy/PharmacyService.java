@@ -12,6 +12,7 @@ import org.example.repository.item.ItemRepository;
 import org.example.repository.pharmacy.PharmacyRepository;
 import org.example.repository.pharmacy.PharmacyToItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +22,12 @@ public class PharmacyService {
   private final PharmacyToItemRepository pharmacyToItemRepository;
   private final ItemRepository itemRepository;
 
+  @Transactional
   public List<Pharmacy> getAll() {
     return pharmacyRepository.findAll();
   }
 
+  @Transactional
   public List<Pharmacy> getAllByItemId(Long id) {
     Optional<Item> item = itemRepository.findById(id);
     if (item.isEmpty()) {
