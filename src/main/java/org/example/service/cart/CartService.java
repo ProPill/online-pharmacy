@@ -14,6 +14,7 @@ import org.example.repository.cart.CartRepository;
 import org.example.repository.cart.CartToItemRepository;
 import org.example.repository.item.ItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class CartService {
   private final CartToItemRepository cartToItemRepository;
   private final ItemRepository itemRepository;
 
+  @Transactional
   public CartDto getUserCart(Long user_id) {
     Optional<Cart> cart = cartRepository.findByUserAccount_Id(user_id);
     if (cart.isEmpty()) {
@@ -30,6 +32,7 @@ public class CartService {
     return CartDto.fromCart(cart.get());
   }
 
+  @Transactional
   public Long getItemsAmountInUsersCart(Long user_id, Long item_id) {
     Optional<Cart> cart = cartRepository.findByUserAccount_Id(user_id);
     if (cart.isEmpty()) {
@@ -44,6 +47,7 @@ public class CartService {
     return item.get().getQuantity().longValue();
   }
 
+  @Transactional
   public ItemDto addItemToCart(Long user_id, Long item_id, Long count) {
     Optional<Cart> cart = cartRepository.findByUserAccount_Id(user_id);
     if (cart.isEmpty()) {
@@ -71,6 +75,7 @@ public class CartService {
     return ItemDto.fromItem(addedItem.getItem());
   }
 
+  @Transactional
   public ItemDto deleteItemFromCart(Long user_id, Long item_id) {
     Optional<Cart> cart = cartRepository.findByUserAccount_Id(user_id);
     if (cart.isEmpty()) {

@@ -8,13 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.example.entities.order.OrderToItem;
 import org.example.entities.order.Orders;
 import org.example.entities.pharmacy.Pharmacy;
+import org.example.entities.pharmacy.PharmacyToItem;
 import org.example.entities.user.UserAccount;
 import org.example.repository.item.ItemRepository;
 import org.example.repository.order.OrderToItemRepository;
 import org.example.repository.order.OrdersRepository;
 import org.example.repository.pharmacy.PharmacyRepository;
+import org.example.repository.pharmacy.PharmacyToItemRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +25,11 @@ public class OrderService {
   private final OrdersRepository ordersRepository;
   private final UserAccountRepository userAccountRepository;
   private final PharmacyRepository pharmacyRepository;
+  private final PharmacyToItemRepository pharmacyToItemRepository;
   private final ItemRepository itemRepository;
   private final OrderToItemRepository orderToItemRepository;
 
+  @Transactional
   public List<Orders> getAllUserOrders(Long id) {
     Optional<UserAccount> user = userAccountRepository.findById(id);
     if (user.isEmpty()) {
@@ -35,6 +40,7 @@ public class OrderService {
     return orders;
   }
 
+  @Transactional
   public Orders placeOrder(
       Long userId,
       Date creationDate,
@@ -58,6 +64,7 @@ public class OrderService {
     order.setUserAccount(user.get());
     order.setPharmacy(pharmacy.get());
     ordersRepository.save(order);
+
     Map<Long, Integer> itemToQuantity = new HashMap<>();
     for (Long item : items) {
       if (itemToQuantity.containsKey(item)) {
@@ -73,6 +80,21 @@ public class OrderService {
       }
       otm.setItem(itemRepository.findById(item).get());
       otm.setQuantity(itemToQuantity.get(item));
+    }
+    for (Long item : items) {
+      PharmacyToItem pharmacyToItem =
+          pharmacyToItemRepository.findAllByPharmacyIdAndItemId(pharmacyId, item);
+      if (itemRepository.findById(item).isEmpty()) {
+        ITEM_NOT_FOUND.throwException();
+      }
+      if (pharmacyToItem != null) {
+        if (pharmacyToItem.getItem() == itemRepository.findById(item).get()) {
+          if (pharmacyToItem.getQuantity() > 0) {
+            pharmacyToItem.setQuantity(pharmacyToItem.getQuantity() - 1);
+          }
+        }
+        pharmacyToItemRepository.save(pharmacyToItem);
+      }
     }
     orderToItemRepository.save(otm);
     return order;

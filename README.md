@@ -11,4 +11,4 @@
 | userAgent                  | Имя пользователя в Backblazeb2 |
 | appKey                     | applicationKey в Backblazeb2   |
 | appKeyId                   | keyID в Backblazeb2            |
-| bucketId                   | Bucket ID в Backblazeb2                     |
+| bucketId                   | Bucket ID в Backblazeb2        |

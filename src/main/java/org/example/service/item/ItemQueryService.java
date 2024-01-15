@@ -18,6 +18,7 @@ import org.example.repository.item.TypeRepository;
 import org.example.repository.user.SpecialityRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +29,12 @@ public class ItemQueryService {
   private final UserAccountRepository userAccountRepository;
   private final SpecialityRepository specialityRepository;
 
+  @Transactional
   public List<Item> getAll() {
     return itemRepository.findAll();
   }
 
+  @Transactional
   public List<Item> getAllReceiptAndNot() {
     List<Item> list = new ArrayList<>();
 
@@ -44,6 +47,7 @@ public class ItemQueryService {
     return list;
   }
 
+  @Transactional
   public List<Item> getAllItemsByDocId(Long id) {
     Optional<UserAccount> user = userAccountRepository.findById(id);
     if (user.isEmpty()) {
@@ -59,6 +63,7 @@ public class ItemQueryService {
     return list;
   }
 
+  @Transactional
   public List<Item> getAllItemsByTypeId(Long id) {
     Optional<Type> type = typeRepository.findById(id);
     if (type.isEmpty()) {
@@ -67,6 +72,7 @@ public class ItemQueryService {
     return type.get().getItems();
   }
 
+  @Transactional
   public List<Item> getAllItemsBySpecId(Long id) {
     Optional<Speciality> spec = specialityRepository.findById(id);
     if (spec.isEmpty()) {
