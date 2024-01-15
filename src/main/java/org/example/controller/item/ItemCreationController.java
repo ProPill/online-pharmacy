@@ -30,7 +30,7 @@ public class ItemCreationController extends BaseController {
   @Operation(
       summary = "Добавление товара",
       description = "Добавление товара в базу данных фармацевтом")
-  @CrossOrigin(origins = "http://localhost:4200")
+  @CrossOrigin(origins = "*")
   @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> addItemByAdmin(
       @RequestParam(value = "name") @Size(max = 100) @Pattern(regexp = nameRegex) String name,
