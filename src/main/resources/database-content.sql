@@ -273,13 +273,16 @@ VALUES ('2024-01-11', '2024-01-16', 100500, -1, -1, -1),
 
 INSERT INTO order_to_item (quantity, id, item_id, order_id)
 VALUES (1, -1, -1, -1),
-        (4, -2, -2, -2),
-        (3, -3, -3, -3),
-        (10, -4, -4 ,-4);
+       (4, -2, -2, -2),
+       (3, -3, -3, -3),
+       (10, -4, -4, -4);
 
-INSERT INTO cart (id, user_id) VALUES (-1,-1),(-2,-2), (-3,-3);
+INSERT INTO cart (id, user_id)
+VALUES (-1, -1),
+       (-2, -2),
+       (-3, -3);
 
 INSERT INTO cart_to_item (quantity, cart_id, id, item_id)
-VALUES (2, -1 , -1 ,-1),
+VALUES (2, -1, -1, -1),
        (1, -1, -2, -2),
        (1, -1, -3, -20);
