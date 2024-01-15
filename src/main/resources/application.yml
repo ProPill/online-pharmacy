@@ -795,7 +795,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserAccountDTO'
-        '401':
+        '400':
           description: '{"code":"WRONG_LOGIN_PASSWORD","status":400,"message":"WRONG_LOGIN_PASSWORD"}'
 
   /api/accounts/logout:
