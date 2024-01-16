@@ -530,6 +530,30 @@ paths:
                     code: "NOT_FOUND"
                     status: 404
                     message: "NOT_FOUND"
+
+  /api/cart/check_receipt:
+    get:
+      tags:
+        - "Cart controller"
+      summary: checking receipt items in cart
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+
   /api/item/cart/add:
     post:
       tags:
@@ -581,6 +605,7 @@ paths:
                     code: "NOT_FOUND"
                     status: 404
                     message: "NOT_FOUND"
+
   /api/cart/delete:
     delete:
       tags:
