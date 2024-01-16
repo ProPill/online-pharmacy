@@ -145,10 +145,7 @@ components:
         speciality:
           $ref: '#/components/schemas/SpecialityDTO'
 
-
-
 paths:
-
   /api/item/all:
     get:
       tags:
@@ -341,8 +338,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemDTO'
+        '400':
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultError'
+              examples:
+                invalid_price:
+                  summary: Invalid price
+                  value:
+                    code: "INVALID_PRICE"
+                    status: 400
+                    message: "INVALID_PRICE"
+                invalid_length:
+                  summary: Invalid length
+                  value:
+                    code: "INVALID_LENGTH"
+                    status: 400
+                    message: "INVALID_LENGTH"
+                invalid_name:
+                  summary: Invalid name
+                  value:
+                    code: "INVALID_NAME"
+                    status: 400
+                    message: "INVALID_NAME"
+                invalid_manufacturer:
+                  summary: Invalid manufacturer
+                  value:
+                    code: "INVALID_MANUFACTURER"
+                    status: 400
+                    message: "INVALID_MANUFACTURER"
         '404':
-          description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
+          description: '{"code":"TYPE_NOT_FOUND","status":404,"message":"TYPE_NOT_FOUND"}'
 
   /api/pharmacy/all:
     get:
