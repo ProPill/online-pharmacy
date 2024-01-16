@@ -1,7 +1,6 @@
 package org.example.service.item;
 
 import static org.example.exception.TypicalServerExceptions.*;
-import static org.example.resources.Patterns.nameRegex;
 
 import com.backblaze.b2.client.B2StorageClient;
 import com.backblaze.b2.client.B2StorageClientFactory;
@@ -13,7 +12,6 @@ import com.backblaze.b2.client.structures.B2UploadFileRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
@@ -71,14 +69,6 @@ public class ItemCreationService {
     }
     if (info.length() > 500) {
       INVALID_LENGTH.throwException();
-    }
-    Pattern patternName = Pattern.compile(nameRegex);
-    Pattern patternManufacturer = Pattern.compile(nameRegex);
-    if (!patternName.matcher(name).find()) {
-      INVALID_NAME.throwException();
-    }
-    if (!patternManufacturer.matcher(manufacturer).find()) {
-      INVALID_MANUFACTURER.throwException();
     }
     B2StorageClient client =
         B2StorageClientFactory.createDefaultFactory().create(APP_KEY_ID, APP_KEY, USER_AGENT);
