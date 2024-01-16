@@ -357,18 +357,6 @@ paths:
                     code: "INVALID_LENGTH"
                     status: 400
                     message: "INVALID_LENGTH"
-                invalid_name:
-                  summary: Invalid name
-                  value:
-                    code: "INVALID_NAME"
-                    status: 400
-                    message: "INVALID_NAME"
-                invalid_manufacturer:
-                  summary: Invalid manufacturer
-                  value:
-                    code: "INVALID_MANUFACTURER"
-                    status: 400
-                    message: "INVALID_MANUFACTURER"
         '404':
           description: '{"code":"TYPE_NOT_FOUND","status":404,"message":"TYPE_NOT_FOUND"}'
 
@@ -554,7 +542,7 @@ paths:
         '404':
           description: '{"code":"NOT_FOUND","status":404,"message":"NOT_FOUND"}'
 
-  /api/item/cart/add:
+  /api/cart/add:
     post:
       tags:
         - "Cart controller"
