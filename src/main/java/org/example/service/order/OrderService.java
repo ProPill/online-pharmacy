@@ -16,6 +16,7 @@ import org.example.repository.order.OrdersRepository;
 import org.example.repository.pharmacy.PharmacyRepository;
 import org.example.repository.pharmacy.PharmacyToItemRepository;
 import org.example.repository.user.UserAccountRepository;
+import org.example.service.cart.CartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class OrderService {
   private final PharmacyToItemRepository pharmacyToItemRepository;
   private final ItemRepository itemRepository;
   private final OrderToItemRepository orderToItemRepository;
+  private final CartService cartService;
 
   @Transactional
   public List<Orders> getAllUserOrders(Long id) {
@@ -80,6 +82,7 @@ public class OrderService {
       }
       otm.setItem(itemRepository.findById(item).get());
       otm.setQuantity(itemToQuantity.get(item));
+      cartService.deleteItemFromCart(userId, item);
     }
     for (Long item : items) {
       PharmacyToItem pharmacyToItem =
