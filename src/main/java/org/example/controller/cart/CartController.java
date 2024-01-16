@@ -1,9 +1,8 @@
 package org.example.controller.cart;
 
-import java.util.Optional;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.example.controller.BaseController;
 import org.example.service.cart.CartService;
@@ -18,8 +17,8 @@ public class CartController extends BaseController {
   private final CartService cartService;
 
   @Operation(
-          summary = "Получение всех товаров в корзине пользователя",
-          description = "Получение всех товаров в корзине по id пользователя")
+      summary = "Получение всех товаров в корзине пользователя",
+      description = "Получение всех товаров в корзине по id пользователя")
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/{user_id}")
   public ResponseEntity<?> getAllItemsInCart(@PathVariable(value = "user_id") Long userId) {
@@ -27,8 +26,9 @@ public class CartController extends BaseController {
   }
 
   @Operation(
-          summary = "Получение количества товара в корзине пользователя",
-          description = "Получение количества товара в корзине пользователя по id товара и id пользователя")
+      summary = "Получение количества товара в корзине пользователя",
+      description =
+          "Получение количества товара в корзине пользователя по id товара и id пользователя")
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/quantity_info")
   public ResponseEntity<?> getItemQuantityInCart(
@@ -37,8 +37,9 @@ public class CartController extends BaseController {
   }
 
   @Operation(
-          summary = "Добавление товара в корзину",
-          description = "Добавление товара в корзину по id товара и id пользователя, count по умолчанию 1")
+      summary = "Добавление товара в корзину",
+      description =
+          "Добавление товара в корзину по id товара и id пользователя, count по умолчанию 1")
   @CrossOrigin(origins = "http://localhost:4200")
   @PostMapping("/add")
   public ResponseEntity<?> addItemToCart(
@@ -50,8 +51,8 @@ public class CartController extends BaseController {
   }
 
   @Operation(
-          summary = "Удаление товара из корзины",
-          description = "Удаление товара из корзины по id товара и id пользователя")
+      summary = "Удаление товара из корзины",
+      description = "Удаление товара из корзины по id товара и id пользователя")
   @CrossOrigin(origins = "http://localhost:4200")
   @DeleteMapping("/delete")
   public ResponseEntity<?> deleteItemFromCart(
@@ -60,8 +61,8 @@ public class CartController extends BaseController {
   }
 
   @Operation(
-          summary = "Проверка корзины на наличие рецептурного препарата",
-          description = "Проверка корзины на наличие рецептурного препарата по списку id товаров")
+      summary = "Проверка корзины на наличие рецептурного препарата",
+      description = "Проверка корзины на наличие рецептурного препарата по списку id товаров")
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/check_receipt")
   public Boolean isCartHaveReceiptItem(@RequestParam(value = "items") Long[] items) {
