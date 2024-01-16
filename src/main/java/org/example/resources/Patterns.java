@@ -6,5 +6,5 @@ public class Patterns {
   public static final String phoneNumberRegex = "^\\+7[0-9]{10}$";
   public static final String passwordRegex = "^(([A-z0-9]){6,16})$";
 
-  public static final String nameRegex = "^[\\wа-яА-Я%-]+$";
+  public static final String nameRegex = "^[\\wа-яА-Я%-]+(?:\\s+[\\wа-яА-Я%-]+)*$";
 }
