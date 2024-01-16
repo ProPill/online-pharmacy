@@ -1,5 +1,6 @@
 package org.example.controller.user;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.controller.BaseController;
 import org.example.dto.user.UserAccountDto;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/info")
 @RequiredArgsConstructor
+@Tag(name = "Пользователь")
 public class UserController extends BaseController {
 
   private final UserService userService;
