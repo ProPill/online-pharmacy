@@ -13,6 +13,7 @@ import org.example.entities.item.Item;
 import org.example.repository.cart.CartRepository;
 import org.example.repository.cart.CartToItemRepository;
 import org.example.repository.item.ItemRepository;
+import org.example.resources.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,5 +90,20 @@ public class CartService {
 
     cartToItemRepository.delete(itemToDelete.get());
     return ItemDto.fromItem(itemToDelete.get().getItem());
+  }
+
+  @Transactional
+  public Boolean isCartHaveReceiptItem(Long[] items) {
+    for (Long item : items) {
+      Optional<Item> checkItem = itemRepository.findById(item);
+      if (checkItem.isEmpty()) {
+        NOT_FOUND.throwException();
+      } else {
+        if (checkItem.get().getType().getName().equals(Strings.receipt)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

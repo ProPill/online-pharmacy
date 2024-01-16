@@ -42,4 +42,10 @@ public class CartController extends BaseController {
       @RequestParam(value = "item_id") Long itemId, @RequestParam(value = "user_id") Long userId) {
     return ResponseEntity.ok(cartService.deleteItemFromCart(userId, itemId));
   }
+
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/check_receipt")
+  public Boolean isCartHaveReceiptItem(@RequestParam(value = "items") Long[] items) {
+    return cartService.isCartHaveReceiptItem(items);
+  }
 }
