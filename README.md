@@ -8,6 +8,7 @@
 |----------------------------|--------------------------------|
 | spring.datasource.username | Имя пользователя в PostgreSQL  | 
 | spring.datasource.password | Пароль пользователя PostgreSQL |
+| bucketUrl                  | Ссылка на bucket в Backblazeb2 |
 | userAgent                  | Имя пользователя в Backblazeb2 |
 | appKey                     | applicationKey в Backblazeb2   |
 | appKeyId                   | keyID в Backblazeb2            |
