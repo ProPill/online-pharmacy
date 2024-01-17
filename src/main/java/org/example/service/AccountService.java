@@ -1,7 +1,12 @@
 package org.example.service;
 
-import static org.example.exception.TypicalServerExceptions.*;
-import static org.example.resources.Patterns.*;
+import lombok.RequiredArgsConstructor;
+import org.example.entities.user.Role;
+import org.example.entities.user.UserAccount;
+import org.example.repository.user.RoleRepository;
+import org.example.repository.user.UserAccountRepository;
+import org.example.service.cart.CartService;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -10,18 +15,16 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import lombok.RequiredArgsConstructor;
-import org.example.entities.user.Role;
-import org.example.entities.user.UserAccount;
-import org.example.repository.user.RoleRepository;
-import org.example.repository.user.UserAccountRepository;
-import org.springframework.stereotype.Service;
+
+import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.resources.Patterns.*;
 
 @Service
 @RequiredArgsConstructor
 public class AccountService {
   private final UserAccountRepository userAccountRepository;
   private final RoleRepository roleRepository;
+  private final CartService cartService;
 
   MessageDigest digest;
 
@@ -60,7 +63,9 @@ public class AccountService {
     newUser.setPhone(phone);
     newUser.setPasswordHash(encryptedPassword);
     newUser.setRole(role.get());
-    return userAccountRepository.save(newUser);
+    UserAccount user = userAccountRepository.save(newUser);
+    cartService.addUserCart(user.getId());
+    return user;
   }
 
   public UserAccount login(String phone, String password) {
