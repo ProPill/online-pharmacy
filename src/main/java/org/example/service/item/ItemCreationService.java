@@ -44,6 +44,9 @@ public class ItemCreationService {
   @Value("${bucketId}")
   private String BUCKET_ID;
 
+  @Value("${bucketUrl}")
+  private String BUCKET_URL;
+
   @Transactional
   public Item addItem(
       String name,
@@ -86,7 +89,7 @@ public class ItemCreationService {
     item.setPrice(price);
     item.setManufacturer(manufacturer);
     item.setInfo(info);
-    item.setPictureUrl("https://f003.backblazeb2.com/file/propill/" + fileName);
+    item.setPictureUrl(BUCKET_URL + fileName);
     item.setType(type.get());
     if (specialityId != null) {
       Optional<Speciality> spec = specialityRepository.findById(specialityId);

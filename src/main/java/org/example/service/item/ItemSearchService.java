@@ -20,7 +20,7 @@ public class ItemSearchService {
     List<Item> itemList = itemRepository.findAll();
 
     for (Item item : itemList) {
-      if (item.getName().contains(search)) {
+      if (item.getName().toLowerCase().contains(search.toLowerCase())) {
         matchingItems.add(item);
       }
     }
