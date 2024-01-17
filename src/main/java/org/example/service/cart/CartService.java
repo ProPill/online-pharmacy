@@ -10,9 +10,11 @@ import org.example.dto.item.ItemDto;
 import org.example.entities.cart.Cart;
 import org.example.entities.cart.CartToItem;
 import org.example.entities.item.Item;
+import org.example.entities.user.UserAccount;
 import org.example.repository.cart.CartRepository;
 import org.example.repository.cart.CartToItemRepository;
 import org.example.repository.item.ItemRepository;
+import org.example.repository.user.UserAccountRepository;
 import org.example.resources.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,16 @@ public class CartService {
   private final CartRepository cartRepository;
   private final CartToItemRepository cartToItemRepository;
   private final ItemRepository itemRepository;
+  private final UserAccountRepository userAccountRepository;
+
+  @Transactional
+  public Cart addUserCart(Long user_id) {
+    Optional<UserAccount> user = userAccountRepository.findById(user_id);
+    Cart cart = new Cart();
+    cart.setUserAccount(user.get());
+    cartRepository.save(cart);
+    return cart;
+  }
 
   @Transactional
   public CartDto getUserCart(Long user_id) {

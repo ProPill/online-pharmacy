@@ -15,6 +15,7 @@ import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
 import org.example.repository.user.RoleRepository;
 import org.example.repository.user.UserAccountRepository;
+import org.example.service.cart.CartService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 public class AccountService {
   private final UserAccountRepository userAccountRepository;
   private final RoleRepository roleRepository;
+  private final CartService cartService;
 
   MessageDigest digest;
 
@@ -60,7 +62,9 @@ public class AccountService {
     newUser.setPhone(phone);
     newUser.setPasswordHash(encryptedPassword);
     newUser.setRole(role.get());
-    return userAccountRepository.save(newUser);
+    UserAccount user = userAccountRepository.save(newUser);
+    cartService.addUserCart(user.getId());
+    return user;
   }
 
   public UserAccount login(String phone, String password) {
