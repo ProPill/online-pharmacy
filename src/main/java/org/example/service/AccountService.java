@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
-
 import lombok.RequiredArgsConstructor;
 import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
