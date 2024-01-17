@@ -1,5 +1,9 @@
 package org.example.service.cart;
 
+import static org.example.exception.TypicalServerExceptions.NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
+
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.cart.CartDto;
 import org.example.dto.item.ItemDto;
@@ -14,11 +18,6 @@ import org.example.repository.user.UserAccountRepository;
 import org.example.resources.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-
-import static org.example.exception.TypicalServerExceptions.NOT_FOUND;
-import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

@@ -1,12 +1,7 @@
 package org.example.service;
 
-import lombok.RequiredArgsConstructor;
-import org.example.entities.user.Role;
-import org.example.entities.user.UserAccount;
-import org.example.repository.user.RoleRepository;
-import org.example.repository.user.UserAccountRepository;
-import org.example.service.cart.CartService;
-import org.springframework.stereotype.Service;
+import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.resources.Patterns.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,8 +11,13 @@ import java.util.HexFormat;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static org.example.exception.TypicalServerExceptions.*;
-import static org.example.resources.Patterns.*;
+import lombok.RequiredArgsConstructor;
+import org.example.entities.user.Role;
+import org.example.entities.user.UserAccount;
+import org.example.repository.user.RoleRepository;
+import org.example.repository.user.UserAccountRepository;
+import org.example.service.cart.CartService;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
