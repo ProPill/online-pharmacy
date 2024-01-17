@@ -94,12 +94,11 @@ public class CartService {
     if (cart.isEmpty()) {
       USER_NOT_FOUND.throwException();
     }
-    Optional<CartToItem> itemToDelete = cartToItemRepository.findByItem_Id(item_id);
-
+    Optional<CartToItem> itemToDelete =
+        cartToItemRepository.findByItem_IdAndCart_Id(item_id, cart.get().getId());
     if (itemToDelete.isEmpty()) {
       NOT_FOUND.throwException();
     }
-
     cartToItemRepository.delete(itemToDelete.get());
     return ItemDto.fromItem(itemToDelete.get().getItem());
   }
