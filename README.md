@@ -3,7 +3,7 @@
 Проект представляет собой REST API для онлайн-аптеки. [Реализация web-приложения для работы с API](https://github.com/jekasrs/online-pharmacy-client).
 
 ## Схема базы данных
-![propill_scheme.png](src%2Fmain%2Fresources%2Fpropill_scheme.png)
+![propill_scheme](https://github.com/byzaya/online-pharmacy/assets/78423459/5cfb7336-7c61-4b88-ae0f-e567f9a9483f)
 
 ## Механика работы онлайн-аптеки
 
