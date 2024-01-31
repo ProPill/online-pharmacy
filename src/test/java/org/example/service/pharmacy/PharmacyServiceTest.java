@@ -1,15 +1,14 @@
 package org.example.service.pharmacy;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 class PharmacyServiceTest {
 
-    @Test
-    void getAll() {
-      }
+  @Test
+  void getAll() {}
 
-    @Test
-    void getAllByItemId() {
-      }
+  @Test
+  void getAllByItemId() {}
 }

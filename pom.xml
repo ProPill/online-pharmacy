@@ -146,6 +146,7 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
+                            <!--                            TODO-->
                             <excludes>
                                 <exclude>src/main/java/org/example/dto/**</exclude>
                                 <exclude>**/org/example/config/**</exclude>
