@@ -155,6 +155,7 @@
                                 <exclude>org/example/entities/**</exclude>
                                 <exclude>org/example/resources/**</exclude>
                                 <exclude>org/example/ProPillApplication.*</exclude>
+                                <exclude>org/example/controller/BaseController.*</exclude>
                             </excludes>
                             <dataFile>target/jacoco.exec</dataFile>
                             <outputDirectory>target/jacoco-reports</outputDirectory>
