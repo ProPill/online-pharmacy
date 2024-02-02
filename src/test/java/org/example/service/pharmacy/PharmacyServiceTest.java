@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class PharmacyServiceTest {
 
-  @Autowired
-  private PharmacyService pharmacyService;
+  @Autowired private PharmacyService pharmacyService;
 
   @Test
   void getAll() {}
