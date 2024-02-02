@@ -38,8 +38,19 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
+      - name: Run tests and collect coverage
+        run: mvn -B test
+
       - name: Test Coverage
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage reports to Codecov
+        run: |
+          # Replace `linux` below with the appropriate OS
+          # Options are `alpine`, `linux`, `macos`, `windows`
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
   
