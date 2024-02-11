@@ -1,6 +1,8 @@
 package org.example.service.item;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.exception.TypicalServerExceptions.INVALID_LENGTH;
+import static org.example.exception.TypicalServerExceptions.INVALID_PRICE;
+import static org.example.exception.TypicalServerExceptions.TYPE_NOT_FOUND;
 
 import com.backblaze.b2.client.B2StorageClient;
 import com.backblaze.b2.client.B2StorageClientFactory;

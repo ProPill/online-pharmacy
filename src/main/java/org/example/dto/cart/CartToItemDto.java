@@ -6,6 +6,7 @@ import org.example.entities.cart.CartToItem;
 
 public record CartToItemDto(
     @JsonProperty("item") ItemDto item, @JsonProperty("quantity") Integer quantity) {
+
   public static CartToItemDto fromCartToItem(CartToItem cartToItem) {
     return new CartToItemDto(ItemDto.fromItem(cartToItem.getItem()), cartToItem.getQuantity());
   }

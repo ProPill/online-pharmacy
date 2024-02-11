@@ -1,6 +1,6 @@
 package org.example.service.user;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
   private final UserAccountRepository userAccountRepository;
 
   @Transactional

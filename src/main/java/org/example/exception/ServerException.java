@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 public class ServerException extends RuntimeException {
+
   @NotNull HttpStatus status;
   String code;
   String message;
