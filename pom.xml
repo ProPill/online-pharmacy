@@ -2,29 +2,150 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
   <artifactId>online-pharmacy</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.source>19</maven.compiler.source>
+    <maven.compiler.target>19</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring-security.version>6.2.0</spring-security.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>3.1.0</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.2.5.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.backblaze.b2</groupId>
+      <artifactId>b2-sdk-core</artifactId>
+      <version>6.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.backblaze.b2</groupId>
+      <artifactId>b2-sdk-httpclient</artifactId>
+      <version>6.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.16.Final</version>
+    </dependency>
+
+  </dependencies>
 
   <build>
     <plugins>
       <plugin>
+        <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
         <executions>
           <execution>
+            <id>jacoco-prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
-            <id>jacoco-prepare-agent</id>
           </execution>
           <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
             </goals>
-            <id>report</id>
-            <phase>prepare-package</phase>
           </execution>
           <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
             <configuration>
-              <dataFile>target/jacoco.exec</dataFile>
               <excludes>
                 <exclude>org/example/dto/**</exclude>
                 <exclude>org/example/config/**</exclude>
@@ -35,15 +156,15 @@
                 <exclude>org/example/ProPillApplication.*</exclude>
                 <exclude>org/example/controller/BaseController.*</exclude>
               </excludes>
+              <dataFile>target/jacoco.exec</dataFile>
               <outputDirectory>target/jacoco-reports</outputDirectory>
             </configuration>
-            <goals>
-              <goal>report</goal>
-            </goals>
-            <id>post-unit-test</id>
-            <phase>test</phase>
           </execution>
           <execution>
+            <id>check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
             <configuration>
               <haltOnFailure>false</haltOnFailure>
               <rules>
@@ -51,138 +172,17 @@
                   <limits>
                     <limit>
                       <counter>INSTRUCTION</counter>
-                      <minimum>0.8</minimum>
                       <value>COVEREDRATIO</value>
+                      <minimum>0.8</minimum>
                     </limit>
                   </limits>
                 </rule>
               </rules>
             </configuration>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <id>check</id>
           </execution>
         </executions>
-        <groupId>org.jacoco</groupId>
-        <version>0.8.10</version>
       </plugin>
 
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <version>3.1.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <scope>provided</scope>
-      <version>1.18.30</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-validation</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <version>3.1.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-aop</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <version>3.1.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <version>3.1.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <version>3.1.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>postgresql</artifactId>
-      <groupId>org.postgresql</groupId>
-      <version>42.6.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
-      <version>3.1.0</version>
-    </dependency>
-
-
-    <dependency>
-      <artifactId>jaxb-api</artifactId>
-      <groupId>javax.xml.bind</groupId>
-      <version>2.3.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>hibernate-core</artifactId>
-      <groupId>org.hibernate.orm</groupId>
-      <version>6.2.5.Final</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>annotations</artifactId>
-      <groupId>org.jetbrains</groupId>
-      <version>23.0.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <groupId>org.springdoc</groupId>
-      <version>2.3.0</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>b2-sdk-core</artifactId>
-      <groupId>com.backblaze.b2</groupId>
-      <scope>compile</scope>
-      <version>6.1.1</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>b2-sdk-httpclient</artifactId>
-      <groupId>com.backblaze.b2</groupId>
-      <scope>compile</scope>
-      <version>6.1.1</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>validation-api</artifactId>
-      <groupId>javax.validation</groupId>
-      <version>2.0.1.Final</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>hibernate-validator</artifactId>
-      <groupId>org.hibernate.validator</groupId>
-      <version>6.0.16.Final</version>
-    </dependency>
-
-  </dependencies>
-  <groupId>org.example</groupId>
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <properties>
-    <maven.compiler.source>19</maven.compiler.source>
-    <maven.compiler.target>19</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring-security.version>6.2.0</spring-security.version>
-  </properties>
-
-  <version>1.0-SNAPSHOT</version>
 </project>
