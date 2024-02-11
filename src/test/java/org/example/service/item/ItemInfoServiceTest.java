@@ -11,21 +11,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ItemInfoServiceTest {
 
-  @Mock
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @InjectMocks
-  private ItemInfoService itemInfoService;
+  @InjectMocks private ItemInfoService itemInfoService;
 
   @BeforeEach
-  void setUp() {
-  }
+  void setUp() {}
 
   @Test
-  void getItemInfo() {
-  }
+  void getItemInfo() {}
 
   @Test
-  void getItemInfo_itemNotFound() {
-  }
+  void getItemInfo_itemNotFound() {}
 }

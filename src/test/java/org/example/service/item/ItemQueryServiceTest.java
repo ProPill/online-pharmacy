@@ -14,58 +14,43 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ItemQueryServiceTest {
 
-  @Mock
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @Mock
-  private TypeRepository typeRepository;
+  @Mock private TypeRepository typeRepository;
 
-  @Mock
-  private UserAccountRepository userAccountRepository;
+  @Mock private UserAccountRepository userAccountRepository;
 
-  @Mock
-  private SpecialityRepository specialityRepository;
+  @Mock private SpecialityRepository specialityRepository;
 
-  @InjectMocks
-  private ItemQueryService itemQueryService;
+  @InjectMocks private ItemQueryService itemQueryService;
 
   @BeforeEach
-  void setUp() {
-  }
+  void setUp() {}
 
   @Test
-  void getAll() {
-  }
+  void getAll() {}
 
   @Test
-  void getAllReceiptAndNot() {
-  }
+  void getAllReceiptAndNot() {}
 
   @Test
-  void getAllItemsByDocId() {
-  }
+  void getAllItemsByDocId() {}
 
   @Test
-  void getAllItemsByDocId_userNotFound() {
-  }
+  void getAllItemsByDocId_userNotFound() {}
 
   @Test
-  void getAllItemsByDocId_userNotDoc() {
-  }
+  void getAllItemsByDocId_userNotDoc() {}
 
   @Test
-  void getAllItemsByTypeId() {
-  }
+  void getAllItemsByTypeId() {}
 
   @Test
-  void getAllItemsByTypeId_typeNotFound() {
-  }
+  void getAllItemsByTypeId_typeNotFound() {}
 
   @Test
-  void getAllItemsBySpecId() {
-  }
+  void getAllItemsBySpecId() {}
 
   @Test
-  void getAllItemsBySpecId_specialityNotFound() {
-  }
+  void getAllItemsBySpecId_specialityNotFound() {}
 }

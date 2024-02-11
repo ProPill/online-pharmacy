@@ -11,17 +11,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class TypeServiceTest {
 
-  @Mock
-  private TypeRepository typeRepository;
+  @Mock private TypeRepository typeRepository;
 
-  @InjectMocks
-  private TypeService typeService;
+  @InjectMocks private TypeService typeService;
 
   @BeforeEach
-  void setUp() {
-  }
+  void setUp() {}
 
   @Test
-  void getAll() {
-  }
+  void getAll() {}
 }

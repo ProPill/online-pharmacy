@@ -13,47 +13,35 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ItemCreationServiceTest {
 
-  @Mock
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @Mock
-  private TypeRepository typeRepository;
+  @Mock private TypeRepository typeRepository;
 
-  @Mock
-  private SpecialityRepository specialityRepository;
+  @Mock private SpecialityRepository specialityRepository;
 
-  @InjectMocks
-  private ItemCreationService itemCreationService;
+  @InjectMocks private ItemCreationService itemCreationService;
 
   @BeforeEach
-  void setUp() {
-  }
+  void setUp() {}
 
   @Test
-  void addItem() {
-  }
+  void addItem() {}
 
   @Test
-  void addItem_specialityIdIsNull() {
-  }
+  void addItem_specialityIdIsNull() {}
 
   @Test
-  void addItem_typeNotFound() {
-  }
+  void addItem_typeNotFound() {}
 
   @Test
-  void addItem_invalidPrice() {
-  }
+  void addItem_invalidPrice() {}
 
   @Test
-  void addItem_invalidNameLength() {
-  }
+  void addItem_invalidNameLength() {}
 
   @Test
-  void addItem_invalidManufacturerLength() {
-  }
+  void addItem_invalidManufacturerLength() {}
 
   @Test
-  void addItem_invalidInfoLength() {
-  }
+  void addItem_invalidInfoLength() {}
 }

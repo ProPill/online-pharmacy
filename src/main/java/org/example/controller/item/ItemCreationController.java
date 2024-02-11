@@ -41,9 +41,9 @@ public class ItemCreationController extends BaseController {
       @RequestParam(value = "picture_url") MultipartFile file,
       @RequestParam(value = "type_id") Long typeId,
       @RequestParam(value = "speciality_id", required = false)
-      @Nullable
-      @Value("${specialityId:null}")
-      Long specialityId)
+          @Nullable
+          @Value("${specialityId:null}")
+          Long specialityId)
       throws IOException, B2Exception {
     return ResponseEntity.ok(
         ItemDto.fromItem(
