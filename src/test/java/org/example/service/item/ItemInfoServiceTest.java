@@ -14,18 +14,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Spy;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class ItemInfoServiceTest {
 
-  @Spy
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @InjectMocks
-  private ItemInfoService itemInfoService;
+  @InjectMocks private ItemInfoService itemInfoService;
 
   private Item expectedItem;
 
