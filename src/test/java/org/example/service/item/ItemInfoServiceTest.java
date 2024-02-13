@@ -69,7 +69,6 @@ class ItemInfoServiceTest {
   // TODO - покрыть ITEM_NOT_FOUND.throwException()
   @Test
   void getItemInfo_itemNotFound() {
-
     Long itemId = 1L;
     when(itemRepository.findById(itemId)).thenReturn(Optional.empty());
 

@@ -1,5 +1,15 @@
 package org.example.service.item;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import org.example.entities.item.Item;
+import org.example.entities.item.Type;
+import org.example.entities.user.Speciality;
+import org.example.entities.user.UserAccount;
 import org.example.repository.item.ItemRepository;
 import org.example.repository.item.TypeRepository;
 import org.example.repository.user.SpecialityRepository;
@@ -28,13 +38,38 @@ class ItemQueryServiceTest {
   void setUp() {}
 
   @Test
-  void getAll() {}
+  void getAll() {
+    List<Item> mockItems = Arrays.asList(new Item(), new Item());
+    when(itemRepository.findAll()).thenReturn(mockItems);
+    List<Item> result = itemQueryService.getAll();
+    assertEquals(2, result.size());
+  }
 
   @Test
-  void getAllReceiptAndNot() {}
+  void getAllReceiptAndNot() {
+    Type commonType = new Type();
+    Type receiptType = new Type();
+    commonType.setItems(List.of(new Item()));
+    receiptType.setItems(List.of(new Item()));
+    when(typeRepository.findByName("common")).thenReturn(Optional.of(commonType));
+    when(typeRepository.findByName("receipt")).thenReturn(Optional.of(receiptType));
+    List<Item> result = itemQueryService.getAllReceiptAndNot();
+    assertEquals(2, result.size());
+  }
 
   @Test
-  void getAllItemsByDocId() {}
+  void getAllItemsByDocId() {
+    Long userId = 1L;
+    UserAccount userAccount = new UserAccount();
+    Speciality speciality = new Speciality();
+    speciality.setItems(Arrays.asList(new Item(), new Item()));
+    userAccount.setSpeciality(speciality);
+    when(userAccountRepository.findById(userId)).thenReturn(Optional.of(userAccount));
+    when(typeRepository.findByName("common")).thenReturn(Optional.empty());
+    when(typeRepository.findByName("receipt")).thenReturn(Optional.empty());
+    List<Item> result = itemQueryService.getAllItemsByDocId(userId);
+    assertEquals(2, result.size());
+  }
 
   @Test
   void getAllItemsByDocId_userNotFound() {}
@@ -43,13 +78,27 @@ class ItemQueryServiceTest {
   void getAllItemsByDocId_userNotDoc() {}
 
   @Test
-  void getAllItemsByTypeId() {}
+  void getAllItemsByTypeId() {
+    Long typeId = 1L;
+    Type type = new Type();
+    type.setItems(Arrays.asList(new Item(), new Item()));
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(type));
+    List<Item> result = itemQueryService.getAllItemsByTypeId(typeId);
+    assertEquals(2, result.size());
+  }
 
   @Test
   void getAllItemsByTypeId_typeNotFound() {}
 
   @Test
-  void getAllItemsBySpecId() {}
+  void getAllItemsBySpecId() {
+    Long specId = 1L;
+    Speciality speciality = new Speciality();
+    speciality.setItems(Arrays.asList(new Item(), new Item()));
+    when(specialityRepository.findById(specId)).thenReturn(Optional.of(speciality));
+    List<Item> result = itemQueryService.getAllItemsBySpecId(specId);
+    assertEquals(2, result.size());
+  }
 
   @Test
   void getAllItemsBySpecId_specialityNotFound() {}
