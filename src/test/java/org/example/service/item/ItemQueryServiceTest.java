@@ -98,7 +98,7 @@ class ItemQueryServiceTest {
             1L,
             "name",
             "89370000000",
-            new byte[]{},
+            new byte[] {},
             new Role(),
             null,
             new ArrayList<>(),
