@@ -38,9 +38,6 @@ class ItemQueryServiceTest {
 
   @InjectMocks private ItemQueryService itemQueryService;
 
-  @BeforeEach
-  void setUp() {}
-
   @Test
   void getAll() {
     List<Item> mockItems = Arrays.asList(new Item(), new Item());
