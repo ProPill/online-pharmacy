@@ -20,11 +20,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ItemSearchServiceTest {
 
-  @Mock
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @InjectMocks
-  private ItemSearchService itemSearchService;
+  @InjectMocks private ItemSearchService itemSearchService;
 
   @Test
   void searchItemByName() {
