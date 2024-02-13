@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
@@ -72,8 +71,6 @@ class ItemInfoServiceTest {
   // TODO - покрыть ITEM_NOT_FOUND.throwException()
   @Test
   void getItemInfo_itemNotFound() {
-//    when(itemRepository.findById(anyLong())).thenReturn(Optional.empty());
-//    assertThrows(ServerException.class, () -> itemInfoService.getItemInfo(1L));
 
     Long itemId = 1L;
     when(itemRepository.findById(itemId)).thenReturn(Optional.empty());
