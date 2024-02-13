@@ -26,31 +26,31 @@ class ItemSearchServiceTest {
 
   @Test
   void searchItemByName() {
-    List<Item> itemList = Arrays.asList(
-        new Item(1L,
-            "NoDobs",
-            1000.0,
-            "Rus SPb",
-            "some info",
-            "nodobs.jpg",
-            new Type(),
-            new Speciality(),
-            new ArrayList<>(),
-            new ArrayList<>(),
-            new ArrayList<>()),
-        new Item(
-            2L,
-            "antigrippin",
-            20.0,
-            "Rus",
-            "some info",
-            "antigrippin.jpg",
-            new Type(),
-            new Speciality(),
-            new ArrayList<>(),
-            new ArrayList<>(),
-            new ArrayList<>())
-    );
+    List<Item> itemList =
+        Arrays.asList(
+            new Item(1L,
+                "NoDobs",
+                1000.0,
+                "Rus SPb",
+                "some info",
+                "nodobs.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()),
+            new Item(
+                2L,
+                "antigrippin",
+                20.0,
+                "Rus",
+                "some info",
+                "antigrippin.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()));
     when(itemRepository.findAll()).thenReturn(itemList);
     List<Item> result = itemSearchService.searchItemByName("No");
     assertEquals(1, result.size());
