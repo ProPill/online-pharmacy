@@ -93,8 +93,16 @@ class ItemQueryServiceTest {
   // TODO
   @Test
   void getAllItemsByDocId_userNotDoc() {
-    UserAccount user = new UserAccount(1L, "name", "89370000000", new byte[]{}, new Role(), null,
-        new ArrayList<>(), new ArrayList<>());
+    UserAccount user =
+        new UserAccount(
+            1L,
+            "name",
+            "89370000000",
+            new byte[]{},
+            new Role(),
+            null,
+            new ArrayList<>(),
+            new ArrayList<>());
     Long userId = 1L;
     when(userAccountRepository.findById(userId)).thenReturn(Optional.of(user));
 
