@@ -2,7 +2,6 @@ package org.example.service.cart;
 
 
 import org.example.dto.cart.CartDto;
-import org.example.dto.item.ItemDto;
 import org.example.entities.cart.Cart;
 import org.example.entities.cart.CartToItem;
 import org.example.entities.item.Item;
