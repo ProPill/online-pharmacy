@@ -35,8 +35,6 @@ class AccountServiceTest {
     @Mock
     private RoleRepository roleRepository;
 
-    @Mock
-    private CartRepository cartRepository;
 
 
     @InjectMocks
@@ -81,9 +79,7 @@ class AccountServiceTest {
     @Test
     void registerInvalidFIO() {
         ServerException exception = assertThrows(ServerException.class, () ->
-        {
-            accountService.register("sxdcvb", "sdfvb", "sdfg");
-        });
+                accountService.register("sxdcvb", "sdfvb", "sdfg"));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
         assertEquals("INVALID_FIO", exception.getCode());
         assertEquals("INVALID_FIO", exception.getMessage());
@@ -92,9 +88,7 @@ class AccountServiceTest {
     @Test
     void registerInvalidNumber() {
         ServerException exception = assertThrows(ServerException.class, () ->
-        {
-            accountService.register("Александра Лысенко", "sdfvb", "sdfg");
-        });
+                accountService.register("Александра Лысенко", "sdfvb", "sdfg"));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
         assertEquals("INVALID_PHONE", exception.getCode());
         assertEquals("INVALID_PHONE", exception.getMessage());
@@ -103,9 +97,7 @@ class AccountServiceTest {
     @Test
     void registerInvalidPassword() {
         ServerException exception = assertThrows(ServerException.class, () ->
-        {
-            accountService.register("Александра Лысенко", "+79290367458", "sdfg");
-        });
+                accountService.register("Александра Лысенко", "+79290367458", "sdfg"));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
         assertEquals("INVALID_PASSWORD", exception.getCode());
         assertEquals("INVALID_PASSWORD", exception.getMessage());
@@ -115,9 +107,7 @@ class AccountServiceTest {
     void registerPhoneAlreadyRegistered() {
         when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
         ServerException exception = assertThrows(ServerException.class, () ->
-        {
-            accountService.register("Александра Лысенко", "+79290367458", "sdfgsw2");
-        });
+                accountService.register("Александра Лысенко", "+79290367458", "sdfgsw2"));
         assertEquals(HttpStatus.CONFLICT, exception.getStatus());
         assertEquals("PHONE_IS_REGISTERED", exception.getCode());
         assertEquals("PHONE_IS_REGISTERED", exception.getMessage());
