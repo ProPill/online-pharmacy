@@ -4,7 +4,6 @@ import org.example.entities.cart.Cart;
 import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
 import org.example.exception.ServerException;
-import org.example.repository.cart.CartRepository;
 import org.example.repository.user.RoleRepository;
 import org.example.repository.user.UserAccountRepository;
 import org.example.service.AccountService;
@@ -49,6 +48,7 @@ class AccountServiceTest {
 
 
     MessageDigest digest;
+    private UserAccount actualUser;
 
     {
         try {
@@ -129,4 +129,64 @@ class AccountServiceTest {
         assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
     }
 
+    @Test
+    void loginWrongPhone() {
+        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.empty());
+
+        ServerException exception = assertThrows(ServerException.class, () ->
+                accountService.login("+79290367458", "123456"));
+
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+        assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
+        assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
+    }
+
+    @Test
+    void loginWrongPassword() {
+        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
+
+        ServerException exception = assertThrows(ServerException.class, () ->
+                accountService.login("+79290367458", "12345"));
+
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+        assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
+        assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
+    }
+
+    @Test
+    void login() {
+        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
+
+        UserAccount actualUser = accountService.login("+79290367458", "123456");
+
+        assertEquals(expectedUser.getId(), actualUser.getId());
+        assertEquals(expectedUser.getRole(), actualUser.getRole());
+        assertEquals(expectedUser.getFullName(), actualUser.getFullName());
+        assertEquals(expectedUser.getPhone(), actualUser.getPhone());
+        assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
+    }
+
+    @Test
+    void logoutUserNotFound() {
+        when(userAccountRepository.findById(any())).thenReturn(Optional.empty());
+        ServerException exception = assertThrows(ServerException.class, () ->
+                accountService.logout(1L));
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
+        assertEquals("USER_NOT_FOUND", exception.getCode());
+        assertEquals("USER_NOT_FOUND", exception.getMessage());
+    }
+
+    @Test
+    void logout() {
+        when(userAccountRepository.findById(any())).thenReturn(Optional.of(expectedUser));
+
+        UserAccount actualUser = accountService.logout(1L);
+
+        assertEquals(expectedUser.getId(), actualUser.getId());
+        assertEquals(expectedUser.getRole(), actualUser.getRole());
+        assertEquals(expectedUser.getFullName(), actualUser.getFullName());
+        assertEquals(expectedUser.getPhone(), actualUser.getPhone());
+        assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
+    }
 }
