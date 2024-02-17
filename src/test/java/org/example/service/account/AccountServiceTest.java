@@ -1,5 +1,14 @@
 package org.example.service.account;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 import org.example.entities.cart.Cart;
 import org.example.entities.user.Role;
 import org.example.entities.user.UserAccount;
@@ -16,176 +25,167 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
-    @Mock
-    private UserAccountRepository userAccountRepository;
+  @Mock private UserAccountRepository userAccountRepository;
 
-    @Mock
-    private RoleRepository roleRepository;
+  @Mock private RoleRepository roleRepository;
 
+  @InjectMocks private AccountService accountService;
 
+  @Mock private CartService cartService;
 
-    @InjectMocks
-    private AccountService accountService;
+  private UserAccount expectedUser;
+  private Role expectedRole;
+  private Cart expectedCart;
 
-    @Mock
-    private CartService cartService;
+  MessageDigest digest;
 
-    private UserAccount expectedUser;
-    private Role expectedRole;
-    private Cart expectedCart;
-
-
-    MessageDigest digest;
-
-    {
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+  {
+    try {
+      digest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @BeforeEach
-    void setUp() {
-        expectedRole = new Role();
-        expectedRole.setId(-1L);
-        expectedRole.setName("пользователь");
+  @BeforeEach
+  void setUp() {
+    expectedRole = new Role();
+    expectedRole.setId(-1L);
+    expectedRole.setName("пользователь");
 
-        expectedUser = new UserAccount();
-        expectedUser.setRole(expectedRole);
-        expectedUser.setPhone("+79290367458");
-        expectedUser.setFullName("Александра Лысенко");
-        expectedUser.setId(null);
-        expectedUser.setPasswordHash(digest.digest("123456".getBytes(StandardCharsets.UTF_8)));
+    expectedUser = new UserAccount();
+    expectedUser.setRole(expectedRole);
+    expectedUser.setPhone("+79290367458");
+    expectedUser.setFullName("Александра Лысенко");
+    expectedUser.setId(null);
+    expectedUser.setPasswordHash(digest.digest("123456".getBytes(StandardCharsets.UTF_8)));
 
-        expectedCart = new Cart();
-        expectedCart.setId(null);
-        expectedCart.setUserAccount(expectedUser);
-    }
+    expectedCart = new Cart();
+    expectedCart.setId(null);
+    expectedCart.setUserAccount(expectedUser);
+  }
 
-    @Test
-    void registerInvalidFIO() {
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.register("sxdcvb", "sdfvb", "sdfg"));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("INVALID_FIO", exception.getCode());
-        assertEquals("INVALID_FIO", exception.getMessage());
-    }
+  @Test
+  void registerInvalidFIO() {
+    ServerException exception =
+        assertThrows(
+            ServerException.class, () -> accountService.register("sxdcvb", "sdfvb", "sdfg"));
+    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+    assertEquals("INVALID_FIO", exception.getCode());
+    assertEquals("INVALID_FIO", exception.getMessage());
+  }
 
-    @Test
-    void registerInvalidNumber() {
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.register("Александра Лысенко", "sdfvb", "sdfg"));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("INVALID_PHONE", exception.getCode());
-        assertEquals("INVALID_PHONE", exception.getMessage());
-    }
+  @Test
+  void registerInvalidNumber() {
+    ServerException exception =
+        assertThrows(
+            ServerException.class,
+            () -> accountService.register("Александра Лысенко", "sdfvb", "sdfg"));
+    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+    assertEquals("INVALID_PHONE", exception.getCode());
+    assertEquals("INVALID_PHONE", exception.getMessage());
+  }
 
-    @Test
-    void registerInvalidPassword() {
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.register("Александра Лысенко", "+79290367458", "sdfg"));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("INVALID_PASSWORD", exception.getCode());
-        assertEquals("INVALID_PASSWORD", exception.getMessage());
-    }
+  @Test
+  void registerInvalidPassword() {
+    ServerException exception =
+        assertThrows(
+            ServerException.class,
+            () -> accountService.register("Александра Лысенко", "+79290367458", "sdfg"));
+    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+    assertEquals("INVALID_PASSWORD", exception.getCode());
+    assertEquals("INVALID_PASSWORD", exception.getMessage());
+  }
 
-    @Test
-    void registerPhoneAlreadyRegistered() {
-        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.register("Александра Лысенко", "+79290367458", "sdfgsw2"));
-        assertEquals(HttpStatus.CONFLICT, exception.getStatus());
-        assertEquals("PHONE_IS_REGISTERED", exception.getCode());
-        assertEquals("PHONE_IS_REGISTERED", exception.getMessage());
-    }
+  @Test
+  void registerPhoneAlreadyRegistered() {
+    when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
+    ServerException exception =
+        assertThrows(
+            ServerException.class,
+            () -> accountService.register("Александра Лысенко", "+79290367458", "sdfgsw2"));
+    assertEquals(HttpStatus.CONFLICT, exception.getStatus());
+    assertEquals("PHONE_IS_REGISTERED", exception.getCode());
+    assertEquals("PHONE_IS_REGISTERED", exception.getMessage());
+  }
 
-    @Test
-    void register() {
-        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.empty());
-        when(roleRepository.findByName("пользователь")).thenReturn(Optional.of(expectedRole));
-        when(userAccountRepository.save(any())).thenReturn(expectedUser);
-        when(cartService.addUserCart(any())).thenReturn(expectedCart);
+  @Test
+  void register() {
+    when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.empty());
+    when(roleRepository.findByName("пользователь")).thenReturn(Optional.of(expectedRole));
+    when(userAccountRepository.save(any())).thenReturn(expectedUser);
+    when(cartService.addUserCart(any())).thenReturn(expectedCart);
 
-        UserAccount actualUser = accountService.register("Александра Лысенко", "+79290367458", "123456");
-        assertEquals(expectedUser.getId(), actualUser.getId());
-        assertEquals(expectedUser.getSpeciality(), actualUser.getSpeciality());
-        assertEquals(expectedUser.getRole(), actualUser.getRole());
-        assertEquals(expectedUser.getFullName(), actualUser.getFullName());
-        assertEquals(expectedUser.getPhone(), actualUser.getPhone());
-        assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
-    }
+    UserAccount actualUser =
+        accountService.register("Александра Лысенко", "+79290367458", "123456");
+    assertEquals(expectedUser.getId(), actualUser.getId());
+    assertEquals(expectedUser.getSpeciality(), actualUser.getSpeciality());
+    assertEquals(expectedUser.getRole(), actualUser.getRole());
+    assertEquals(expectedUser.getFullName(), actualUser.getFullName());
+    assertEquals(expectedUser.getPhone(), actualUser.getPhone());
+    assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
+  }
 
-    @Test
-    void loginWrongPhone() {
-        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.empty());
+  @Test
+  void loginWrongPhone() {
+    when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.empty());
 
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.login("+79290367458", "123456"));
+    ServerException exception =
+        assertThrows(ServerException.class, () -> accountService.login("+79290367458", "123456"));
 
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
-        assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
-    }
+    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+    assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
+    assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
+  }
 
-    @Test
-    void loginWrongPassword() {
-        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
+  @Test
+  void loginWrongPassword() {
+    when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
 
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.login("+79290367458", "12345"));
+    ServerException exception =
+        assertThrows(ServerException.class, () -> accountService.login("+79290367458", "12345"));
 
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
-        assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
-    }
+    assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+    assertEquals("WRONG_LOGIN_PASSWORD", exception.getCode());
+    assertEquals("WRONG_LOGIN_PASSWORD", exception.getMessage());
+  }
 
-    @Test
-    void login() {
-        when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
+  @Test
+  void login() {
+    when(userAccountRepository.findByPhone("+79290367458")).thenReturn(Optional.of(expectedUser));
 
-        UserAccount actualUser = accountService.login("+79290367458", "123456");
+    UserAccount actualUser = accountService.login("+79290367458", "123456");
 
-        assertEquals(expectedUser.getId(), actualUser.getId());
-        assertEquals(expectedUser.getRole(), actualUser.getRole());
-        assertEquals(expectedUser.getFullName(), actualUser.getFullName());
-        assertEquals(expectedUser.getPhone(), actualUser.getPhone());
-        assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
-    }
+    assertEquals(expectedUser.getId(), actualUser.getId());
+    assertEquals(expectedUser.getRole(), actualUser.getRole());
+    assertEquals(expectedUser.getFullName(), actualUser.getFullName());
+    assertEquals(expectedUser.getPhone(), actualUser.getPhone());
+    assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
+  }
 
-    @Test
-    void logoutUserNotFound() {
-        when(userAccountRepository.findById(any())).thenReturn(Optional.empty());
-        ServerException exception = assertThrows(ServerException.class, () ->
-                accountService.logout(1L));
+  @Test
+  void logoutUserNotFound() {
+    when(userAccountRepository.findById(any())).thenReturn(Optional.empty());
+    ServerException exception =
+        assertThrows(ServerException.class, () -> accountService.logout(1L));
 
-        assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
-        assertEquals("USER_NOT_FOUND", exception.getCode());
-        assertEquals("USER_NOT_FOUND", exception.getMessage());
-    }
+    assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
+    assertEquals("USER_NOT_FOUND", exception.getCode());
+    assertEquals("USER_NOT_FOUND", exception.getMessage());
+  }
 
-    @Test
-    void logout() {
-        when(userAccountRepository.findById(any())).thenReturn(Optional.of(expectedUser));
+  @Test
+  void logout() {
+    when(userAccountRepository.findById(any())).thenReturn(Optional.of(expectedUser));
 
-        UserAccount actualUser = accountService.logout(1L);
+    UserAccount actualUser = accountService.logout(1L);
 
-        assertEquals(expectedUser.getId(), actualUser.getId());
-        assertEquals(expectedUser.getRole(), actualUser.getRole());
-        assertEquals(expectedUser.getFullName(), actualUser.getFullName());
-        assertEquals(expectedUser.getPhone(), actualUser.getPhone());
-        assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
-    }
+    assertEquals(expectedUser.getId(), actualUser.getId());
+    assertEquals(expectedUser.getRole(), actualUser.getRole());
+    assertEquals(expectedUser.getFullName(), actualUser.getFullName());
+    assertEquals(expectedUser.getPhone(), actualUser.getPhone());
+    assertEquals(expectedUser.getPasswordHash(), actualUser.getPasswordHash());
+  }
 }
