@@ -48,7 +48,6 @@ class AccountServiceTest {
 
 
     MessageDigest digest;
-    private UserAccount actualUser;
 
     {
         try {
