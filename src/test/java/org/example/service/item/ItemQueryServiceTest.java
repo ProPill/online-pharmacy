@@ -17,7 +17,6 @@ import org.example.repository.item.ItemRepository;
 import org.example.repository.item.TypeRepository;
 import org.example.repository.user.SpecialityRepository;
 import org.example.repository.user.UserAccountRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

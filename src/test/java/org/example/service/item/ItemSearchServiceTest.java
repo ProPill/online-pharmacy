@@ -10,7 +10,6 @@ import org.example.entities.item.Item;
 import org.example.entities.item.Type;
 import org.example.entities.user.Speciality;
 import org.example.repository.item.ItemRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +27,8 @@ class ItemSearchServiceTest {
   void searchItemByName() {
     List<Item> itemList =
         Arrays.asList(
-            new Item(1L,
+            new Item(
+                1L,
                 "NoDobs",
                 1000.0,
                 "Rus SPb",

@@ -25,12 +25,7 @@ class TypeServiceTest {
   void getAll() {
     List<Type> expectedTypes =
         Arrays.asList(
-            new Type(1L,
-                "Type1",
-                new ArrayList<>()),
-            new Type(2L,
-                "Type2",
-                new ArrayList<>()));
+            new Type(1L, "Type1", new ArrayList<>()), new Type(2L, "Type2", new ArrayList<>()));
     when(typeRepository.findAll()).thenReturn(expectedTypes);
     List<Type> result = typeService.getAll();
     assertEquals(2, result.size());

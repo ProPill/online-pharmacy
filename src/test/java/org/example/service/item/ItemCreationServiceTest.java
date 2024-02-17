@@ -28,17 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 @ExtendWith(MockitoExtension.class)
 class ItemCreationServiceTest {
 
-  @Mock
-  private ItemRepository itemRepository;
+  @Mock private ItemRepository itemRepository;
 
-  @Mock
-  private TypeRepository typeRepository;
+  @Mock private TypeRepository typeRepository;
 
-  @Mock
-  private SpecialityRepository specialityRepository;
+  @Mock private SpecialityRepository specialityRepository;
 
-  @InjectMocks
-  private ItemCreationService itemCreationService;
+  @InjectMocks private ItemCreationService itemCreationService;
 
   @Test
   void addItem() throws IOException, B2Exception {
@@ -106,39 +102,62 @@ class ItemCreationServiceTest {
   void addItem_invalidPrice() {
     String name = "Test Item";
     Double invalidPrice = -100.0;
-    assertThrows(ServerException.class, () ->
-        itemCreationService.addItem(name, invalidPrice, "Test Manufacturer", "Test Info",
-            createMockMultipartFile(), 1L, 1L));
+    assertThrows(
+        ServerException.class,
+        () ->
+            itemCreationService.addItem(
+                name,
+                invalidPrice,
+                "Test Manufacturer",
+                "Test Info",
+                createMockMultipartFile(),
+                1L,
+                1L));
   }
 
   @Test
   void addItem_invalidNameLength() {
-    String invalidName = "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
+    String invalidName =
+        "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
     Double price = 100.0;
-    assertThrows(ServerException.class, () ->
-        itemCreationService.addItem(invalidName, price, "Test Manufacturer", "Test Info",
-            createMockMultipartFile(), 1L, 1L));
+    assertThrows(
+        ServerException.class,
+        () ->
+            itemCreationService.addItem(
+                invalidName,
+                price,
+                "Test Manufacturer",
+                "Test Info",
+                createMockMultipartFile(),
+                1L,
+                1L));
   }
 
   @Test
   void addItem_invalidManufacturerLength() {
-    String invalidManuf = "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
+    String invalidManuf =
+        "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
     Double price = 100.0;
-    assertThrows(ServerException.class, () ->
-        itemCreationService.addItem("name", price, invalidManuf, "Test Info",
-            createMockMultipartFile(), 1L, 1L));
+    assertThrows(
+        ServerException.class,
+        () ->
+            itemCreationService.addItem(
+                "name", price, invalidManuf, "Test Info", createMockMultipartFile(), 1L, 1L));
   }
 
   @Test
   void addItem_invalidInfoLength() {
-    String invalidInfo = "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
-        + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
-        + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
-        + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
-        + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
+    String invalidInfo =
+        "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
+            + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
+            + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
+            + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
+            + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
     Double price = 100.0;
-    assertThrows(ServerException.class, () ->
-        itemCreationService.addItem("name", price, "Rus", invalidInfo,
-            createMockMultipartFile(), 1L, 1L));
+    assertThrows(
+        ServerException.class,
+        () ->
+            itemCreationService.addItem(
+                "name", price, "Rus", invalidInfo, createMockMultipartFile(), 1L, 1L));
   }
 }
