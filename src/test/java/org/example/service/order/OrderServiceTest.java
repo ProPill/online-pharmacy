@@ -20,24 +20,37 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class OrderServiceTest {
 
   @Mock private OrdersRepository ordersRepository;
+
   @Mock private UserAccountRepository userAccountRepository;
+
   @Mock private PharmacyRepository pharmacyRepository;
+
   @Mock private PharmacyToItemRepository pharmacyToItemRepository;
+
   @Mock private ItemRepository itemRepository;
+
   @Mock private OrderToItemRepository orderToItemRepository;
+
   @Mock private CartService cartService;
 
   @InjectMocks private OrderService orderService;
 
-  @BeforeEach
-  void setUp() {
-  }
+  @Test
+  void getAllUserOrders() {}
 
   @Test
-  void getAllUserOrders() {
-  }
+  void getAllUserOrders_UserNotFound() {}
 
   @Test
-  void placeOrder() {
-  }
+  void placeOrder() {}
+
+  @Test
+  void placeOrder_UserNotFound() {}
+
+  @Test
+  void placeOrder_PharmacyNotFound() {}
+
+  @Test
+  void placeOrder_ItemNotFound() {}
+
 }
