@@ -55,19 +55,6 @@ class PharmacyServiceTest {
             pharmacyToItem);
 
     pharmacyList = List.of(pharmacy);
-    expectedItem =
-        new Item(
-            1L,
-            "NoDobs",
-            1000.0,
-            "Rus SPb",
-            "some info",
-            "nodobs.jpg",
-            new Type(),
-            new Speciality(),
-            new ArrayList<>(),
-            new ArrayList<>(),
-            pharmacyToItem);
   }
 
   @Test
