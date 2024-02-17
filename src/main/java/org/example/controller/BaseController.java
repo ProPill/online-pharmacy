@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BaseController {
+
   @ExceptionHandler(ServerException.class)
   private void handle(HttpServletResponse response, ServerException serverException) {
     response.setStatus(serverException.getStatus().value());

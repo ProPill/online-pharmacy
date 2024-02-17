@@ -9,6 +9,7 @@ public record UserAccountDto(
     @JsonProperty("phone") String phone,
     @JsonProperty("role") RoleDto role,
     @JsonProperty("speciality") SpecialityDto speciality) {
+
   public static UserAccountDto fromUserAccount(UserAccount userAccount) {
     if (userAccount.getSpeciality() != null) {
       return new UserAccountDto(

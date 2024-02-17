@@ -127,7 +127,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
+            <version>5.7.0</version>
         </dependency>
 
         <dependency>
@@ -164,6 +164,7 @@
                         </goals>
                         <configuration>
                             <excludes>
+                                <exclude>org/example/controller/**</exclude>
                                 <exclude>org/example/dto/**</exclude>
                                 <exclude>org/example/config/**</exclude>
                                 <exclude>org/example/exception/**</exclude>

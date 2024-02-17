@@ -1,7 +1,14 @@
 package org.example.service;
 
-import static org.example.exception.TypicalServerExceptions.*;
-import static org.example.resources.Patterns.*;
+import static org.example.exception.TypicalServerExceptions.INVALID_FIO;
+import static org.example.exception.TypicalServerExceptions.INVALID_PASSWORD;
+import static org.example.exception.TypicalServerExceptions.INVALID_PHONE;
+import static org.example.exception.TypicalServerExceptions.PHONE_IS_REGISTERED;
+import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.WRONG_LOGIN_PASSWORD;
+import static org.example.resources.Patterns.FIORegex;
+import static org.example.resources.Patterns.passwordRegex;
+import static org.example.resources.Patterns.phoneNumberRegex;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -21,6 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
+
   private final UserAccountRepository userAccountRepository;
   private final RoleRepository roleRepository;
   private final CartService cartService;

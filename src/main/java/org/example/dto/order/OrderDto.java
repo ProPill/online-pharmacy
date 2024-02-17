@@ -16,6 +16,7 @@ public record OrderDto(
     @JsonProperty("sum_price") Double sum_price,
     @JsonProperty("items") List<ItemDto> items,
     @JsonProperty("pharmacy") PharmacyDto pharmacy) {
+
   public static OrderDto fromOrder(Orders order) {
     SimpleDateFormat formatter = new DateTimeFormatter().getFormatter();
     return new OrderDto(

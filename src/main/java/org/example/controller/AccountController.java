@@ -6,13 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.user.UserAccountDto;
 import org.example.service.AccountService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
 @Tag(name = "Аккаунт")
 public class AccountController extends BaseController {
+
   private final AccountService accountService;
 
   @Operation(summary = "Регистрация", description = "Регистрация обычного пользователя")

@@ -1,6 +1,9 @@
 package org.example.service.item;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.exception.TypicalServerExceptions.SPECIALITY_NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.TYPE_NOT_FOUND;
+import static org.example.exception.TypicalServerExceptions.USER_NOT_DOC;
+import static org.example.exception.TypicalServerExceptions.USER_NOT_FOUND;
 import static org.example.resources.Strings.common;
 import static org.example.resources.Strings.receipt;
 
