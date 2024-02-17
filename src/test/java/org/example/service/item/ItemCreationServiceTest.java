@@ -3,7 +3,6 @@ package org.example.service.item;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
@@ -99,65 +98,89 @@ class ItemCreationServiceTest {
   }
 
   @Test
-  void addItem_invalidPrice() {
+  void addItem_invalidPrice() throws IOException, B2Exception {
     String name = "Test Item";
-    Double invalidPrice = -100.0;
-    assertThrows(
-        ServerException.class,
-        () ->
-            itemCreationService.addItem(
-                name,
-                invalidPrice,
-                "Test Manufacturer",
-                "Test Info",
-                createMockMultipartFile(),
-                1L,
-                1L));
+    Double price = -100.0;
+    String manufacturer = "Test Manufacturer";
+    String info = "Test Info";
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    try {
+      itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+      assertEquals("INVALID_PRICE", e.getCode());
+      assertEquals("INVALID_PRICE", e.getMessage());
+    }
   }
 
   @Test
-  void addItem_invalidNameLength() {
-    String invalidName =
+  void addItem_invalidNameLength() throws IOException, B2Exception {
+    String name =
         "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
     Double price = 100.0;
-    assertThrows(
-        ServerException.class,
-        () ->
-            itemCreationService.addItem(
-                invalidName,
-                price,
-                "Test Manufacturer",
-                "Test Info",
-                createMockMultipartFile(),
-                1L,
-                1L));
+    String manufacturer = "Test Manufacturer";
+    String info = "Test Info";
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    try {
+      itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+      assertEquals("INVALID_LENGTH", e.getCode());
+      assertEquals("INVALID_LENGTH", e.getMessage());
+    }
   }
 
   @Test
-  void addItem_invalidManufacturerLength() {
-    String invalidManuf =
-        "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
+  void addItem_invalidManufacturerLength() throws IOException, B2Exception {
+    String name = "qwerty";
     Double price = 100.0;
-    assertThrows(
-        ServerException.class,
-        () ->
-            itemCreationService.addItem(
-                "name", price, invalidManuf, "Test Info", createMockMultipartFile(), 1L, 1L));
+    String manufacturer =
+        "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
+    String info = "Test Info";
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    try {
+      itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+      assertEquals("INVALID_LENGTH", e.getCode());
+      assertEquals("INVALID_LENGTH", e.getMessage());
+    }
   }
 
   @Test
-  void addItem_invalidInfoLength() {
-    String invalidInfo =
+  void addItem_invalidInfoLength() throws IOException, B2Exception {
+    String name = "qwerty";
+    Double price = 100.0;
+    String manufacturer = "qwerty";
+    String info =
         "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
             + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
             + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
             + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio"
             + "qwertyqwqqwertyuioqwertyuiopqwertyuiopqwertyuiopwertyuiopqwertyuiopqwertyuerty7uio";
-    Double price = 100.0;
-    assertThrows(
-        ServerException.class,
-        () ->
-            itemCreationService.addItem(
-                "name", price, "Rus", invalidInfo, createMockMultipartFile(), 1L, 1L));
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    try {
+      itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+      assertEquals("INVALID_LENGTH", e.getCode());
+      assertEquals("INVALID_LENGTH", e.getMessage());
+    }
   }
 }

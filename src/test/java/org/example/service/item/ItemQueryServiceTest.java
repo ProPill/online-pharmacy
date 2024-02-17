@@ -71,7 +71,6 @@ class ItemQueryServiceTest {
     assertEquals(2, result.size());
   }
 
-  // TODO
   @Test
   void getAllItemsByDocId_userNotFound() {
     Long userId = 1L;
@@ -86,7 +85,6 @@ class ItemQueryServiceTest {
     }
   }
 
-  // TODO
   @Test
   void getAllItemsByDocId_userNotDoc() {
     UserAccount user =
@@ -121,7 +119,6 @@ class ItemQueryServiceTest {
     assertEquals(2, result.size());
   }
 
-  // TODO
   @Test
   void getAllItemsByTypeId_typeNotFound() {
     Long typeId = 1L;

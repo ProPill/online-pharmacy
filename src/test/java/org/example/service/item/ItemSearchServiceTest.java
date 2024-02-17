@@ -56,8 +56,4 @@ class ItemSearchServiceTest {
     assertEquals(1, result.size());
     assertEquals("NoDobs", result.get(0).getName());
   }
-
-  // TODO - если не будет хватать кол-ва тестов (покрытие 100% даже без них)
-  // тут можно чекнуть на пустой список
-  // чекнуть на lower/upper case
 }
