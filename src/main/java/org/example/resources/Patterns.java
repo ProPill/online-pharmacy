@@ -1,6 +1,7 @@
 package org.example.resources;
 
 public class Patterns {
+
   public static final String FIORegex =
       "^[А-ЯЁ][а-яё]{2,}([-][А-ЯЁ][а-яё]{2,})?\\s[А-ЯЁ][а-яё]{2,}(\\s[А-ЯЁ][а-яё]{2,})?$";
   public static final String phoneNumberRegex = "^\\+7[0-9]{10}$";

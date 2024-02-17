@@ -1,6 +1,8 @@
 package org.example.service.item;
 
-import static org.example.exception.TypicalServerExceptions.*;
+import static org.example.exception.TypicalServerExceptions.INVALID_LENGTH;
+import static org.example.exception.TypicalServerExceptions.INVALID_PRICE;
+import static org.example.exception.TypicalServerExceptions.TYPE_NOT_FOUND;
 
 import com.backblaze.b2.client.B2StorageClient;
 import com.backblaze.b2.client.B2StorageClientFactory;
@@ -33,19 +35,19 @@ public class ItemCreationService {
   private final SpecialityRepository specialityRepository;
 
   @Value("${userAgent}")
-  private String USER_AGENT;
+  private String USER_AGENT = "byzaya";
 
   @Value("${appKey}")
-  private String APP_KEY;
+  private String APP_KEY = "00317a8cf68bcb1b0e76caf54ae99bd5e6805836bb";
 
   @Value("${appKeyId}")
-  private String APP_KEY_ID;
+  private String APP_KEY_ID = "c989f0d01ccc";
 
   @Value("${bucketId}")
-  private String BUCKET_ID;
+  private String BUCKET_ID = "2c1958599f009d6081bc0c1c";
 
   @Value("${bucketUrl}")
-  private String BUCKET_URL;
+  private String BUCKET_URL = "https://f003.backblazeb2.com/file/propill/";
 
   @Transactional
   public Item addItem(

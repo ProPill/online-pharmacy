@@ -12,6 +12,7 @@ public record ItemDto(
     @JsonProperty("picture_url") String pictureUrl,
     @JsonProperty("type") TypeDto typeId,
     @JsonProperty("speciality") SpecialityDto speciality) {
+
   public static ItemDto fromItem(Item item) {
     if (item.getSpeciality() != null) {
       return new ItemDto(
