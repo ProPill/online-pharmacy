@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.example.entities.order.Orders;
 import org.example.entities.pharmacy.Pharmacy;
 import org.example.entities.user.UserAccount;
+import org.example.exception.ServerException;
 import org.example.repository.item.ItemRepository;
 import org.example.repository.order.OrderToItemRepository;
 import org.example.repository.order.OrdersRepository;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -47,22 +49,24 @@ class OrderServiceTest {
   void getAllUserOrders() {
     UserAccount user = new UserAccount();
     when(userAccountRepository.findById(1L)).thenReturn(Optional.of(user));
-    List<Orders> userOrders = Arrays.asList(
-        new Orders(1L,
-            user,
-            new Date(2024, 1, 1),
-            new Date(2024, 1, 5),
-            200.0,
-            new Pharmacy(),
-            new ArrayList<>()),
-        new Orders(
-            2L,
-            user,
-            new Date(2024, 2, 1),
-            new Date(2024, 2, 5),
-            200.0,
-            new Pharmacy(),
-            new ArrayList<>()));
+    List<Orders> userOrders =
+        Arrays.asList(
+            new Orders(
+                1L,
+                user,
+                new Date(2024, 1, 1),
+                new Date(2024, 1, 5),
+                200.0,
+                new Pharmacy(),
+                new ArrayList<>()),
+            new Orders(
+                2L,
+                user,
+                new Date(2024, 2, 1),
+                new Date(2024, 2, 5),
+                200.0,
+                new Pharmacy(),
+                new ArrayList<>()));
     user.setOrders(userOrders);
     List<Orders> result = orderService.getAllUserOrders(1L);
     assertEquals(2, result.size());
@@ -70,11 +74,29 @@ class OrderServiceTest {
 
   @Test
   void getAllUserOrders_UserNotFound() {
-
+    when(userAccountRepository.findById(1L)).thenReturn(Optional.empty());
+    try {
+      orderService.getAllUserOrders(1L);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.NOT_FOUND, e.getStatus());
+      assertEquals("USER_NOT_FOUND", e.getCode());
+      assertEquals("USER_NOT_FOUND", e.getMessage());
+    }
   }
 
-  @Test
-  void placeOrder() {}
+  //  @Test
+  //  void placeOrder() {
+  //    UserAccount user = new UserAccount();
+  //    when(userAccountRepository.findById(1L)).thenReturn(Optional.of(user));
+  //    Pharmacy pharmacy = new Pharmacy();
+  //    when(pharmacyRepository.findById(1L)).thenReturn(Optional.of(pharmacy));
+  //    when(itemRepository.findById(1L)).thenReturn(Optional.of(new Item()));
+  //    Orders order = orderService.placeOrder(1L, new Date(2024, 2, 1), new Date(2024, 2, 5),
+  // 100.0, 1L, new Long[]{1L, 2L, 3L});
+  //    assertNotNull(order);
+  //    verify(ordersRepository, times(1)).save(any(Orders.class));
+  //    verify(cartService, times(1)).deleteItemFromCart(eq(1L), anyLong());
+  //  }
 
   @Test
   void placeOrder_UserNotFound() {}
@@ -82,7 +104,17 @@ class OrderServiceTest {
   @Test
   void placeOrder_PharmacyNotFound() {}
 
-  @Test
-  void placeOrder_ItemNotFound() {}
-
+  //  @Test
+  //  void placeOrder_ItemNotFound() {
+  //    UserAccount user = new UserAccount();
+  //    when(userAccountRepository.findById(1L)).thenReturn(Optional.of(user));
+  //    Pharmacy pharmacy = new Pharmacy();
+  //    when(pharmacyRepository.findById(1L)).thenReturn(Optional.of(pharmacy));
+  //    when(itemRepository.findById(1L)).thenReturn(Optional.of(new Item()));
+  //    Orders order = orderService.placeOrder(1L, new Date(2024, 2, 1), new Date(2024, 2, 5),
+  // 100.0, 1L, new Long[]{1L, 2L, 3L});
+  //    assertNotNull(order);
+  //    //verify(ordersRepository, times(1)).save(any(Orders.class));
+  //    //verify(cartService, times(1)).deleteItemFromCart(eq(1L), anyLong());
+  //  }
 }
