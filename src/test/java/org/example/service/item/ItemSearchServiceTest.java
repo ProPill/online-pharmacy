@@ -56,4 +56,105 @@ class ItemSearchServiceTest {
     assertEquals(1, result.size());
     assertEquals("NoDobs", result.get(0).getName());
   }
+
+  @Test
+  void searchItemByName_UpperCase() {
+    List<Item> itemList =
+        Arrays.asList(
+            new Item(
+                1L,
+                "NoDobs",
+                1000.0,
+                "Rus SPb",
+                "some info",
+                "nodobs.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()),
+            new Item(
+                2L,
+                "antigrippin",
+                20.0,
+                "Rus",
+                "some info",
+                "antigrippin.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()));
+    when(itemRepository.findAll()).thenReturn(itemList);
+    List<Item> result = itemSearchService.searchItemByName("NO");
+    assertEquals(1, result.size());
+    assertEquals("NoDobs", result.get(0).getName());
+  }
+
+  @Test
+  void searchItemByName_LowerCase() {
+    List<Item> itemList =
+        Arrays.asList(
+            new Item(
+                1L,
+                "NoDobs",
+                1000.0,
+                "Rus SPb",
+                "some info",
+                "nodobs.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()),
+            new Item(
+                2L,
+                "antigrippin",
+                20.0,
+                "Rus",
+                "some info",
+                "antigrippin.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()));
+    when(itemRepository.findAll()).thenReturn(itemList);
+    List<Item> result = itemSearchService.searchItemByName("no");
+    assertEquals(1, result.size());
+    assertEquals("NoDobs", result.get(0).getName());
+  }
+
+  @Test
+  void searchItemByName_EmptyList() {
+    List<Item> itemList =
+        Arrays.asList(
+            new Item(
+                1L,
+                "NoDobs",
+                1000.0,
+                "Rus SPb",
+                "some info",
+                "nodobs.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()),
+            new Item(
+                2L,
+                "antigrippin",
+                20.0,
+                "Rus",
+                "some info",
+                "antigrippin.jpg",
+                new Type(),
+                new Speciality(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()));
+    when(itemRepository.findAll()).thenReturn(itemList);
+    List<Item> result = itemSearchService.searchItemByName("Nvs");
+    assertEquals(0, result.size());
+  }
 }
