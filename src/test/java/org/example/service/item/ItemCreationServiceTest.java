@@ -57,6 +57,28 @@ class ItemCreationServiceTest {
     assertEquals(info, actualItem.getInfo());
   }
 
+  @Test
+  void addItem_validPrice_MoreThanNull() throws IOException, B2Exception {
+    String name = "Test Item";
+    Double price = 0.1;
+    String manufacturer = "Test Manufacturer";
+    String info = "Test Info";
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    Speciality mockSpeciality = new Speciality();
+    when(specialityRepository.findById(specialityId)).thenReturn(Optional.of(mockSpeciality));
+    Item actualItem =
+        itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    assertNotNull(actualItem);
+    assertEquals(name, actualItem.getName());
+    assertEquals(price, actualItem.getPrice());
+    assertEquals(manufacturer, actualItem.getManufacturer());
+    assertEquals(info, actualItem.getInfo());
+  }
+
   private MultipartFile createMockMultipartFile() {
     String fileName = "testFile.txt";
     byte[] content = "This is a mock file content".getBytes();
@@ -98,9 +120,29 @@ class ItemCreationServiceTest {
   }
 
   @Test
-  void addItem_invalidPrice() throws IOException, B2Exception {
+  void addItem_invalidPrice_Negative() throws IOException, B2Exception {
     String name = "Test Item";
     Double price = -100.0;
+    String manufacturer = "Test Manufacturer";
+    String info = "Test Info";
+    MultipartFile file = createMockMultipartFile();
+    Long typeId = 1L;
+    Long specialityId = 1L;
+    Type mockType = new Type();
+    when(typeRepository.findById(typeId)).thenReturn(Optional.of(mockType));
+    try {
+      itemCreationService.addItem(name, price, manufacturer, info, file, typeId, specialityId);
+    } catch (ServerException e) {
+      assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+      assertEquals("INVALID_PRICE", e.getCode());
+      assertEquals("INVALID_PRICE", e.getMessage());
+    }
+  }
+
+  @Test
+  void addItem_invalidPrice_NotPositive() throws IOException, B2Exception {
+    String name = "Test Item";
+    Double price = 0.0;
     String manufacturer = "Test Manufacturer";
     String info = "Test Info";
     MultipartFile file = createMockMultipartFile();
