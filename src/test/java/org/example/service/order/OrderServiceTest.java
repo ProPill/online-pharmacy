@@ -17,10 +17,12 @@ import org.example.entities.pharmacy.PharmacyToItem;
 import org.example.entities.user.UserAccount;
 import org.example.exception.ServerException;
 import org.example.repository.item.ItemRepository;
+import org.example.repository.order.OrderToItemRepository;
 import org.example.repository.order.OrdersRepository;
 import org.example.repository.pharmacy.PharmacyRepository;
 import org.example.repository.pharmacy.PharmacyToItemRepository;
 import org.example.repository.user.UserAccountRepository;
+import org.example.service.cart.CartService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +32,10 @@ import org.springframework.http.HttpStatus;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
+
+  @Mock private OrderToItemRepository orderToItemRepository;
+
+  @Mock private CartService cartService;
 
   @Mock private OrdersRepository ordersRepository;
 
