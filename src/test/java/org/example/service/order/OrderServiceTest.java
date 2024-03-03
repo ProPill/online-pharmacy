@@ -43,10 +43,6 @@ class OrderServiceTest {
 
   @Mock private ItemRepository itemRepository;
 
-  @Mock private OrderToItemRepository orderToItemRepository;
-
-  @Mock private CartService cartService;
-
   @InjectMocks private OrderService orderService;
 
   @Test
