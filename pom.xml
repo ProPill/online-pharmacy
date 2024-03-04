@@ -14,8 +14,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-security.version>6.2.0</spring-security.version>
         <spring.version>3.1.0</spring.version>
+        <spring-test.version>6.1.3</spring-test.version>
         <junit-jupiter.version>5.9.1</junit-jupiter.version>
         <mockito-junit-jupiter.version>5.9.0</mockito-junit-jupiter.version>
+        <postgres.version>42.6.0</postgres.version>
+        <hibernate-core.version>6.2.5.Final</hibernate-core.version>
+        <backblaze.version>6.1.1</backblaze.version>
+        <validation.version>2.0.1.Final</validation.version>
+        <hibernate-validator>6.0.16.Final</hibernate-validator>
+        <lombok.version>1.18.30</lombok.version>
+        <jaxb-api.version>2.3.0</jaxb-api.version>
+        <jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
+        <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <fmt-maven-plugin.version>2.22</fmt-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -24,12 +37,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,44 +69,25 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.6.0</version>
+            <version>${postgres.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.2.5.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>23.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>${hibernate-core.version}</version>
         </dependency>
 
         <!--хранилище s3-->
         <dependency>
             <groupId>com.backblaze.b2</groupId>
             <artifactId>b2-sdk-core</artifactId>
-            <version>6.1.1</version>
+            <version>${backblaze.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.backblaze.b2</groupId>
             <artifactId>b2-sdk-httpclient</artifactId>
-            <version>6.1.1</version>
+            <version>${backblaze.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -107,19 +95,44 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${validation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.16.Final</version>
+            <version>${hibernate-validator}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains-annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
 
         <!--тесты-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>6.1.3</version>
+            <version>${spring-test.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -152,7 +165,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.jupiter</groupId>
@@ -164,7 +177,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>jacoco-prepare-agent</id>
@@ -218,7 +231,7 @@
             <plugin>
                 <groupId>com.spotify.fmt</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
-                <version>2.22</version>
+                <version>${fmt-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
