@@ -1,7 +1,6 @@
 package org.example.controller.item;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import lombok.SneakyThrows;
 import org.example.service.item.ItemCreationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +18,6 @@ class ItemCreationControllerTest {
   @MockBean private ItemCreationService itemCreationService;
 
   @Test
-  void addItemByAdmin() throws Exception {}
+  @SneakyThrows
+  void addItemByAdmin() {}
 }
