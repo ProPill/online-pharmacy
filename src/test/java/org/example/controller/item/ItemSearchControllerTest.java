@@ -55,6 +55,6 @@ class ItemSearchControllerTest {
     when(itemSearchService.searchItemByName("example")).thenReturn(List.of(item1));
     mockMvc.perform(get("/api/item/search_result?search=example"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));;
+        .andExpect(jsonPath("$", hasSize(1)));
   }
 }
