@@ -1,6 +1,7 @@
 package org.example.controller.item;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.example.service.item.ItemSearchService;
 import org.junit.jupiter.api.Test;
@@ -19,5 +20,8 @@ class ItemSearchControllerTest {
   @MockBean private ItemSearchService itemSearchService;
 
   @Test
-  void searchItems() {}
+  void searchItems() throws Exception {
+    mockMvc.perform(get("/api/item/search_result?search=example"))
+        .andExpect(status().isOk());
+  }
 }
