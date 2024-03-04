@@ -33,6 +33,10 @@ import org.springframework.http.HttpStatus;
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
 
+  @Mock private OrderToItemRepository orderToItemRepository;
+
+  @Mock private CartService cartService;
+
   @Mock private OrdersRepository ordersRepository;
 
   @Mock private UserAccountRepository userAccountRepository;
@@ -42,10 +46,6 @@ class OrderServiceTest {
   @Mock private PharmacyToItemRepository pharmacyToItemRepository;
 
   @Mock private ItemRepository itemRepository;
-
-  @Mock private OrderToItemRepository orderToItemRepository;
-
-  @Mock private CartService cartService;
 
   @InjectMocks private OrderService orderService;
 
