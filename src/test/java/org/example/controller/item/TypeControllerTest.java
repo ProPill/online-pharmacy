@@ -29,7 +29,8 @@ class TypeControllerTest {
   void getAll() throws Exception {
     List<Type> types = Arrays.asList(new Type(), new Type());
     when(typeService.getAll()).thenReturn(types);
-    mockMvc.perform(get("/api/type/all"))
+    mockMvc
+        .perform(get("/api/type/all"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(2)));
   }

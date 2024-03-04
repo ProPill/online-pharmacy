@@ -53,7 +53,8 @@ class ItemSearchControllerTest {
   @Test
   void searchItems() throws Exception {
     when(itemSearchService.searchItemByName("example")).thenReturn(List.of(item1));
-    mockMvc.perform(get("/api/item/search_result?search=example"))
+    mockMvc
+        .perform(get("/api/item/search_result?search=example"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }

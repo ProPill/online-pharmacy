@@ -84,7 +84,8 @@ class ItemQueryControllerTest {
   @Test
   void getAll() throws Exception {
     when(itemQueryService.getAll()).thenReturn(List.of(receipt, common, special));
-    mockMvc.perform(get("/api/item/all"))
+    mockMvc
+        .perform(get("/api/item/all"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(3)));
   }
@@ -92,7 +93,8 @@ class ItemQueryControllerTest {
   @Test
   void getAllReceiptAndNot() throws Exception {
     when(itemQueryService.getAllReceiptAndNot()).thenReturn(List.of(receipt, common));
-    mockMvc.perform(get("/api/item/normal/all"))
+    mockMvc
+        .perform(get("/api/item/normal/all"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(2)));
   }
@@ -100,7 +102,8 @@ class ItemQueryControllerTest {
   @Test
   void getAllItemsByDocId() throws Exception {
     when(itemQueryService.getAllItemsByDocId(1L)).thenReturn(List.of(special));
-    mockMvc.perform(get("/api/item/doc/all?user_id=1"))
+    mockMvc
+        .perform(get("/api/item/doc/all?user_id=1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }
@@ -108,7 +111,8 @@ class ItemQueryControllerTest {
   @Test
   void getAllItemsByTypeId() throws Exception {
     when(itemQueryService.getAllItemsByTypeId(1L)).thenReturn(List.of(receipt));
-    mockMvc.perform(get("/api/item/type?type_id=1"))
+    mockMvc
+        .perform(get("/api/item/type?type_id=1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }
@@ -116,7 +120,8 @@ class ItemQueryControllerTest {
   @Test
   void getAllItemsBySpecId() throws Exception {
     when(itemQueryService.getAllItemsBySpecId(1L)).thenReturn(List.of(special));
-    mockMvc.perform(get("/api/item/type/category?speciality_id=1"))
+    mockMvc
+        .perform(get("/api/item/type/category?speciality_id=1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }
