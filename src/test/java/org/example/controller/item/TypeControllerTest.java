@@ -31,6 +31,6 @@ class TypeControllerTest {
     when(typeService.getAll()).thenReturn(types);
     mockMvc.perform(get("/api/type/all"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)));;
+        .andExpect(jsonPath("$", hasSize(2)));
   }
 }

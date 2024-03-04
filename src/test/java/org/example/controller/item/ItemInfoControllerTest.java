@@ -53,6 +53,7 @@ class ItemInfoControllerTest {
     when(itemInfoService.getItemInfo(1L)).thenReturn(expectedItem);
 
     // Выполняем запрос к ендпоинту и проверяем статус ответа
-    mockMvc.perform(get("/api/item/info/1")).andExpect(status().isOk());
+    mockMvc.perform(get("/api/item/info/1"))
+        .andExpect(status().isOk());
   }
 }
