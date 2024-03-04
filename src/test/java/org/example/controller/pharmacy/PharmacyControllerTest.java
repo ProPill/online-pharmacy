@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 import java.util.List;
+import lombok.SneakyThrows;
 import org.example.entities.pharmacy.Pharmacy;
 import org.example.service.pharmacy.PharmacyService;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,8 @@ class PharmacyControllerTest {
   @MockBean private PharmacyService pharmacyService;
 
   @Test
-  void testGetAll() throws Exception {
+  @SneakyThrows
+  void testGetAll() {
     List<Pharmacy> pharmacies = Arrays.asList(new Pharmacy(), new Pharmacy());
     when(pharmacyService.getAll()).thenReturn(pharmacies);
     mockMvc
@@ -36,7 +38,8 @@ class PharmacyControllerTest {
   }
 
   @Test
-  void testGetAllPharmaciesByItemId() throws Exception {
+  @SneakyThrows
+  void testGetAllPharmaciesByItemId() {
     Long itemId = 1L;
     List<Pharmacy> pharmacies = Arrays.asList(new Pharmacy(), new Pharmacy());
     when(pharmacyService.getAllByItemId(itemId)).thenReturn(pharmacies);

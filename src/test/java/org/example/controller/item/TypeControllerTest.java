@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Arrays;
 import java.util.List;
+import lombok.SneakyThrows;
 import org.example.entities.item.Type;
 import org.example.service.item.TypeService;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,8 @@ class TypeControllerTest {
   @MockBean private TypeService typeService;
 
   @Test
-  void getAll() throws Exception {
+  @SneakyThrows
+  void getAll() {
     List<Type> types = Arrays.asList(new Type(), new Type());
     when(typeService.getAll()).thenReturn(types);
     mockMvc

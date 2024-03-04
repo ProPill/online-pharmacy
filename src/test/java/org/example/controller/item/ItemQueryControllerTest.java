@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import lombok.SneakyThrows;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
 import org.example.entities.user.Speciality;
@@ -82,7 +83,8 @@ class ItemQueryControllerTest {
   }
 
   @Test
-  void getAll() throws Exception {
+  @SneakyThrows
+  void getAll() {
     when(itemQueryService.getAll()).thenReturn(List.of(receipt, common, special));
     mockMvc
         .perform(get("/api/item/all"))
@@ -91,7 +93,8 @@ class ItemQueryControllerTest {
   }
 
   @Test
-  void getAllReceiptAndNot() throws Exception {
+  @SneakyThrows
+  void getAllReceiptAndNot() {
     when(itemQueryService.getAllReceiptAndNot()).thenReturn(List.of(receipt, common));
     mockMvc
         .perform(get("/api/item/normal/all"))
@@ -100,7 +103,8 @@ class ItemQueryControllerTest {
   }
 
   @Test
-  void getAllItemsByDocId() throws Exception {
+  @SneakyThrows
+  void getAllItemsByDocId() {
     when(itemQueryService.getAllItemsByDocId(1L)).thenReturn(List.of(special));
     mockMvc
         .perform(get("/api/item/doc/all?user_id=1"))
@@ -109,7 +113,8 @@ class ItemQueryControllerTest {
   }
 
   @Test
-  void getAllItemsByTypeId() throws Exception {
+  @SneakyThrows
+  void getAllItemsByTypeId() {
     when(itemQueryService.getAllItemsByTypeId(1L)).thenReturn(List.of(receipt));
     mockMvc
         .perform(get("/api/item/type?type_id=1"))
@@ -118,7 +123,8 @@ class ItemQueryControllerTest {
   }
 
   @Test
-  void getAllItemsBySpecId() throws Exception {
+  @SneakyThrows
+  void getAllItemsBySpecId() {
     when(itemQueryService.getAllItemsBySpecId(1L)).thenReturn(List.of(special));
     mockMvc
         .perform(get("/api/item/type/category?speciality_id=1"))

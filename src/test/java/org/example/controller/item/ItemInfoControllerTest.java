@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import lombok.SneakyThrows;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
 import org.example.entities.user.Speciality;
@@ -48,7 +49,8 @@ class ItemInfoControllerTest {
   }
 
   @Test
-  void getItemInfo() throws Exception {
+  @SneakyThrows
+  void getItemInfo() {
     when(itemInfoService.getItemInfo(1L)).thenReturn(expectedItem);
     mockMvc.perform(get("/api/item/info/1")).andExpect(status().isOk());
   }

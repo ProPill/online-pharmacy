@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import lombok.SneakyThrows;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
 import org.example.entities.user.Speciality;
@@ -51,7 +52,8 @@ class ItemSearchControllerTest {
   }
 
   @Test
-  void searchItems() throws Exception {
+  @SneakyThrows
+  void searchItems() {
     when(itemSearchService.searchItemByName("example")).thenReturn(List.of(item1));
     mockMvc
         .perform(get("/api/item/search_result?search=example"))
