@@ -19,6 +19,5 @@ class TypeControllerTest {
   @MockBean private TypeService typeService;
 
   @Test
-  void getAll() {
-  }
+  void getAll() {}
 }

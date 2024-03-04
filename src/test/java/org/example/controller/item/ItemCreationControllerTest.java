@@ -19,6 +19,5 @@ class ItemCreationControllerTest {
   @MockBean private ItemCreationService itemCreationService;
 
   @Test
-  void addItemByAdmin() throws Exception {
-  }
+  void addItemByAdmin() throws Exception {}
 }

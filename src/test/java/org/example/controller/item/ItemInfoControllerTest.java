@@ -19,6 +19,5 @@ class ItemInfoControllerTest {
   @MockBean private ItemInfoService iteminfoService;
 
   @Test
-  void getItemInfo() {
-  }
+  void getItemInfo() {}
 }

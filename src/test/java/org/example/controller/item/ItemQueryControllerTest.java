@@ -19,22 +19,17 @@ class ItemQueryControllerTest {
   @MockBean private ItemQueryService itemQueryService;
 
   @Test
-  void getAll() {
-  }
+  void getAll() {}
 
   @Test
-  void getAllReceiptAndNot() {
-  }
+  void getAllReceiptAndNot() {}
 
   @Test
-  void getAllItemsByDocId() {
-  }
+  void getAllItemsByDocId() {}
 
   @Test
-  void getAllItemsByTypeId() {
-  }
+  void getAllItemsByTypeId() {}
 
   @Test
-  void getAllItemsBySpecId() {
-  }
+  void getAllItemsBySpecId() {}
 }

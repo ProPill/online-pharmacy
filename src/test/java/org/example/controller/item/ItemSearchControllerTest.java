@@ -19,6 +19,5 @@ class ItemSearchControllerTest {
   @MockBean private ItemSearchService itemSearchService;
 
   @Test
-  void searchItems() {
-  }
+  void searchItems() {}
 }
