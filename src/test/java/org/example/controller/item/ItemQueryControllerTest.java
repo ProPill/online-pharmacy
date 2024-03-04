@@ -1,6 +1,8 @@
 package org.example.controller.item;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.example.service.item.ItemQueryService;
 import org.junit.jupiter.api.Test;
@@ -19,17 +21,27 @@ class ItemQueryControllerTest {
   @MockBean private ItemQueryService itemQueryService;
 
   @Test
-  void getAll() {}
+  void getAll() throws Exception {
+    mockMvc.perform(get("/api/item/all")).andExpect(status().isOk());
+  }
 
   @Test
-  void getAllReceiptAndNot() {}
+  void getAllReceiptAndNot() throws Exception {
+    mockMvc.perform(get("/api/item/normal/all")).andExpect(status().isOk());
+  }
 
   @Test
-  void getAllItemsByDocId() {}
+  void getAllItemsByDocId() throws Exception {
+    mockMvc.perform(get("/api/item/doc/all?user_id=123")).andExpect(status().isOk());
+  }
 
   @Test
-  void getAllItemsByTypeId() {}
+  void getAllItemsByTypeId() throws Exception {
+    mockMvc.perform(get("/api/item/type?type_id=456")).andExpect(status().isOk());
+  }
 
   @Test
-  void getAllItemsBySpecId() {}
+  void getAllItemsBySpecId() throws Exception {
+    mockMvc.perform(get("/api/item/type/category?speciality_id=789")).andExpect(status().isOk());
+  }
 }
