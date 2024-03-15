@@ -48,7 +48,7 @@ class PharmacyControllerTest {
 
   }
 
-  private static ResultMatcher product(String prefix, Pharmacy pharmacy) {
+  private static ResultMatcher compare(String prefix, Pharmacy pharmacy) {
     return ResultMatcher.matchAll(
             jsonPath(prefix + ".id").value(pharmacy.getId()),
             jsonPath(prefix + ".name").value(pharmacy.getName()),
@@ -63,10 +63,10 @@ class PharmacyControllerTest {
     when(pharmacyService.getAll()).thenReturn(pharmacies);
     mockMvc
             .perform(get("/api/pharmacy/all"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(2)))
-            .andExpect(product("$[0]", firstPharmacy))
-            .andExpect(product("$[1]", secondPharmacy));
+            .andExpectAll(status().isOk(),
+                    jsonPath("$", hasSize(2)),
+                    compare("$[0]", firstPharmacy),
+                    compare("$[1]", secondPharmacy));
   }
 
   @Test
@@ -76,9 +76,9 @@ class PharmacyControllerTest {
     when(pharmacyService.getAllByItemId(itemId)).thenReturn(pharmacies);
     mockMvc
             .perform(get("/api/pharmacy/item?item_id=1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(2)))
-            .andExpect(product("$[0]", firstPharmacy))
-            .andExpect(product("$[1]", secondPharmacy));
+            .andExpectAll(status().isOk(),
+                    jsonPath("$", hasSize(2)),
+                    compare("$[0]", firstPharmacy),
+                    compare("$[1]", secondPharmacy));
   }
 }
