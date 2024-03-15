@@ -48,8 +48,8 @@ class PharmacyControllerTest {
 
   }
 
-  private static ResultActions compare(ResultActions resultActions, String prefix, Pharmacy pharmacy) throws Exception {
-    return resultActions.andExpectAll(
+  private static void compare(ResultActions resultActions, String prefix, Pharmacy pharmacy) throws Exception {
+    resultActions.andExpectAll(
             jsonPath(prefix + ".id").value(pharmacy.getId()),
             jsonPath(prefix + ".name").value(pharmacy.getName()),
             jsonPath(prefix + ".address").value(pharmacy.getAddress()),
