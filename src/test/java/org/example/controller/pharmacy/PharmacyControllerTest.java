@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,8 +48,8 @@ class PharmacyControllerTest {
 
   }
 
-  private static ResultMatcher compare(String prefix, Pharmacy pharmacy) {
-    return ResultMatcher.matchAll(
+  private static ResultActions compare(ResultActions resultActions, String prefix, Pharmacy pharmacy) throws Exception {
+    return resultActions.andExpectAll(
             jsonPath(prefix + ".id").value(pharmacy.getId()),
             jsonPath(prefix + ".name").value(pharmacy.getName()),
             jsonPath(prefix + ".address").value(pharmacy.getAddress()),
@@ -61,12 +61,12 @@ class PharmacyControllerTest {
   @SneakyThrows
   void testGetAll() {
     when(pharmacyService.getAll()).thenReturn(pharmacies);
-    mockMvc
+    ResultActions result = mockMvc
             .perform(get("/api/pharmacy/all"))
             .andExpectAll(status().isOk(),
-                    jsonPath("$", hasSize(2)),
-                    compare("$[0]", firstPharmacy),
-                    compare("$[1]", secondPharmacy));
+                    jsonPath("$", hasSize(2)));
+    compare(result, "$[0]", firstPharmacy);
+    compare(result, "$[1]", secondPharmacy);
   }
 
   @Test
@@ -74,11 +74,11 @@ class PharmacyControllerTest {
   void testGetAllPharmaciesByItemId() {
     Long itemId = 1L;
     when(pharmacyService.getAllByItemId(itemId)).thenReturn(pharmacies);
-    mockMvc
+    ResultActions result = mockMvc
             .perform(get("/api/pharmacy/item?item_id=1"))
             .andExpectAll(status().isOk(),
-                    jsonPath("$", hasSize(2)),
-                    compare("$[0]", firstPharmacy),
-                    compare("$[1]", secondPharmacy));
+                    jsonPath("$", hasSize(2)));
+    compare(result, "$[0]", firstPharmacy);
+    compare(result, "$[1]", secondPharmacy);
   }
 }
