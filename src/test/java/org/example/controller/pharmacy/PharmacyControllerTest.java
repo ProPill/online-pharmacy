@@ -1,51 +1,48 @@
 package org.example.controller.pharmacy;
 
+import static org.example.controller.TestObjects.pharmacies;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
 import lombok.SneakyThrows;
-import org.example.entities.pharmacy.Pharmacy;
-import org.example.service.pharmacy.PharmacyService;
+import org.example.controller.MvcUtil;
+import org.example.dto.pharmacy.PharmacyDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class PharmacyControllerTest {
-
   @Autowired private MockMvc mockMvc;
 
-  @MockBean private PharmacyService pharmacyService;
+  @Autowired private MvcUtil mvcUtil;
 
   @Test
   @SneakyThrows
   void testGetAll() {
-    List<Pharmacy> pharmacies = Arrays.asList(new Pharmacy(), new Pharmacy());
-    when(pharmacyService.getAll()).thenReturn(pharmacies);
-    mockMvc
-        .perform(get("/api/pharmacy/all"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)));
+    ResultActions result =
+        mockMvc
+            .perform(get("/api/pharmacy/all"))
+            .andExpectAll(status().isOk(), jsonPath("$", hasSize(2)));
+    PharmacyDto[] resultDto = mvcUtil.readResponseValue(PharmacyDto[].class, result);
+    assertArrayEquals(pharmacies, resultDto);
   }
 
   @Test
   @SneakyThrows
   void testGetAllPharmaciesByItemId() {
-    Long itemId = 1L;
-    List<Pharmacy> pharmacies = Arrays.asList(new Pharmacy(), new Pharmacy());
-    when(pharmacyService.getAllByItemId(itemId)).thenReturn(pharmacies);
-    mockMvc
-        .perform(get("/api/pharmacy/item?item_id=1"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)));
+    ResultActions result =
+        mockMvc
+            .perform(get("/api/pharmacy/item?item_id=1"))
+            .andExpectAll(status().isOk(), jsonPath("$", hasSize(2)));
+    PharmacyDto[] resultDto = mvcUtil.readResponseValue(PharmacyDto[].class, result);
+    assertArrayEquals(pharmacies, resultDto);
   }
 }
