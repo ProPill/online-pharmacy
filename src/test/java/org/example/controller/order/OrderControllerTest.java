@@ -47,14 +47,15 @@ class OrderControllerTest {
   @Test
   @SneakyThrows
   void placeOrder() {
-    mockMvc.perform(post("/api/order")
-            .param("user_id", String.valueOf(userId))
-            .param("creation_date", creationDate.toString())
-            .param("delivery_date", deliveryDate.toString())
-            .param("sum_price", String.valueOf(sumPrice))
-            .param("pharmacy_id", "1")
-            .param("items", "1")
-        )
+    mockMvc
+        .perform(
+            post("/api/order")
+              .param("user_id", String.valueOf(userId))
+              .param("creation_date", creationDate.toString())
+              .param("delivery_date", deliveryDate.toString())
+              .param("sum_price", String.valueOf(sumPrice))
+              .param("pharmacy_id", "1")
+              .param("items", "1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.user_id").value(userId))
         .andExpect(jsonPath("$.creation_date").value(creationDateStr))
