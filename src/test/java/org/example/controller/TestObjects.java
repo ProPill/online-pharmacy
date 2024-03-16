@@ -91,7 +91,7 @@ public class TestObjects {
     items = new ItemDto[] {receipt, special};
     itemsFirstOrder = new ItemDto[] {receipt};
     itemsSecondOrder = new ItemDto[] {special};
-    itemsThirdOrder = new ItemDto[] {receipt,special};
+    itemsThirdOrder = new ItemDto[] {receipt, special};
 
     firstOrder =
         new OrderDto(
