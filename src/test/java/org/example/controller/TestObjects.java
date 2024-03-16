@@ -88,10 +88,10 @@ public class TestObjects {
             specialType,
             speciality);
 
-    items = new ItemDto[]{receipt, special};
-    itemsFirstOrder = new ItemDto[]{receipt};
-    itemsSecondOrder = new ItemDto[]{special};
-    itemsThirdOrder = new ItemDto[]{receipt,special};
+    items = new ItemDto[] {receipt, special};
+    itemsFirstOrder = new ItemDto[] {receipt};
+    itemsSecondOrder = new ItemDto[] {special};
+    itemsThirdOrder = new ItemDto[] {receipt,special};
 
     firstOrder =
         new OrderDto(
@@ -123,7 +123,7 @@ public class TestObjects {
             List.of(itemsThirdOrder),
             firstPharmacy);
 
-    orders = new OrderDto[]{firstOrder, secondOrder, thirdOrder};
+    orders = new OrderDto[] {firstOrder, secondOrder, thirdOrder};
 
     creationDate = new Date(124, 1, 1);
     deliveryDate = new Date(124, 1, 5);
