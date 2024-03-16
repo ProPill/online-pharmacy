@@ -56,7 +56,10 @@ class CartControllerTest {
     ResultActions result =
         mockMvc
             .perform(
-              post("/api/cart/add").param("item_id", "1").param("user_id", "2").param("count", "1"))
+              post("/api/cart/add")
+                  .param("item_id", "1")
+                  .param("user_id", "2")
+                  .param("count", "1"))
             .andExpect(status().isOk());
     mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
   }
