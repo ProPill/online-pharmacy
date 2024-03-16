@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import java.sql.Date;
 import java.util.List;
 import org.example.dto.item.ItemDto;
 import org.example.dto.item.TypeDto;
@@ -27,6 +28,16 @@ public class TestObjects {
 
   public static ItemDto receipt;
   public static ItemDto special;
+
+  public static Long userId;
+  public static Date creationDate;
+  public static Date deliveryDate;
+
+  public static String creationDateStr;
+  public static String deliveryDateStr;
+  public static Double sumPrice;
+  public static Long pharmacyId;
+
   public static Integer badRequest;
   public static Integer notFoundCode;
   public static String itemNotFound;
@@ -40,6 +51,9 @@ public class TestObjects {
     receiptType = new TypeDto(2L, "receipt");
     specialType = new TypeDto(3L, "special");
     types = new TypeDto[] {commonType, receiptType, specialType};
+
+    userId = 1L;
+    pharmacyId = 1L;
 
     SpecialityDto speciality = new SpecialityDto(1L, "терапевт");
 
@@ -82,7 +96,7 @@ public class TestObjects {
     firstOrder =
         new OrderDto(
             1L,
-            1L,
+            userId,
             "11-01-2024 00:00",
             "16-01-2024 00:00",
             100500.0,
@@ -92,7 +106,7 @@ public class TestObjects {
     secondOrder =
         new OrderDto(
             2L,
-            1L,
+            userId,
             "07-01-2024 00:00",
             "10-01-2024 00:00",
             333.0,
@@ -102,7 +116,7 @@ public class TestObjects {
     thirdOrder =
         new OrderDto(
             3L,
-            1L,
+            userId,
             "07-01-2022 00:00",
             "10-01-2022 00:00",
             333.0,
@@ -111,9 +125,14 @@ public class TestObjects {
 
     orders = new OrderDto[]{firstOrder, secondOrder, thirdOrder};
 
+    creationDate = new Date(124, 1, 1);
+    deliveryDate = new Date(124, 1, 5);
+    creationDateStr = "01-02-2024 00:00";
+    deliveryDateStr = "05-02-2024 00:00";
+    sumPrice = 1000.0;
+
     badRequest = 400;
     notFoundCode = 404;
-
     itemNotFound = "ITEM_NOT_FOUND";
     wrongLoginPassword = "WRONG_LOGIN_PASSWORD";
     invalidFio = "INVALID_FIO";
