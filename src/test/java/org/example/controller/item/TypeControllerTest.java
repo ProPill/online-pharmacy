@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.SneakyThrows;
 import org.example.entities.item.Type;
-import org.example.entities.pharmacy.Pharmacy;
 import org.example.service.item.TypeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
