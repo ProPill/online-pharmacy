@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @Component
 public class MvcUtil {
-  private ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper;
 
   public MvcUtil(ObjectMapper mapper) {
     objectMapper = mapper;
