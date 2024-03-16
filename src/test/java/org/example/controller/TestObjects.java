@@ -1,7 +1,10 @@
 package org.example.controller;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
+import org.example.dto.cart.CartDto;
+import org.example.dto.cart.CartToItemDto;
 import org.example.dto.item.ItemDto;
 import org.example.dto.item.TypeDto;
 import org.example.dto.order.OrderDto;
@@ -37,6 +40,11 @@ public class TestObjects {
   public static String deliveryDateStr;
   public static Double sumPrice;
   public static Long pharmacyId;
+
+  public static CartDto cart;
+  public static CartToItemDto cartItem1;
+  public static CartToItemDto cartItem2;
+  public static CartToItemDto[] cartItems;
 
   public static Integer badRequest;
   public static Integer notFoundCode;
@@ -130,6 +138,16 @@ public class TestObjects {
     creationDateStr = "01-02-2024 00:00";
     deliveryDateStr = "05-02-2024 00:00";
     sumPrice = 1000.0;
+
+    cartItem1 = new CartToItemDto(receipt, 2);
+    cartItem2 = new CartToItemDto(special, 1);
+    cartItems = new CartToItemDto[]{cartItem2, cartItem1};
+
+    cart = new CartDto(
+        1L,
+        userId,
+        Arrays.stream(cartItems).toList()
+    );
 
     badRequest = 400;
     notFoundCode = 404;
