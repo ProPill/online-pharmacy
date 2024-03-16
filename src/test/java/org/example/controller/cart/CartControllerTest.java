@@ -1,19 +1,11 @@
 package org.example.controller.cart;
 
 import static org.example.controller.TestObjects.cart;
-import static org.example.controller.TestObjects.creationDate;
-import static org.example.controller.TestObjects.creationDateStr;
-import static org.example.controller.TestObjects.deliveryDate;
-import static org.example.controller.TestObjects.deliveryDateStr;
 import static org.example.controller.TestObjects.notFound;
 import static org.example.controller.TestObjects.notFoundCode;
 import static org.example.controller.TestObjects.receipt;
-import static org.example.controller.TestObjects.receiptItemId;
-import static org.example.controller.TestObjects.sumPrice;
-import static org.example.controller.TestObjects.userId;
 import static org.example.controller.TestObjects.userNotFound;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.charset.StandardCharsets;
 import lombok.SneakyThrows;
 import org.example.controller.MvcUtil;
 import org.junit.jupiter.api.Test;
@@ -66,7 +57,7 @@ class CartControllerTest {
         mockMvc.perform(
             post("/api/cart/add")
                 .param("item_id", "1")
-                .param("user_id", "1")
+                .param("user_id", "2")
                 .param("count", "1")
             )
             .andExpect(status().isOk());
@@ -108,7 +99,14 @@ class CartControllerTest {
   @Test
   @SneakyThrows
   void deleteItemFromCart() {
-
+    ResultActions result =
+        mockMvc.perform(
+                delete("/api/cart/delete")
+                    .param("item_id", "1")
+                    .param("user_id", "2")
+            )
+            .andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
   }
 
   @Test
