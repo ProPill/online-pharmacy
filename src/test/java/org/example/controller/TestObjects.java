@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import java.util.List;
 import org.example.dto.item.ItemDto;
 import org.example.dto.item.TypeDto;
+import org.example.dto.order.OrderDto;
 import org.example.dto.pharmacy.PharmacyDto;
 import org.example.dto.user.SpecialityDto;
 
@@ -13,8 +15,15 @@ public class TestObjects {
   public static TypeDto[] types;
   public static PharmacyDto firstPharmacy;
   public static PharmacyDto secondPharmacy;
+  public static OrderDto firstOrder;
+  public static OrderDto secondOrder;
+  public static OrderDto thirdOrder;
+  public static OrderDto[] orders;
   public static PharmacyDto[] pharmacies;
   public static ItemDto[] items;
+  public static ItemDto[] itemsFirstOrder;
+  public static ItemDto[] itemsSecondOrder;
+  public static ItemDto[] itemsThirdOrder;
 
   public static ItemDto receipt;
   public static ItemDto special;
@@ -65,7 +74,42 @@ public class TestObjects {
             specialType,
             speciality);
 
-    items = new ItemDto[] {receipt, special};
+    items = new ItemDto[]{receipt, special};
+    itemsFirstOrder = new ItemDto[]{receipt};
+    itemsSecondOrder = new ItemDto[]{special};
+    itemsThirdOrder = new ItemDto[]{receipt,special};
+
+    firstOrder =
+        new OrderDto(
+            1L,
+            1L,
+            "11-01-2024 00:00",
+            "16-01-2024 00:00",
+            100500.0,
+            List.of(itemsFirstOrder),
+            firstPharmacy);
+
+    secondOrder =
+        new OrderDto(
+            2L,
+            1L,
+            "07-01-2024 00:00",
+            "10-01-2024 00:00",
+            333.0,
+            List.of(itemsSecondOrder),
+            firstPharmacy);
+
+    thirdOrder =
+        new OrderDto(
+            3L,
+            1L,
+            "07-01-2022 00:00",
+            "10-01-2022 00:00",
+            333.0,
+            List.of(itemsThirdOrder),
+            firstPharmacy);
+
+    orders = new OrderDto[]{firstOrder, secondOrder, thirdOrder};
 
     badRequest = 400;
     notFoundCode = 404;
