@@ -32,23 +32,6 @@ class ItemSearchControllerTest {
 
   @BeforeEach
   void setUp() {
-    Type type = new Type();
-    type.setId(1L);
-    type.setName("Test Type");
-
-    Speciality speciality = new Speciality();
-    speciality.setId(1L);
-    speciality.setName("Test Speciality");
-
-    item1 = new Item();
-    item1.setId(1L);
-    item1.setName("example");
-    item1.setPrice(100.0);
-    item1.setManufacturer("Test Manufacturer");
-    item1.setInfo("Test Info");
-    item1.setPictureUrl("test.jpg");
-    item1.setType(type);
-    item1.setSpeciality(speciality);
   }
 
   @Test

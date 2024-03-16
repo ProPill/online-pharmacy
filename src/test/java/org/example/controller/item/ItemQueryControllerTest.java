@@ -1,14 +1,10 @@
 package org.example.controller.item;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.List;
 import lombok.SneakyThrows;
+import org.example.controller.MvcUtil;
+import org.example.controller.TestObjects;
+import org.example.controller.matchers.ItemJsonMatcher;
+import org.example.dto.item.ItemDto;
 import org.example.entities.item.Item;
 import org.example.entities.item.Type;
 import org.example.entities.user.Speciality;
@@ -20,115 +16,87 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.example.controller.TestObjects.*;
+import static org.example.controller.matchers.ItemJsonMatcher.compare;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class ItemQueryControllerTest {
 
-  @Autowired private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-  @MockBean private ItemQueryService itemQueryService;
+  @Autowired
+  private MvcUtil mvcUtil;
 
-  private Item receipt;
-  private Item common;
-  private Item special;
-
-  @BeforeEach
-  void setUp() {
-    Type type = new Type();
-    type.setId(1L);
-    type.setName("receipt");
-
-    Type type1 = new Type();
-    type.setId(2L);
-    type.setName("common");
-
-    Type type2 = new Type();
-    type.setId(3L);
-    type.setName("special");
-
-    Speciality speciality = new Speciality();
-    speciality.setId(1L);
-    speciality.setName("Test Speciality");
-
-    receipt = new Item();
-    receipt.setId(1L);
-    receipt.setName("example");
-    receipt.setPrice(100.0);
-    receipt.setManufacturer("Test Manufacturer");
-    receipt.setInfo("Test Info");
-    receipt.setPictureUrl("test.jpg");
-    receipt.setType(type);
-    receipt.setSpeciality(null);
-
-    common = new Item();
-    common.setId(2L);
-    common.setName("example2");
-    common.setPrice(200.0);
-    common.setManufacturer("Test Manufacturer2");
-    common.setInfo("Test Info2");
-    common.setPictureUrl("test2.jpg");
-    common.setType(type1);
-    common.setSpeciality(null);
-
-    special = new Item();
-    special.setId(3L);
-    special.setName("example3");
-    special.setPrice(200.0);
-    special.setManufacturer("Test Manufacturer2");
-    special.setInfo("Test Info2");
-    special.setPictureUrl("test3.jpg");
-    special.setType(type2);
-    special.setSpeciality(speciality);
-  }
+//  @MockBean
+//  private ItemQueryService itemQueryService;
 
   @Test
   @SneakyThrows
   void getAll() {
-    when(itemQueryService.getAll()).thenReturn(List.of(receipt, common, special));
-    mockMvc
-        .perform(get("/api/item/all"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(3)));
+    ////when(itemQueryService.getAll()).thenReturn(items);
+    ResultActions result = mockMvc
+            .perform(get("/api/item/all"))
+            .andExpectAll(status().isOk(), jsonPath("$", hasSize(2)));
+    ItemDto[] resultDto = mvcUtil.readResponseValue(ItemDto[].class,result);
+    assertArrayEquals(items, resultDto);
+//    compare(result, "$[0]", items[0]);
+//    compare(result, "$[1]", items[1]);
   }
 
   @Test
   @SneakyThrows
   void getAllReceiptAndNot() {
-    when(itemQueryService.getAllReceiptAndNot()).thenReturn(List.of(receipt, common));
-    mockMvc
-        .perform(get("/api/item/normal/all"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(2)));
+   /// when(itemQueryService.getAllReceiptAndNot()).thenReturn(List.of(receipt));
+    ResultActions result = mockMvc
+            .perform(get("/api/item/normal/all"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)));
+   /// compare(result, "$[0]", receipt);
   }
 
   @Test
   @SneakyThrows
   void getAllItemsByDocId() {
-    when(itemQueryService.getAllItemsByDocId(1L)).thenReturn(List.of(special));
-    mockMvc
-        .perform(get("/api/item/doc/all?user_id=1"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));
+   /// when(itemQueryService.getAllItemsByDocId(2L)).thenReturn(List.of(special));
+    ResultActions result = mockMvc
+            .perform(get("/api/item/doc/all?user_id=2"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)));
+    //compare(result, "$[0]", special);
   }
 
   @Test
   @SneakyThrows
   void getAllItemsByTypeId() {
-    when(itemQueryService.getAllItemsByTypeId(1L)).thenReturn(List.of(receipt));
-    mockMvc
-        .perform(get("/api/item/type?type_id=1"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));
+   /// when(itemQueryService.getAllItemsByTypeId(2L)).thenReturn(List.of(receipt));
+    ResultActions result = mockMvc
+            .perform(get("/api/item/type?type_id=2"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)));
+    //compare(result, "$[0]", receipt);
   }
 
   @Test
   @SneakyThrows
   void getAllItemsBySpecId() {
-    when(itemQueryService.getAllItemsBySpecId(1L)).thenReturn(List.of(special));
-    mockMvc
-        .perform(get("/api/item/type/category?speciality_id=1"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));
+    ///when(itemQueryService.getAllItemsBySpecId(1L)).thenReturn(List.of(special));
+    ResultActions result = mockMvc
+            .perform(get("/api/item/type/category?speciality_id=1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)));
+   // compare(result, "$[0]", special);
   }
 }
