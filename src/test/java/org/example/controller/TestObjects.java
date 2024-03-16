@@ -18,10 +18,16 @@ public class TestObjects {
 
   public static ItemDto receipt;
   public static ItemDto special;
+  public static Integer badRequest;
+  public static Integer notFoundCode;
+  public static String itemNotFound;
+  public static String wrongLoginPassword;
+  public static String invalidFio;
+  public static String userNotFound;
+  public static String notFound;
 
   static {
     commonType = new TypeDto(1L, "common");
-
     receiptType = new TypeDto(2L, "receipt");
     specialType = new TypeDto(3L, "special");
     types = new TypeDto[] {commonType, receiptType, specialType};
@@ -60,5 +66,14 @@ public class TestObjects {
             speciality);
 
     items = new ItemDto[] {receipt, special};
+
+    badRequest = 400;
+    notFoundCode = 404;
+
+    itemNotFound = "ITEM_NOT_FOUND";
+    wrongLoginPassword = "WRONG_LOGIN_PASSWORD";
+    invalidFio = "INVALID_FIO";
+    userNotFound = "USER_NOT_FOUND";
+    notFound = "NOT_FOUND";
   }
 }

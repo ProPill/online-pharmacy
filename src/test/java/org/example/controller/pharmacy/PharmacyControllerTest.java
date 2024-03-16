@@ -1,5 +1,7 @@
 package org.example.controller.pharmacy;
 
+import static org.example.controller.TestObjects.itemNotFound;
+import static org.example.controller.TestObjects.notFoundCode;
 import static org.example.controller.TestObjects.pharmacies;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.ResultActions;
 @SpringBootTest
 @AutoConfigureMockMvc
 class PharmacyControllerTest {
+
   @Autowired private MockMvc mockMvc;
 
   @Autowired private MvcUtil mvcUtil;
@@ -52,8 +55,8 @@ class PharmacyControllerTest {
     mockMvc
         .perform(get("/api/pharmacy/item?item_id=-1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
-        .andExpect(jsonPath("$.code").value("ITEM_NOT_FOUND"))
-        .andExpect(jsonPath("$.status").value(404))
-        .andExpect(jsonPath("$.message").value("ITEM_NOT_FOUND"));
+        .andExpect(jsonPath("$.code").value(itemNotFound))
+        .andExpect(jsonPath("$.status").value(notFoundCode))
+        .andExpect(jsonPath("$.message").value(itemNotFound));
   }
 }
