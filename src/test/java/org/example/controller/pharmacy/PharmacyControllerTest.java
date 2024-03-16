@@ -1,8 +1,10 @@
 package org.example.controller.pharmacy;
 
 import static org.example.controller.TestObjects.pharmacies;
+import static org.example.exception.TypicalServerExceptions.ITEM_NOT_FOUND;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,5 +46,16 @@ class PharmacyControllerTest {
             .andExpectAll(status().isOk(), jsonPath("$", hasSize(2)));
     PharmacyDto[] resultDto = mvcUtil.readResponseValue(PharmacyDto[].class, result);
     assertArrayEquals(pharmacies, resultDto);
+  }
+
+  @Test
+  @SneakyThrows
+  void testGetAllPharmaciesByItemId_ItemNotFound() {
+    mockMvc
+        .perform(get("/api/pharmacy/item?item_id=-1"))
+        .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
+        .andExpect(jsonPath("$.code").value("ITEM_NOT_FOUND"))
+        .andExpect(jsonPath("$.status").value(404))
+        .andExpect(jsonPath("$.message").value("ITEM_NOT_FOUND"));
   }
 }
