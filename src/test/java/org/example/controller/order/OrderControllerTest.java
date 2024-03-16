@@ -44,6 +44,7 @@ class OrderControllerTest {
     assertArrayEquals(orders, resultDto);
   }
 
+  // тут УДАЛЯЕТСЯ из корзины, при перезапуске тестов нужно обновить тестовую бд !!
   @Test
   @SneakyThrows
   void placeOrder() {
