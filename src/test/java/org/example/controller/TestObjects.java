@@ -143,13 +143,9 @@ public class TestObjects {
 
     cartItem1 = new CartToItemDto(receipt, 2);
     cartItem2 = new CartToItemDto(special, 1);
-    cartItems = new CartToItemDto[]{cartItem2, cartItem1};
+    cartItems = new CartToItemDto[] {cartItem2, cartItem1};
 
-    cart = new CartDto(
-        1L,
-        userId,
-        Arrays.stream(cartItems).toList()
-    );
+    cart = new CartDto(1L, userId, Arrays.stream(cartItems).toList());
 
     badRequest = 400;
     notFoundCode = 404;

@@ -54,12 +54,9 @@ class CartControllerTest {
   @SneakyThrows
   void addItemToCart() {
     ResultActions result =
-        mockMvc.perform(
-            post("/api/cart/add")
-                .param("item_id", "1")
-                .param("user_id", "2")
-                .param("count", "1")
-            )
+        mockMvc
+            .perform(
+              post("/api/cart/add").param("item_id", "1").param("user_id", "2").param("count", "1"))
             .andExpect(status().isOk());
     mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
   }
@@ -69,11 +66,7 @@ class CartControllerTest {
   void addItemToCart_UserNotFound() {
     mockMvc
         .perform(
-            post("/api/cart/add")
-                .param("item_id", "1")
-                .param("user_id", "-1")
-                .param("count", "1")
-        )
+            post("/api/cart/add").param("item_id", "1").param("user_id", "-1").param("count", "1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -85,11 +78,7 @@ class CartControllerTest {
   void addItemToCart_ItemNotFound() {
     mockMvc
         .perform(
-            post("/api/cart/add")
-                .param("item_id", "-1")
-                .param("user_id", "1")
-                .param("count", "1")
-        )
+            post("/api/cart/add").param("item_id", "-1").param("user_id", "1").param("count", "1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(notFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -100,11 +89,8 @@ class CartControllerTest {
   @SneakyThrows
   void deleteItemFromCart() {
     ResultActions result =
-        mockMvc.perform(
-                delete("/api/cart/delete")
-                    .param("item_id", "1")
-                    .param("user_id", "2")
-            )
+        mockMvc
+            .perform(delete("/api/cart/delete").param("item_id", "1").param("user_id", "2"))
             .andExpect(status().isOk());
     mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
   }
@@ -113,11 +99,7 @@ class CartControllerTest {
   @SneakyThrows
   void deleteItemFromCart_UserNotFound() {
     mockMvc
-        .perform(
-            delete("/api/cart/delete")
-                .param("item_id", "1")
-                .param("user_id", "-1")
-        )
+        .perform(delete("/api/cart/delete").param("item_id", "1").param("user_id", "-1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
