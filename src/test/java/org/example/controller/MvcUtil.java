@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.UnsupportedEncodingException;
@@ -20,5 +22,11 @@ public class MvcUtil {
     String contentAsString =
         result.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
     return objectMapper.readValue(contentAsString, clazz);
+  }
+
+  public void assertContentEquals(ResultActions result, String expectedJson) throws Exception {
+    String content = result.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+    byte[] utf8Json = expectedJson.getBytes(StandardCharsets.UTF_8);
+    assertEquals(new String(utf8Json, StandardCharsets.UTF_8), content);
   }
 }

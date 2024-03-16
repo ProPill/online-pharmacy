@@ -40,6 +40,7 @@ public class TestObjects {
   public static String deliveryDateStr;
   public static Double sumPrice;
   public static Long pharmacyId;
+  public static Long receiptItemId;
 
   public static CartDto cart;
   public static CartToItemDto cartItem1;
@@ -62,6 +63,7 @@ public class TestObjects {
 
     userId = 1L;
     pharmacyId = 1L;
+    receiptItemId = 1L;
 
     SpecialityDto speciality = new SpecialityDto(1L, "терапевт");
 
@@ -78,7 +80,7 @@ public class TestObjects {
 
     receipt =
         new ItemDto(
-            1L,
+            receiptItemId,
             "Афобазол Ретард таблетки с пролонг высвобождением покрыт.плен.об. 30 мг 20 шт",
             650.0,
             "Фармстандарт-Лексредства, Россия",

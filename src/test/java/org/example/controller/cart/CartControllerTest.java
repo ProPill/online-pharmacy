@@ -1,8 +1,16 @@
 package org.example.controller.cart;
 
 import static org.example.controller.TestObjects.cart;
+import static org.example.controller.TestObjects.creationDate;
+import static org.example.controller.TestObjects.creationDateStr;
+import static org.example.controller.TestObjects.deliveryDate;
+import static org.example.controller.TestObjects.deliveryDateStr;
 import static org.example.controller.TestObjects.notFound;
 import static org.example.controller.TestObjects.notFoundCode;
+import static org.example.controller.TestObjects.receipt;
+import static org.example.controller.TestObjects.receiptItemId;
+import static org.example.controller.TestObjects.sumPrice;
+import static org.example.controller.TestObjects.userId;
 import static org.example.controller.TestObjects.userNotFound;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,15 +39,13 @@ class CartControllerTest {
 
   @Autowired private MvcUtil mvcUtil;
 
+  ObjectMapper objectMapper = new ObjectMapper();
+
   @Test
   @SneakyThrows
   void getAllItemsInCart() {
-    ResultActions result = mockMvc.perform(get("/api/cart/1"));
-    String content = result.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-    ObjectMapper objectMapper = new ObjectMapper();
-    String expectedJson = objectMapper.writeValueAsString(cart);
-    byte[] utf8Json = expectedJson.getBytes(StandardCharsets.UTF_8);
-    assertEquals(new String(utf8Json, StandardCharsets.UTF_8), content);
+    ResultActions result = mockMvc.perform(get("/api/cart/1")).andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(cart));
   }
 
   @Test
@@ -56,6 +62,15 @@ class CartControllerTest {
   @Test
   @SneakyThrows
   void addItemToCart() {
+    ResultActions result =
+        mockMvc.perform(
+            post("/api/cart/add")
+                .param("item_id", "1")
+                .param("user_id", "1")
+                .param("count", "1")
+            )
+            .andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
   }
 
   @Test
