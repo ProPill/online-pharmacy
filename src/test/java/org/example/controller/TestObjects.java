@@ -130,9 +130,10 @@ public class TestObjects {
 
     simpleUser =
         new UserAccountDto(-1L, "Иванов Иван Иванович", "+79260567450", simpleUserRole, null);
-    pharmacist =
+    doctor =
         new UserAccountDto(-2L, "Глазов Степан Фёдорович", "+79310367450", doctorRole, speciality);
-    doctor = new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
+    pharmacist =
+        new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
     itemsFirstOrder = new ItemDto[] {receipt};
     itemsSecondOrder = new ItemDto[] {special};
     itemsThirdOrder = new ItemDto[] {receipt, special};
