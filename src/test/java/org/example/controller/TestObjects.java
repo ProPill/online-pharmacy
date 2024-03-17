@@ -9,7 +9,9 @@ import org.example.dto.item.ItemDto;
 import org.example.dto.item.TypeDto;
 import org.example.dto.order.OrderDto;
 import org.example.dto.pharmacy.PharmacyDto;
+import org.example.dto.user.RoleDto;
 import org.example.dto.user.SpecialityDto;
+import org.example.dto.user.UserAccountDto;
 
 public class TestObjects {
   public static TypeDto commonType;
@@ -46,6 +48,16 @@ public class TestObjects {
   public static Double sumPrice;
   public static Long pharmacyId;
   public static Long receiptItemId;
+  public static String phoneStr;
+  public static String fullNameStr;
+
+  public static RoleDto simpleUserRole;
+  public static RoleDto doctorRole;
+  public static RoleDto pharmacistRole;
+
+  public static UserAccountDto simpleUser;
+  public static UserAccountDto doctor;
+  public static UserAccountDto pharmacist;
 
   public static CartDto cart;
   public static CartDto cartSecUser;
@@ -108,6 +120,19 @@ public class TestObjects {
             speciality);
 
     items = new ItemDto[] {receipt, special};
+
+    simpleUserRole = new RoleDto(-1L, "пользователь");
+    doctorRole = new RoleDto(-2L, "врач");
+    pharmacistRole = new RoleDto(-3L, "фармацефт");
+
+    phoneStr = "+79260567451";
+    fullNameStr = "Пупкин Вася";
+
+    simpleUser =
+        new UserAccountDto(-1L, "Иванов Иван Иванович", "+79260567450", simpleUserRole, null);
+    pharmacist =
+        new UserAccountDto(-2L, "Глазов Степан Фёдорович", "+79310367450", doctorRole, speciality);
+    doctor = new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
     itemsFirstOrder = new ItemDto[] {receipt};
     itemsSecondOrder = new ItemDto[] {special};
     itemsThirdOrder = new ItemDto[] {receipt, special};
