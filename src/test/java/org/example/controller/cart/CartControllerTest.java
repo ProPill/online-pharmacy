@@ -1,10 +1,17 @@
 package org.example.controller.cart;
 
 import static org.example.controller.TestObjects.cartSecUser;
+import static org.example.controller.TestObjects.cartTestUser;
+import static org.example.controller.TestObjects.creationDate;
+import static org.example.controller.TestObjects.creationDateStr;
+import static org.example.controller.TestObjects.deliveryDate;
+import static org.example.controller.TestObjects.deliveryDateStr;
 import static org.example.controller.TestObjects.notFound;
 import static org.example.controller.TestObjects.notFoundCode;
 import static org.example.controller.TestObjects.receipt;
 import static org.example.controller.TestObjects.special;
+import static org.example.controller.TestObjects.sumPrice;
+import static org.example.controller.TestObjects.userId;
 import static org.example.controller.TestObjects.userNotFound;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -44,7 +51,7 @@ class CartControllerTest {
   @SneakyThrows
   void getAllItemsInCart_UserNotFound() {
     mockMvc
-        .perform(get("/api/cart/1"))
+        .perform(get("/api/cart/-5"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -70,7 +77,7 @@ class CartControllerTest {
   void addItemToCart_UserNotFound() {
     mockMvc
         .perform(
-            post("/api/cart/add").param("item_id", "-1").param("user_id", "1").param("count", "1"))
+            post("/api/cart/add").param("item_id", "-1").param("user_id", "-5").param("count", "1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -103,7 +110,7 @@ class CartControllerTest {
   @SneakyThrows
   void deleteItemFromCart_UserNotFound() {
     mockMvc
-        .perform(delete("/api/cart/delete").param("item_id", "-1").param("user_id", "1"))
+        .perform(delete("/api/cart/delete").param("item_id", "-1").param("user_id", "-5"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -112,11 +119,29 @@ class CartControllerTest {
 
   // тут начинаются сложные тесты
 
+  // тут УДАЛЯЕТСЯ из корзины, при перезапуске тестов нужно обновить тестовую бд !!
   // просмотр корзины пользователя и размещение заказа
   @Test
   @SneakyThrows
   void getCartInfoAndPlaceOrder() {
+    ResultActions result = mockMvc.perform(get("/api/cart/-4")).andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(cartTestUser));
 
+    mockMvc
+        .perform(
+            post("/api/order")
+                .param("user_id", String.valueOf(-4L))
+                .param("creation_date", creationDate.toString())
+                .param("delivery_date", deliveryDate.toString())
+                .param("sum_price", String.valueOf(sumPrice))
+                .param("pharmacy_id", "-1")
+                .param("items", "-2"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.user_id").value(-4L))
+        .andExpect(jsonPath("$.creation_date").value(creationDateStr))
+        .andExpect(jsonPath("$.delivery_date").value(deliveryDateStr))
+        .andExpect(jsonPath("$.sum_price").value(String.valueOf(sumPrice)))
+        .andExpect(jsonPath("$.pharmacy.id").value("-1"));
   }
 
   // добавление препарата в корзину и его удаление из корзины

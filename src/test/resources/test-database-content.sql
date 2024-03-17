@@ -41,7 +41,8 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 INSERT INTO user_account (id, full_name, password_hash, phone, role_id, speciality_id)
 VALUES (-1, 'Иванов Иван Иванович', digest('123456', 'sha256'), '+79260567450', -1, NULL),
        (-2, 'Глазов Степан Фёдорович', digest('654321', 'sha256'), '+79310367450', -2, -1),
-       (-3, 'Главный Пётр Петрович', digest('12345', 'sha256'), '+79510367450', -3, NULL);
+       (-3, 'Главный Пётр Петрович', digest('12345', 'sha256'), '+79510367450', -3, NULL),
+       (-4, 'Я тестовый пользователь', digest('12345', 'sha256'), '+79510367457', -1, NULL);
 
 INSERT INTO orders (creation_date, delivery_date, sum_price, id, pharmacy_id, user_id)
 VALUES ('2024-01-11', '2024-01-16', 100500, -1, -1, -1),
@@ -59,9 +60,11 @@ VALUES (1, -1, -1, -1),
 INSERT INTO cart (id, user_id)
 VALUES (-1, -1),
        (-2, -2),
-       (-3, -3);
+       (-3, -3),
+       (-4, -4);
 
 INSERT INTO cart_to_item (quantity, cart_id, id, item_id)
 VALUES (2, -1, -1, -1),
        (1, -1, -2, -2),
-       (1, -2, -3, -2);
+       (1, -2, -3, -2),
+       (1, -4, -4, -2);

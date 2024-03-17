@@ -40,6 +40,7 @@ public class TestObjects {
   public static ItemDto special;
 
   public static Long userId;
+  public static Long userIdTest;
   public static Date creationDate;
   public static Date deliveryDate;
 
@@ -61,6 +62,7 @@ public class TestObjects {
 
   public static CartDto cart;
   public static CartDto cartSecUser;
+  public static CartDto cartTestUser;
   public static CartToItemDto cartItem1;
   public static CartToItemDto cartItem2;
   public static CartToItemDto[] cartItems;
@@ -83,6 +85,8 @@ public class TestObjects {
     userId = -1L;
     pharmacyId = -1L;
     receiptItemId = -1L;
+
+    userIdTest = -4L;
 
     SpecialityDto speciality = new SpecialityDto(-1L, "терапевт");
 
@@ -195,6 +199,7 @@ public class TestObjects {
 
     cart = new CartDto(-1L, userId, Arrays.stream(cartItems).toList());
     cartSecUser = new CartDto(-2L, -2L, Arrays.stream(cartItemsSecUser).toList());
+    cartTestUser = new CartDto(-4L, -4L, Arrays.stream(cartItemsSecUser).toList());
 
     badRequest = 400;
     notFoundCode = 404;
