@@ -37,7 +37,7 @@ class UserControllerTest {
   @SneakyThrows
   void getUserInfoFailed() {
     mockMvc
-        .perform(get("/api/info/-5"))
+        .perform(get("/api/info/-6"))
         .andExpectAll(
             status().isNotFound(),
             jsonPath("$.*", hasSize(3)),
