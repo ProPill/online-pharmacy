@@ -135,9 +135,9 @@ class CartControllerTest {
 
     ResultActions result2 =
         mockMvc
-            .perform(delete("/api/cart/delete").param("item_id", "-2").param("user_id", "-2"))
+            .perform(delete("/api/cart/delete").param("item_id", "-1").param("user_id", "-2"))
             .andExpect(status().isOk());
-    mvcUtil.assertContentEquals(result2, objectMapper.writeValueAsString(special));
+    mvcUtil.assertContentEquals(result2, objectMapper.writeValueAsString(receipt));
   }
 
   // аутентификация пользователя, добавление товара в корзину и просмотр корзины
