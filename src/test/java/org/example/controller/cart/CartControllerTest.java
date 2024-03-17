@@ -123,6 +123,27 @@ class CartControllerTest {
   @Test
   @SneakyThrows
   void addItemIntoCartAndDeleteItemFromCart() {
+    ResultActions result =
+        mockMvc
+            .perform(
+                post("/api/cart/add")
+                    .param("item_id", "-1")
+                    .param("user_id", "-2")
+                    .param("count", "1"))
+            .andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result, objectMapper.writeValueAsString(receipt));
+
+    ResultActions result2 =
+        mockMvc
+            .perform(delete("/api/cart/delete").param("item_id", "-2").param("user_id", "-2"))
+            .andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result2, objectMapper.writeValueAsString(special));
+  }
+
+  // аутентификация пользователя, добавление товара в корзину и просмотр корзины
+  @Test
+  @SneakyThrows
+  void authUserAddItemIntoCartAndCheckCart() {
 
   }
 }
