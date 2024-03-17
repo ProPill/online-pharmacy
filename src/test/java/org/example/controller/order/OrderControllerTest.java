@@ -4,7 +4,7 @@ import static org.example.controller.TestObjects.creationDate;
 import static org.example.controller.TestObjects.creationDateStr;
 import static org.example.controller.TestObjects.deliveryDate;
 import static org.example.controller.TestObjects.deliveryDateStr;
-import static org.example.controller.TestObjects.orders;
+import static org.example.controller.TestObjects.orderSecUser;
 import static org.example.controller.TestObjects.sumPrice;
 import static org.example.controller.TestObjects.userId;
 import static org.hamcrest.Matchers.hasSize;
@@ -37,13 +37,14 @@ class OrderControllerTest {
   void getAllByUserId() {
     ResultActions result =
         mockMvc
-            .perform(get("/api/orders?user_id=1"))
+            .perform(get("/api/orders?user_id=-2"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(3)));
+            .andExpect(jsonPath("$", hasSize(1)));
     OrderDto[] resultDto = mvcUtil.readResponseValue(OrderDto[].class, result);
-    assertArrayEquals(orders, resultDto);
+    assertArrayEquals(orderSecUser, resultDto);
   }
 
+  // тут УДАЛЯЕТСЯ из корзины, при перезапуске тестов нужно обновить тестовую бд !!
   @Test
   @SneakyThrows
   void placeOrder() {
@@ -54,13 +55,13 @@ class OrderControllerTest {
                 .param("creation_date", creationDate.toString())
                 .param("delivery_date", deliveryDate.toString())
                 .param("sum_price", String.valueOf(sumPrice))
-                .param("pharmacy_id", "1")
-                .param("items", "1"))
+                .param("pharmacy_id", "-1")
+                .param("items", "-1"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.user_id").value(userId))
         .andExpect(jsonPath("$.creation_date").value(creationDateStr))
         .andExpect(jsonPath("$.delivery_date").value(deliveryDateStr))
         .andExpect(jsonPath("$.sum_price").value(String.valueOf(sumPrice)))
-        .andExpect(jsonPath("$.pharmacy.id").value("1"));
+        .andExpect(jsonPath("$.pharmacy.id").value("-1"));
   }
 }

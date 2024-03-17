@@ -26,7 +26,7 @@ class ItemInfoControllerTest {
   @Test
   @SneakyThrows
   void getItemInfo() {
-    ResultActions result = mockMvc.perform(get("/api/item/info/1")).andExpect(status().isOk());
+    ResultActions result = mockMvc.perform(get("/api/item/info/-1")).andExpect(status().isOk());
     ItemDto resultDto = mvcUtil.readResponseValue(ItemDto.class, result);
     assertEquals(receipt, resultDto);
   }
