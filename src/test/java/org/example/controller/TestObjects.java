@@ -1,8 +1,5 @@
 package org.example.controller;
 
-import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
 import org.example.dto.cart.CartDto;
 import org.example.dto.cart.CartToItemDto;
 import org.example.dto.item.ItemDto;
@@ -12,6 +9,10 @@ import org.example.dto.pharmacy.PharmacyDto;
 import org.example.dto.user.RoleDto;
 import org.example.dto.user.SpecialityDto;
 import org.example.dto.user.UserAccountDto;
+
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestObjects {
   public static TypeDto commonType;
@@ -130,10 +131,10 @@ public class TestObjects {
 
     simpleUser =
         new UserAccountDto(-1L, "Иванов Иван Иванович", "+79260567450", simpleUserRole, null);
-    pharmacist =
-        new UserAccountDto(-2L, "Глазов Степан Фёдорович", "+79310367450", doctorRole, speciality);
-    doctor = new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
-    itemsFirstOrder = new ItemDto[] {receipt};
+    doctor =
+            new UserAccountDto(-2L, "Глазов Степан Фёдорович", "+79310367450", doctorRole, speciality);
+    pharmacist = new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
+    itemsFirstOrder = new ItemDto[]{receipt};
     itemsSecondOrder = new ItemDto[] {special};
     itemsThirdOrder = new ItemDto[] {receipt, special};
     itemsFirstOrderSecUser = new ItemDto[] {special};
