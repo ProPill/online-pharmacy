@@ -3,6 +3,7 @@ package org.example.controller.pharmacy;
 import static org.example.controller.TestObjects.itemNotFound;
 import static org.example.controller.TestObjects.notFoundCode;
 import static org.example.controller.TestObjects.pharmacies;
+import static org.example.controller.TestObjects.pharmaciesSecItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -43,17 +44,17 @@ class PharmacyControllerTest {
   void testGetAllPharmaciesByItemId() {
     ResultActions result =
         mockMvc
-            .perform(get("/api/pharmacy/item?item_id=1"))
-            .andExpectAll(status().isOk(), jsonPath("$", hasSize(2)));
+            .perform(get("/api/pharmacy/item?item_id=-2"))
+            .andExpectAll(status().isOk(), jsonPath("$", hasSize(1)));
     PharmacyDto[] resultDto = mvcUtil.readResponseValue(PharmacyDto[].class, result);
-    assertArrayEquals(pharmacies, resultDto);
+    assertArrayEquals(pharmaciesSecItem, resultDto);
   }
 
   @Test
   @SneakyThrows
   void testGetAllPharmaciesByItemId_ItemNotFound() {
     mockMvc
-        .perform(get("/api/pharmacy/item?item_id=-1"))
+        .perform(get("/api/pharmacy/item?item_id=1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(itemNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))

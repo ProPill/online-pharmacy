@@ -53,7 +53,7 @@ class ItemQueryControllerTest {
   void getAllItemsByDocId() {
     ResultActions result =
         mockMvc
-            .perform(get("/api/item/doc/all?user_id=2"))
+            .perform(get("/api/item/doc/all?user_id=-2"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(2)));
     ItemDto[] resultDto = mvcUtil.readResponseValue(ItemDto[].class, result);
@@ -65,7 +65,7 @@ class ItemQueryControllerTest {
   void getAllItemsByTypeId() {
     ResultActions result =
         mockMvc
-            .perform(get("/api/item/type?type_id=2"))
+            .perform(get("/api/item/type?type_id=-2"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(1)));
     ItemDto[] resultDto = mvcUtil.readResponseValue(ItemDto[].class, result);
@@ -77,7 +77,7 @@ class ItemQueryControllerTest {
   void getAllItemsBySpecId() {
     ResultActions result =
         mockMvc
-            .perform(get("/api/item/type/category?speciality_id=1"))
+            .perform(get("/api/item/type/category?speciality_id=-1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(1)));
     ItemDto[] resultDto = mvcUtil.readResponseValue(ItemDto[].class, result);
