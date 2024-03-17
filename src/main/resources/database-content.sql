@@ -259,8 +259,8 @@ VALUES (10, -1, -1, -1),
        (5, -50, -19, -5),
        (5, -51, -20, -5);
 
-CREATE
-EXTENSION pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 INSERT INTO user_account (id, full_name, password_hash, phone, role_id, speciality_id)
 VALUES (-1, 'Иванов Иван Иванович', digest('123456', 'sha256'), '+79260567450', -1, NULL),
        (-2, 'Глазов Степан Фёдорович', digest('654321', 'sha256'), '+79310367450', -2, -5),

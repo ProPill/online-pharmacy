@@ -57,16 +57,20 @@ public class TestObjects {
   public static RoleDto pharmacistRole;
 
   public static UserAccountDto simpleUser;
+  public static UserAccountDto testUser;
+  public static UserAccountDto test2User;
   public static UserAccountDto doctor;
   public static UserAccountDto pharmacist;
 
   public static CartDto cart;
   public static CartDto cartSecUser;
   public static CartDto cartTestUser;
+  public static CartDto cartTest2User;
   public static CartToItemDto cartItem1;
   public static CartToItemDto cartItem2;
   public static CartToItemDto[] cartItems;
   public static CartToItemDto[] cartItemsSecUser;
+  public static CartToItemDto[] cartItemsTestUser;
 
   public static Integer badRequest;
   public static Integer notFoundCode;
@@ -138,6 +142,10 @@ public class TestObjects {
         new UserAccountDto(-2L, "Глазов Степан Фёдорович", "+79310367450", doctorRole, speciality);
     pharmacist =
         new UserAccountDto(-3L, "Главный Пётр Петрович", "+79510367450", pharmacistRole, null);
+    testUser =
+        new UserAccountDto(-4L, "Я тестовый пользователь", "+79510367457", simpleUserRole, null);
+    test2User =
+        new UserAccountDto(-5L, "Я тоже пользователь", "+79510367458", simpleUserRole, null);
     itemsFirstOrder = new ItemDto[] {receipt};
     itemsSecondOrder = new ItemDto[] {special};
     itemsThirdOrder = new ItemDto[] {receipt, special};
@@ -196,10 +204,12 @@ public class TestObjects {
     cartItem2 = new CartToItemDto(special, 1);
     cartItems = new CartToItemDto[] {cartItem2, cartItem1};
     cartItemsSecUser = new CartToItemDto[] {cartItem2};
+    cartItemsTestUser = new CartToItemDto[] {cartItem1};
 
     cart = new CartDto(-1L, userId, Arrays.stream(cartItems).toList());
     cartSecUser = new CartDto(-2L, -2L, Arrays.stream(cartItemsSecUser).toList());
     cartTestUser = new CartDto(-4L, -4L, Arrays.stream(cartItemsSecUser).toList());
+    cartTest2User = new CartDto(-5L, -5L, Arrays.stream(cartItemsTestUser).toList());
 
     badRequest = 400;
     notFoundCode = 404;

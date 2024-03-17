@@ -104,7 +104,7 @@ class AccountControllerTest {
   @SneakyThrows
   void logoutFailed() {
     mockMvc
-        .perform(post("/api/accounts/logout").param("user_id", "-5"))
+        .perform(post("/api/accounts/logout").param("user_id", "-6"))
         .andExpectAll(
             status().isNotFound(),
             jsonPath("$.*", hasSize(3)),

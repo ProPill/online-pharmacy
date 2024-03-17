@@ -1,6 +1,7 @@
 package org.example.controller.cart;
 
 import static org.example.controller.TestObjects.cartSecUser;
+import static org.example.controller.TestObjects.cartTest2User;
 import static org.example.controller.TestObjects.cartTestUser;
 import static org.example.controller.TestObjects.creationDate;
 import static org.example.controller.TestObjects.creationDateStr;
@@ -9,11 +10,15 @@ import static org.example.controller.TestObjects.deliveryDateStr;
 import static org.example.controller.TestObjects.notFound;
 import static org.example.controller.TestObjects.notFoundCode;
 import static org.example.controller.TestObjects.receipt;
+import static org.example.controller.TestObjects.simpleUser;
 import static org.example.controller.TestObjects.special;
 import static org.example.controller.TestObjects.sumPrice;
+import static org.example.controller.TestObjects.test2User;
+import static org.example.controller.TestObjects.testUser;
 import static org.example.controller.TestObjects.userId;
 import static org.example.controller.TestObjects.userNotFound;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.example.controller.MvcUtil;
+import org.example.dto.user.UserAccountDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,7 +57,7 @@ class CartControllerTest {
   @SneakyThrows
   void getAllItemsInCart_UserNotFound() {
     mockMvc
-        .perform(get("/api/cart/-5"))
+        .perform(get("/api/cart/-6"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -77,7 +83,7 @@ class CartControllerTest {
   void addItemToCart_UserNotFound() {
     mockMvc
         .perform(
-            post("/api/cart/add").param("item_id", "-1").param("user_id", "-5").param("count", "1"))
+            post("/api/cart/add").param("item_id", "-1").param("user_id", "-6").param("count", "1"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -110,7 +116,7 @@ class CartControllerTest {
   @SneakyThrows
   void deleteItemFromCart_UserNotFound() {
     mockMvc
-        .perform(delete("/api/cart/delete").param("item_id", "-1").param("user_id", "-5"))
+        .perform(delete("/api/cart/delete").param("item_id", "-1").param("user_id", "-6"))
         .andExpectAll(status().isNotFound(), jsonPath("$.*", hasSize(3)))
         .andExpect(jsonPath("$.code").value(userNotFound))
         .andExpect(jsonPath("$.status").value(notFoundCode))
@@ -169,6 +175,27 @@ class CartControllerTest {
   @Test
   @SneakyThrows
   void authUserAddItemIntoCartAndCheckCart() {
+    ResultActions result =
+        mockMvc
+            .perform(
+                post("/api/accounts/login")
+                    .param("phone", "+79510367458")
+                    .param("password", "12345"))
+            .andExpect(status().isOk());
+    UserAccountDto resultDto = mvcUtil.readResponseValue(UserAccountDto.class, result);
+    assertEquals(test2User, resultDto);
 
+    ResultActions result2 =
+        mockMvc
+            .perform(
+                post("/api/cart/add")
+                    .param("item_id", "-1")
+                    .param("user_id", "-5")
+                    .param("count", "2"))
+            .andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result2, objectMapper.writeValueAsString(receipt));
+
+    ResultActions result3 = mockMvc.perform(get("/api/cart/-5")).andExpect(status().isOk());
+    mvcUtil.assertContentEquals(result3, objectMapper.writeValueAsString(cartTest2User));
   }
 }
