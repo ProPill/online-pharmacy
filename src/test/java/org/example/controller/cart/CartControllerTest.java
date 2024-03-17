@@ -109,4 +109,20 @@ class CartControllerTest {
         .andExpect(jsonPath("$.status").value(notFoundCode))
         .andExpect(jsonPath("$.message").value(userNotFound));
   }
+
+  // тут начинаются сложные тесты
+
+  // просмотр корзины пользователя и размещение заказа
+  @Test
+  @SneakyThrows
+  void getCartInfoAndPlaceOrder() {
+
+  }
+
+  // добавление препарата в корзину и его удаление из корзины
+  @Test
+  @SneakyThrows
+  void addItemIntoCartAndDeleteItemFromCart() {
+
+  }
 }
