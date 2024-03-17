@@ -82,7 +82,8 @@ public class TestObjects {
             "Пн-Пт: 9:00-18:00, Сб: 10:00-15:00",
             "+7 (123) 456-7890");
     secondPharmacy =
-        new PharmacyDto(-2L, "Фармация", "пр. Победы, 25", "Пн-Вс: 8:00-22:00", "+7 (987) 654-3210");
+        new PharmacyDto(
+            -2L, "Фармация", "пр. Победы, 25", "Пн-Вс: 8:00-22:00", "+7 (987) 654-3210");
     pharmacies = new PharmacyDto[] {firstPharmacy, secondPharmacy};
     pharmaciesSecItem = new PharmacyDto[] {firstPharmacy};
 

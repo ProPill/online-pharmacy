@@ -5,7 +5,6 @@ import static org.example.controller.TestObjects.creationDateStr;
 import static org.example.controller.TestObjects.deliveryDate;
 import static org.example.controller.TestObjects.deliveryDateStr;
 import static org.example.controller.TestObjects.orderSecUser;
-import static org.example.controller.TestObjects.orders;
 import static org.example.controller.TestObjects.sumPrice;
 import static org.example.controller.TestObjects.userId;
 import static org.hamcrest.Matchers.hasSize;
