@@ -87,47 +87,47 @@ class ItemQueryControllerTest {
     assertArrayEquals(new ItemDto[] {special}, resultDto);
   }
 
-  //аутентификация пользователя фармацевта и просмотр всех препаратов
+  // аутентификация пользователя фармацевта и просмотр всех препаратов
   @Test
   @SneakyThrows
   void getAllItemsByDoc() {
     ResultActions result =
-            mockMvc
-                    .perform(
-                            post("/api/accounts/login")
-                                    .param("phone", doctor.phone())
-                                    .param("password", "654321"))
-                    .andExpect(status().isOk());
+        mockMvc
+            .perform(
+                post("/api/accounts/login")
+                    .param("phone", doctor.phone())
+                    .param("password", "654321"))
+            .andExpect(status().isOk());
     UserAccountDto resultDto = mvcUtil.readResponseValue(UserAccountDto.class, result);
     assertEquals(doctor, resultDto);
 
     ResultActions resultItem =
-            mockMvc
-                    .perform(get("/api/item/doc/all?user_id="+resultDto.id()))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(2)));
+        mockMvc
+            .perform(get("/api/item/doc/all?user_id=" + resultDto.id()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(2)));
     ItemDto[] resultItemDto = mvcUtil.readResponseValue(ItemDto[].class, resultItem);
     assertArrayEquals(new ItemDto[] {special, receipt}, resultItemDto);
   }
 
-  //аутентификация пользователя фармацевта и просмотр всех препаратов
+  // аутентификация пользователя фармацевта и просмотр всех препаратов
   @Test
   @SneakyThrows
   void getAllItemsBySpec() {
     ResultActions result =
-            mockMvc
-                    .perform(
-                            post("/api/accounts/login")
-                                    .param("phone", doctor.phone())
-                                    .param("password", "654321"))
-                    .andExpect(status().isOk());
+        mockMvc
+            .perform(
+                post("/api/accounts/login")
+                    .param("phone", doctor.phone())
+                    .param("password", "654321"))
+            .andExpect(status().isOk());
     UserAccountDto resultDto = mvcUtil.readResponseValue(UserAccountDto.class, result);
     assertEquals(doctor, resultDto);
     ResultActions resultItem =
-            mockMvc
-                    .perform(get("/api/item/type/category?speciality_id="+resultDto.speciality().id()))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(1)));
+        mockMvc
+            .perform(get("/api/item/type/category?speciality_id=" + resultDto.speciality().id()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)));
     ItemDto[] resultItemDto = mvcUtil.readResponseValue(ItemDto[].class, resultItem);
     assertArrayEquals(new ItemDto[] {special}, resultItemDto);
   }
